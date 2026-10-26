@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jack Leothern — Dossier · Vulpin Monk drogą Otwartej Dłoni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --birch:#f7f4ee;
+    --card:#fdfbf6;
+    --ink:#2c241c;
+    --soft:#6d6154;
+    --faint:#9a8f80;
+    --line:#ddd5c6;
+    --line-soft:#e9e3d6;
+    --fox:#b3491d;
+    --fox-deep:#8f3a17;
+    --moss:#5a6647;
+    --night:#3f4660;
+    --night-deep:#2e3448;
+    --gold:#9c7a2e;
+    --gold-bg:#f6efdd;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--birch);
+    color:var(--ink);
+    font-family:'EB Garamond', Georgia, serif;
+    font-size:18px;
+    line-height:1.68;
+  }
+  a{color:var(--fox-deep);text-decoration:none;border-bottom:1px solid var(--line)}
+  a:hover{border-bottom-color:var(--fox)}
+  a:focus-visible{outline:2px solid var(--fox);outline-offset:2px;border-radius:2px}
+
+  .wrap{max-width:880px;margin:0 auto;padding:0 28px}
+
+  /* ── typografia ── */
+  h1,h2,h3{font-family:'Playfair Display', Georgia, serif;color:var(--ink);line-height:1.2}
+  h2{font-size:34px;font-weight:600;margin:0 0 6px}
+  h3{font-size:22px;font-weight:600;margin:44px 0 14px}
+  h4{font-family:'EB Garamond',serif;font-size:19px;font-weight:600;margin:30px 0 8px;letter-spacing:.01em}
+  p{margin:0 0 16px}
+  em{font-style:italic}
+  strong{font-weight:600}
+  ul,ol{margin:0 0 18px 24px}
+  li{margin-bottom:7px}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--fox);font-weight:600;margin-bottom:10px;
+  }
+  .eyebrow.quiet{color:var(--faint)}
+  .lead{font-size:20px;color:var(--soft);font-style:italic;margin-bottom:24px}
+
+  /* ── okładka ── */
+  .cover{padding:96px 0 64px;text-align:left}
+  .cover .used-name{
+    font-family:'Playfair Display',serif;font-style:italic;font-weight:600;
+    font-size:clamp(64px,12vw,118px);line-height:.95;color:var(--ink);
+  }
+  .cover .true-name{
+    font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:500;
+    letter-spacing:.55em;text-transform:uppercase;color:var(--fox);
+    margin:18px 0 0 6px;
+  }
+  .cover .true-note{
+    font-size:14.5px;color:var(--faint);font-style:italic;margin:6px 0 0 6px;
+  }
+  .cover .subtitle{
+    font-size:22px;color:var(--soft);margin:40px 0 0;max-width:560px;
+  }
+  .cover .meta{
+    margin-top:34px;display:flex;flex-wrap:wrap;gap:10px 26px;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--soft);
+  }
+  .cover .meta span b{color:var(--ink);font-weight:600}
+
+  /* ── separatory-struny ── */
+  .strings{margin:70px auto;max-width:880px;padding:0 28px;position:relative}
+  .strings .s{height:1px;background:var(--line);margin:7px 0;border-radius:1px}
+  .strings .s:first-child{height:2px;background:#cfc6b4}
+  .strings .tune{
+    position:absolute;right:28px;top:-9px;
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.3em;
+    color:var(--faint);
+  }
+  .strings--bass .s{background:#b9bdcb}
+  .strings--bass .s:nth-child(1){height:5px;background:#8f95ab}
+  .strings--bass .s:nth-child(2){height:4px;background:#9ba1b5}
+  .strings--bass .s:nth-child(3){height:3px}
+  .strings--bass .s:nth-child(4){height:2px}
+  .strings--bass .tune{color:var(--night)}
+
+  /* ── sekcje ── */
+  section{padding:8px 0}
+  .sec-head{margin:0 0 30px}
+  .sec-head .num{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.28em;
+    color:var(--faint);display:block;margin-bottom:8px;
+  }
+  .sec-intro{font-size:19px;color:var(--soft);max-width:720px;margin-bottom:28px}
+
+  /* ── kronika ── */
+  .kronika{margin:26px 0 8px}
+  .kronika-item{
+    display:flex;gap:22px;padding:16px 0;border-bottom:1px solid var(--line-soft);
+  }
+  .kronika-item:last-child{border-bottom:none}
+  .kronika-item .k-no{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--fox);
+    font-weight:600;min-width:34px;padding-top:5px;letter-spacing:.08em;
+  }
+  .kronika-item .k-body b{font-weight:600}
+  .kronika-item .k-body .k-tag{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--gold);margin-left:8px;
+  }
+  .kronika-item .k-body p{margin:3px 0 0;font-size:16px;color:var(--soft)}
+
+  /* ── spis treści ── */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:6px;
+    padding:26px 30px;margin:36px 0 10px}
+  .toc .toc-title{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    letter-spacing:.22em;text-transform:uppercase;color:var(--soft);margin-bottom:14px}
+  .toc ol{list-style:none;margin:0;columns:2;column-gap:40px}
+  .toc li{margin-bottom:9px;break-inside:avoid;font-size:16.5px}
+  .toc li a{border-bottom:none}
+  .toc li .rn{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--fox);
+    margin-right:10px;font-weight:500}
+
+  /* ── tabele ── */
+  .tbl-wrap{overflow-x:auto;margin:18px 0 26px;border:1px solid var(--line);
+    border-radius:6px;background:var(--card)}
+  table{border-collapse:collapse;width:100%;
+    font-family:'IBM Plex Mono',monospace;font-size:13px;line-height:1.5}
+  thead th{
+    text-align:left;font-weight:600;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--soft);
+    padding:11px 14px;border-bottom:2px solid var(--fox);
+    background:#f4efe4;white-space:nowrap;
+  }
+  tbody td{padding:9px 14px;border-bottom:1px solid var(--line-soft);
+    vertical-align:top;color:var(--ink)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:nth-child(even) td{background:#faf7ef}
+  td b, td strong{font-weight:600;color:var(--fox-deep)}
+  table.lore-table{font-family:'EB Garamond',serif;font-size:15.5px}
+  table.lore-table thead th{font-family:'IBM Plex Mono',monospace}
+
+  /* ── ramki ── */
+  .dm-box{
+    background:var(--gold-bg);border:1px solid #dcc98f;border-left:4px solid var(--gold);
+    border-radius:5px;padding:20px 24px;margin:24px 0;
+  }
+  .dm-box .dm-label{
+    font-family:'IBM Plex Mono',monospace;font-size:10.5px;font-weight:600;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+  }
+  .dm-box p:last-child{margin-bottom:0}
+  .dm-box .rule{font-size:19px;font-weight:600}
+
+  .lore{
+    border-left:3px solid var(--fox);padding:6px 0 6px 22px;margin:22px 0;
+    font-style:italic;color:var(--soft);font-size:18.5px;
+  }
+  .lore .who{display:block;font-style:normal;font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+
+  .note{
+    background:var(--card);border:1px solid var(--line);border-radius:5px;
+    padding:16px 20px;margin:20px 0;font-size:16.5px;color:var(--soft);
+  }
+  .note b{color:var(--ink)}
+
+  /* ── karty ── */
+  .cards{display:flex;gap:18px;margin:24px 0;flex-wrap:wrap}
+  .card{
+    flex:1 1 240px;background:var(--card);border:1px solid var(--line);
+    border-top:3px solid var(--faint);border-radius:6px;padding:22px 22px 18px;
+  }
+  .card .c-tag{font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:8px}
+  .card h4{margin:0 0 10px;font-family:'Playfair Display',serif;font-size:20px}
+  .card p{font-size:15.5px;color:var(--soft);margin-bottom:10px}
+  .card p:last-child{margin-bottom:0}
+  .card--fox{border-top-color:var(--fox)}
+  .card--fox .c-tag{color:var(--fox)}
+  .card--night{border-top-color:var(--night)}
+  .card--night .c-tag{color:var(--night)}
+  .card--ghost{
+    flex:1 1 100%;border:1px dashed var(--line);border-top:1px dashed var(--line);
+    background:transparent;
+  }
+  .card--ghost h4{color:var(--soft)}
+
+  /* ── profil / statystyki ── */
+  .id-grid{display:flex;flex-wrap:wrap;gap:0 40px;margin:20px 0 8px}
+  .id-grid dl{flex:1 1 320px}
+  .id-grid dt{font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:14px}
+  .id-grid dd{font-size:17.5px;margin:2px 0 0}
+  .id-grid dd .sm{font-size:15px;color:var(--soft);font-style:italic}
+
+  .combo{counter-reset:step;margin:20px 0 26px}
+  .combo .step{display:flex;gap:16px;padding:12px 0;border-bottom:1px solid var(--line-soft)}
+  .combo .step:last-child{border-bottom:none}
+  .combo .step::before{
+    counter-increment:step;content:counter(step);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;
+    color:var(--fox);border:1px solid var(--fox);border-radius:50%;
+    width:24px;height:24px;min-width:24px;display:flex;align-items:center;justify-content:center;
+    margin-top:2px;
+  }
+  .combo .step p{margin:0;font-size:16.5px}
+
+  .cost{
+    display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:12px;
+    background:#f0e9da;border:1px solid var(--line);border-radius:4px;
+    padding:3px 10px;color:var(--soft);letter-spacing:.06em;
+  }
+
+  .checklists{display:flex;gap:20px;flex-wrap:wrap;margin:20px 0}
+  .checklists .col{flex:1 1 340px;background:var(--card);border:1px solid var(--line);
+    border-radius:6px;padding:22px 24px}
+  .checklists h4{margin:0 0 14px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--fox);font-weight:600}
+  .checklists ul{list-style:none;margin:0}
+  .checklists li{padding-left:20px;position:relative;font-size:16px;margin-bottom:10px}
+  .checklists li::before{content:"—";position:absolute;left:0;color:var(--fox)}
+
+  .arcs li{margin-bottom:12px}
+  .arcs b{font-weight:600}
+
+  /* ── Aeliana ── */
+  .aeliana{background:linear-gradient(180deg,#f2f1f4 0%,var(--birch) 100%);
+    border-top:1px solid #d4d6de;border-bottom:1px solid #d4d6de;
+    padding:54px 0 46px;margin:60px 0}
+  .aeliana h3{color:var(--night-deep);margin-top:0}
+  .aeliana .eyebrow{color:var(--night)}
+  .aeliana .lore{border-left-color:var(--night)}
+  .aeliana .hyp{margin:18px 0}
+  .aeliana .hyp dt{font-weight:600;font-size:17.5px;margin-top:16px}
+  .aeliana .hyp dt .hl{font-family:'IBM Plex Mono',monospace;font-size:11px;
+    color:var(--night);letter-spacing:.14em;margin-right:8px}
+  .aeliana .hyp dd{margin:4px 0 0 0;color:var(--soft);font-size:16.5px}
+  .aeliana .rec{font-family:'IBM Plex Mono',monospace;font-size:10.5px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-left:8px}
+
+  /* ── stopka ── */
+  footer{padding:30px 0 90px;color:var(--faint);font-size:15px}
+  footer .colophon{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    letter-spacing:.14em;margin-top:14px;line-height:2}
+
+  @media (max-width:640px){
+    body{font-size:17px}
+    .cover{padding:64px 0 44px}
+    .toc ol{columns:1}
+    h2{font-size:28px}
+    .strings{margin:52px auto}
+  }
+  @media print{
+    .strings{margin:36px auto}
+    .card,.dm-box,.tbl-wrap,.checklists .col{break-inside:avoid}
+    a{border-bottom:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ OKŁADKA ═══════════════ -->
+<header class="cover wrap">
+  <div class="eyebrow">Dossier postaci · Kampania: Krąg Cieni</div>
+  <div class="used-name">Jack</div>
+  <div class="true-name">Leothern</div>
+  <div class="true-note">imię prawdziwe — wypowiadane cicho, i tylko wśród zaufanych</div>
+  <p class="subtitle">Vulpin · Monk, Way of the Open Hand · Entertainer<br>
+  Wędrowny mediator z Whitewood, który uczy się, kiedy dłoń otworzyć — a kiedy pokazać pazury.</p>
+  <div class="meta">
+    <span>System <b>D&amp;D 5e (PHB 2014)</b></span>
+    <span>Setting <b>Whitewood / Humblewood</b></span>
+    <span>Charakter <b>Chaotic Good</b></span>
+    <span>Wersja <b>skonsolidowana</b></span>
+  </div>
+</header>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ KRONIKA ═══════════════ -->
+<section id="kronika" class="wrap">
+  <div class="sec-head">
+    <span class="num">KRONIKA USTALEŃ</span>
+    <h2>Jak powstał ten dokument</h2>
+    <p class="sec-intro">Zapis drogi od pierwszego zlecenia do wersji skonsolidowanej. Każde ustalenie z&nbsp;DM jest wiążące i&nbsp;zostało wbudowane w&nbsp;treść — poniższa kronika zachowuje ślad ewolucji.</p>
+  </div>
+  <div class="kronika">
+    <div class="kronika-item"><div class="k-no">01</div><div class="k-body"><b>Zlecenie.</b><p>Obszerne dossier trzech filarów: klasa Monk (5e 2014), podklasa Way of the Open Hand, rasa Vulpin z&nbsp;Humblewood. Pełna mechanika + przegląd koncepcyjny + porady do gry.</p></div></div>
+    <div class="kronika-item"><div class="k-no">02</div><div class="k-body"><b>Dossier bazowe.</b><p>Research i&nbsp;synteza: mechaniki poziom po poziomie, porównanie podklas, lore Vulpinów, analiza synergii Vulpin&nbsp;×&nbsp;Monk&nbsp;×&nbsp;Open Hand.</p></div></div>
+    <div class="kronika-item"><div class="k-no">03</div><div class="k-body"><b>Dokument postaci Jacka</b><span class="k-tag">Ustalenie DM №1</span><p>Dołączenie karty Jacka Leotherna. DM potwierdza: Open Hand Technique daje <b>jeden efekt na całe Flurry of Blows</b>, nie jeden per trafienie.</p></div></div>
+    <div class="kronika-item"><div class="k-no">04</div><div class="k-body"><b>Suplement I.</b><p>Erratum per-Flurry + pełny profil postaci: statystyki, historia rodu, psychologia, plan progresji, wskazówki RP.</p></div></div>
+    <div class="kronika-item"><div class="k-no">05</div><div class="k-body"><b>Korekty postaci</b><span class="k-tag">Ustalenie DM №2</span><p><b>Sharp Claws</b> zastępują Bite. Rewizja instrumentów: skrzypce rodowe zostają w&nbsp;Whitewood; w&nbsp;drogę idzie lira; kalimba od Vulpinki; w&nbsp;Anchurusie kupione samostrojące skrzypce, w&nbsp;Ironwake zmodyfikowane grubszymi strunami — echo kontrabasu <b>Aeliany</b>, Corvumki z&nbsp;Whitewood.</p></div></div>
+    <div class="kronika-item"><div class="k-no">06</div><div class="k-body"><b>Erratum II.</b><p>Mechanika Sharp Claws × Martial Arts, trójwarstwowa hierarchia instrumentów, cztery hipotezy narracyjne wokół Aeliany.</p></div></div>
+    <div class="kronika-item"><div class="k-no">07</div><div class="k-body"><b>Konsolidacja — ten dokument.</b><p>Wszystkie materiały i&nbsp;erraty zlane w&nbsp;jedną, finalną kronikę. Erraty przestały być poprawkami — są zasadami.</p></div></div>
+  </div>
+
+  <nav class="toc" aria-label="Spis treści">
+    <div class="toc-title">Spis treści</div>
+    <ol>
+      <li><span class="rn">I</span><a href="#s1">Klasa Monk</a></li>
+      <li><span class="rn">II</span><a href="#s2">Way of the Open Hand</a></li>
+      <li><span class="rn">III</span><a href="#s3">Rasa Vulpin</a></li>
+      <li><span class="rn">IV</span><a href="#s4">Synteza</a></li>
+      <li><span class="rn">V</span><a href="#s5">Jack Leothern — profil</a></li>
+      <li><span class="rn">VI</span><a href="#s6">Tactical reference</a></li>
+    </ol>
+  </nav>
+</section>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ SEKCJA I: MONK ═══════════════ -->
+<section id="s1" class="wrap">
+  <div class="sec-head">
+    <span class="num">SEKCJA I</span>
+    <h2>Klasa Monk</h2>
+    <p class="sec-intro">Mistrz sztuk walki bez zbroi, czerpiący siłę z&nbsp;duchowej energii <b>ki</b>. Rola: skirmisher / striker o&nbsp;najwyższej w&nbsp;grze mobilności, z&nbsp;unikalnym narzędziem kontroli — Stunning Strike. <span class="mono" style="font-size:13px">Player's Handbook 2014.</span></p>
+  </div>
+
+  <h3>Podstawy klasy</h3>
+  <p><b>Wymagania multiclass:</b> Dexterity 13 i Wisdom 13.</p>
+  <ul>
+    <li><b>Hit Dice:</b> 1d8 na poziom · <b>HP na 1. poziomie:</b> 8 + mod. Constitution · <b>wyżej:</b> 1d8 (śr. 5) + mod. Con</li>
+    <li><b>Armor:</b> żadne · <b>Weapons:</b> simple weapons + shortswords · <b>Tools:</b> jeden zestaw artisan's tools <em>lub</em> instrument muzyczny</li>
+    <li><b>Saving Throws:</b> Strength, Dexterity · <b>Skills (2 z):</b> Acrobatics, Athletics, History, Insight, Religion, Stealth</li>
+    <li><b>Starting equipment:</b> shortsword <em>lub</em> simple weapon; dungeoneer's <em>lub</em> explorer's pack; <b>10 darts</b></li>
+  </ul>
+
+  <h3>Tabela klasy (poziomy 1–20)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Lvl</th><th>PB</th><th>Martial Arts</th><th>Ki</th><th>Unarm. Movement</th><th>Features</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>+2</td><td>1d4</td><td>—</td><td>—</td><td>Unarmored Defense, Martial Arts</td></tr>
+      <tr><td>2</td><td>+2</td><td>1d4</td><td>2</td><td>+10 ft</td><td>Ki, Unarmored Movement</td></tr>
+      <tr><td>3</td><td>+2</td><td>1d4</td><td>3</td><td>+10 ft</td><td>Monastic Tradition, Deflect Missiles</td></tr>
+      <tr><td>4</td><td>+2</td><td>1d4</td><td>4</td><td>+10 ft</td><td>ASI, Slow Fall</td></tr>
+      <tr><td>5</td><td>+3</td><td>1d6</td><td>5</td><td>+10 ft</td><td><b>Extra Attack, Stunning Strike</b></td></tr>
+      <tr><td>6</td><td>+3</td><td>1d6</td><td>6</td><td>+15 ft</td><td>Ki-Empowered Strikes, Tradition feature</td></tr>
+      <tr><td>7</td><td>+3</td><td>1d6</td><td>7</td><td>+15 ft</td><td>Evasion, Stillness of Mind</td></tr>
+      <tr><td>8</td><td>+3</td><td>1d6</td><td>8</td><td>+15 ft</td><td>ASI</td></tr>
+      <tr><td>9</td><td>+4</td><td>1d6</td><td>9</td><td>+15 ft</td><td>Unarm. Movement improvement</td></tr>
+      <tr><td>10</td><td>+4</td><td>1d6</td><td>10</td><td>+20 ft</td><td>Purity of Body</td></tr>
+      <tr><td>11</td><td>+4</td><td>1d8</td><td>11</td><td>+20 ft</td><td>Tradition feature</td></tr>
+      <tr><td>12</td><td>+4</td><td>1d8</td><td>12</td><td>+20 ft</td><td>ASI</td></tr>
+      <tr><td>13</td><td>+5</td><td>1d8</td><td>13</td><td>+20 ft</td><td>Tongue of the Sun and Moon</td></tr>
+      <tr><td>14</td><td>+5</td><td>1d8</td><td>14</td><td>+25 ft</td><td>Diamond Soul</td></tr>
+      <tr><td>15</td><td>+5</td><td>1d8</td><td>15</td><td>+25 ft</td><td>Timeless Body</td></tr>
+      <tr><td>16</td><td>+5</td><td>1d8</td><td>16</td><td>+25 ft</td><td>ASI</td></tr>
+      <tr><td>17</td><td>+6</td><td>1d10</td><td>17</td><td>+25 ft</td><td>Tradition feature</td></tr>
+      <tr><td>18</td><td>+6</td><td>1d10</td><td>18</td><td>+30 ft</td><td>Empty Body</td></tr>
+      <tr><td>19</td><td>+6</td><td>1d10</td><td>19</td><td>+30 ft</td><td>ASI</td></tr>
+      <tr><td>20</td><td>+6</td><td>1d10</td><td>20</td><td>+30 ft</td><td>Perfect Self</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note"><b>Progresja Martial Arts die:</b> 1d4 (1–4) → 1d6 (5–10) → 1d8 (11–16) → 1d10 (17–20). <b>Ki points = poziom mnicha</b> (od 2. lv), odnawiane po short/long rest (30 min medytacji).</p>
+
+  <h3>Cechy klasowe — szczegóły</h3>
+
+  <h4>Unarmored Defense (lv 1)</h4>
+  <p>Bez zbroi i tarczy: <b>AC = 10 + mod. Dex + mod. Wis</b>. Przy Dex 20 / Wis 20 to AC 20 — pełny płat z tarczą, bez ograniczeń ruchu.</p>
+
+  <h4>Martial Arts (lv 1)</h4>
+  <p>Gdy unarmed lub z monk weapons, bez zbroi/tarczy: używasz <b>Dex zamiast Str</b> do ataków i obrażeń; możesz rzucać <b>Martial Arts die</b> zamiast standardowej kostki; po Attack action z unarmed strike / monk weapon — <b>jeden unarmed strike jako bonus action</b>.</p>
+  <p><b>Monk weapons:</b> shortswords + każda simple melee weapon bez cech <em>two-handed</em> i <em>heavy</em>. Klasyki: quarterstaff (versatile 1d8), spear, shortsword, dart (jedyna ranged).</p>
+
+  <h4>Ki (lv 2)</h4>
+  <p><b>Ki Save DC = 8 + proficiency bonus + mod. Wis</b> — wspólne dla Stunning Strike, Open Hand Technique, Tranquility, Quivering Palm. Trzy bazowe użycia:</p>
+  <ul>
+    <li><b>Flurry of Blows</b> — 1 ki, bonus action po Attack action: dwa unarmed strikes.</li>
+    <li><b>Patient Defense</b> — 1 ki, bonus action: Dodge.</li>
+    <li><b>Step of the Wind</b> — 1 ki, bonus action: Disengage lub Dash, skok ×2.</li>
+  </ul>
+
+  <h4>Unarmored Movement (lv 2, ulepszenie lv 9)</h4>
+  <p>Bez zbroi/tarczy: +10 ft prędkości, skala do +30 ft na lv 18. <b>Od lv 9:</b> ruch po pionowych powierzchniach i po cieczach w trakcie tury (koniec ruchu na stałym podłożu — inaczej spadasz/toniesz).</p>
+
+  <h4>Deflect Missiles (lv 3)</h4>
+  <p>Reaction przy trafieniu ranged weapon attack: redukcja obrażeń o <b>1d10 + mod. Dex + poziom mnicha</b>. Redukcja do 0 + wolna ręka = łapiesz pocisk; za 1 ki odrzucasz go (20/60 ft, MA die + Dex) w tej samej reaction.</p>
+
+  <h4>Slow Fall (lv 4)</h4>
+  <p>Reaction: redukcja fall damage o <b>5 × poziom mnicha</b>.</p>
+
+  <h4>Extra Attack + Stunning Strike (lv 5)</h4>
+  <p>Attack action = 2 ataki. Łącznie z bonus unarmed → 3 ataki/turę; z Flurry → 4.</p>
+  <p><b>Stunning Strike:</b> po trafieniu melee weapon attack wydaj 1 ki — cel rzuca <b>Con save vs Ki DC</b>. Porażka: <b>stunned do końca Twojej następnej tury</b> (auto-fail Str/Dex saves, brak akcji/ruchu/reakcji, ataki w cel z advantage). Można próbować po każdym trafieniu, dopóki starcza ki.</p>
+
+  <h4>Ki-Empowered Strikes (lv 6) · Evasion + Stillness of Mind (lv 7)</h4>
+  <p>Unarmed strikes liczą się jako <b>magiczne</b>. Evasion: Dex save za pół → <b>sukces = 0, porażka = ½</b>. Stillness of Mind: action kończy na Tobie charmed/frightened.</p>
+
+  <h4>Purity of Body (lv 10) · Tongue of the Sun and Moon (lv 13)</h4>
+  <p>Immunity na choroby i trucizny. Rozumiesz wszystkie języki mówione; każdy rozumiejący jakikolwiek język rozumie Ciebie.</p>
+
+  <h4>Diamond Soul (lv 14) · Timeless Body (lv 15)</h4>
+  <p><b>Proficiency we wszystkich saving throws</b>; oblany save → 1 ki na reroll. Nie wymagasz jedzenia/wody, odporność na magiczne starzenie.</p>
+
+  <h4>Empty Body (lv 18) · Perfect Self (lv 20)</h4>
+  <p>Action + 4 ki: <b>invisible 1 min + resistance na wszystko poza force</b>; lub 8 ki: Astral Projection (solo). Perfect Self: initiative przy 0 ki → odzyskujesz 4 ki.</p>
+
+  <h3>Filozofia, mocne i słabe strony</h3>
+  <p>Rola potrójna: <b>striker</b> (3–4 ataki/turę, hit-and-run), <b>scout</b> (najszybsza klasa, Stealth, ściany od lv 9), <b>controller</b> (Stunning Strike — jedyne martial CC działające na bossów). Każdy ki point to decyzja porównywalna do warlockowego slota; mnich wymaga pacingu, nie burstowania.</p>
+  <ul>
+    <li><b>Mocne:</b> mobilność bez konkurencji · Stunning Strike · Evasion + Diamond Soul (najlepsza obrona przed save effects).</li>
+    <li><b>Słabe:</b> MAD (Dex+Wis+Con) · ki-starved na lv 2–5 · d8 HP bez zbroi · słabe ranged (tylko darty) · brak magicznej broni do lv 6.</li>
+  </ul>
+</section>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ SEKCJA II: OPEN HAND ═══════════════ -->
+<section id="s2" class="wrap">
+  <div class="sec-head">
+    <span class="num">SEKCJA II</span>
+    <h2>Way of the Open Hand</h2>
+    <p class="sec-intro">Archetypiczny monk PHB — balans, harmonia i&nbsp;manipulacja ki, własnym i&nbsp;wroga. Konsensus optymalizatorów: <b>najsilniejsza podklasa Monka w&nbsp;PHB 2014</b>, bo prawie nic nie kosztuje ki i&nbsp;wpina się w&nbsp;signature mechanikę klasy.</p>
+  </div>
+
+  <h3>Open Hand Technique (lv 3)</h3>
+  <p>Gdy trafisz przeciwnika atakiem z <b>Flurry of Blows</b>, możesz nałożyć <b>jeden</b> z efektów (DC = Ki Save DC):</p>
+  <ul>
+    <li><b>Knock prone</b> — Dexterity save; porażka → przewrócony.</li>
+    <li><b>Push 15 ft</b> — Strength save; porażka → odepchnięty o 15 ft.</li>
+    <li><b>No reactions</b> — bez save'a: cel nie może wykonywać reakcji do końca Twojej następnej tury.</li>
+  </ul>
+
+  <div class="dm-box">
+    <div class="dm-label">Ustalenie DM №1 — wiążące</div>
+    <p class="rule">1 użycie Flurry of Blows = 1 efekt Open Hand Technique</p>
+    <p>Niezależnie od tego, czy trafi jeden atak czy oba. Tekst PHB (<em>„Whenever you hit a creature with one of the attacks granted by your Flurry of Blows…"</em>) jest gramatycznie dwuznaczny; DM wybrał czytanie wąskie (per-Flurry). Konsekwencja: <b>nie ma</b> „prone + push" ani „push + push (30 ft)" jednym Flurry. Wybierasz jeden efekt — świadomie.</p>
+  </div>
+
+  <h4>Hierarchia wyboru efektu (per-Flurry)</h4>
+  <div class="tbl-wrap"><table class="lore-table">
+    <thead><tr><th>Priorytet</th><th>Efekt</th><th>Kiedy</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">1</td><td><b>Push 15 ft</b></td><td>Krawędź, lawa, AoE sojusznika (Spike Growth, Spirit Guardians), pułapka. Potencjalnie save-or-die. Zwykle dominujący wybór.</td></tr>
+      <tr><td class="mono">2</td><td><b>No reactions</b></td><td>Casterzy (Counterspell, Shield, Silvery Barbs, Absorb Elements), Sentinel, Polearm Master; ucieczka bez OA.</td></tr>
+      <tr><td class="mono">3</td><td><b>Prone</b></td><td>Grupa melee sojuszników czeka na advantage; latacze (prone → upadek); uciekający (½ ruchu na wstanie).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>Signature combo: Stunning Strike + Open Hand</h4>
+  <div class="combo">
+    <div class="step"><p><b>Attack action, atak #1</b> — trafiasz, wydajesz 1 ki na <b>Stunning Strike</b>. Cel oblewa Con save → <b>stunned</b>.</p></div>
+    <div class="step"><p><b>Atak #2</b> — w advantage (stunned = auto-fail, ataki z 5 ft z advantage).</p></div>
+    <div class="step"><p><b>Bonus action: Flurry of Blows</b> (1 ki) — dwa ataki w advantage.</p></div>
+    <div class="step"><p>Pierwsze trafienie Flurry → <b>jeden efekt OHT: push 15 ft</b>. Stunned auto-failuje Str save — wypchnięcie gwarantowane.</p></div>
+    <div class="step"><p><b>Wynik:</b> cel stunned + 15 ft od pozycji + 4 ataki w advantage. <span class="cost">koszt: 2 ki</span></p></div>
+  </div>
+  <p class="note">W kombinacji ze Stunning Strike <b>prawie zawsze wybierasz push</b> — stun już daje advantage i auto-fail; push jako jedyny <b>przemieszcza</b> cel, czego stun sam nie robi.</p>
+
+  <h3>Wholeness of Body (lv 6)</h3>
+  <p>Action: odzyskujesz <b>HP = 3 × poziom mnicha</b> (lv 6: 18 · lv 11: 33 · lv 17: 51 · lv 20: 60). Nie kosztuje ki; 1×/long rest. Emergency heal — pamiętaj, że to action, więc tracisz turę ataków.</p>
+
+  <h3>Tranquility (lv 11)</h3>
+  <p>Po long rest automatyczny efekt <em>sanctuary</em> na ~24 h. <b>DC = 8 + mod. Wis + PB.</b> Atakujący Cię celowo musi zdać Wis save, inaczej traci cel. Kończy się, gdy <b>Ty</b> zaatakujesz lub zadasz obrażenia; otrzymanie obrażeń nie łamie; AoE trafiają normalnie. <b>Help action nie łamie sanctuary</b> — pierwsza tura na pozycjonowanie i wspieranie, potem dopiero wejście do walki.</p>
+
+  <h3>Quivering Palm (lv 17)</h3>
+  <p>Po trafieniu unarmed strike wydaj <b>3 ki</b>: niesłyszalne wibracje w ciele celu na <b>dni = poziom mnicha</b>. Action (ten sam plan): cel rzuca <b>Con save vs Ki DC</b> — porażka: <b>0 HP</b>; sukces: <b>10d10 necrotic</b> (śr. 55). Limit 1 cel naraz; można harmlessly anulować bez akcji (świetne do interrogacji). Aktywacja to „free rider" na trafieniu. Taktyka na bossów: uzbroić z wyprzedzeniem podczas niewinnej interakcji, wypalić Legendary Resistance stunami, detonować.</p>
+
+  <h3>Porównanie podklas PHB</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th></th><th>Open Hand</th><th>Way of Shadow</th><th>Four Elements</th></tr></thead>
+    <tbody>
+      <tr><td>Rola</td><td><b>Striker + Controller</b></td><td>Scout / Assassin</td><td>Próba caster-monka</td></tr>
+      <tr><td>Lv 3</td><td>OHT (darmowo)</td><td>Shadow Arts (2 ki/każde)</td><td>Wszystko kosztuje ki</td></tr>
+      <tr><td>Lv 6</td><td>Wholeness (free heal)</td><td>Shadow Step (60 ft tp)</td><td>+1 dyscyplina</td></tr>
+      <tr><td>Lv 11</td><td>Tranquility (24h)</td><td>Cloak of Shadows</td><td>+1 dyscyplina</td></tr>
+      <tr><td>Lv 17</td><td>Quivering Palm</td><td>Opportunist</td><td>+1 dyscyplina</td></tr>
+      <tr><td>Tier</td><td><b>S</b></td><td>A</td><td>F</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ SEKCJA III: VULPIN ═══════════════ -->
+<section id="s3" class="wrap">
+  <div class="sec-head">
+    <span class="num">SEKCJA III</span>
+    <h2>Rasa Vulpin</h2>
+    <p class="sec-intro">Lisopodobni humanoidzi z&nbsp;Humblewood — <em>„the sophisticated and the savage"</em>. Od dziecka uczą się, kiedy ukryć kły, a&nbsp;kiedy je pokazać. <span class="mono" style="font-size:13px">Humblewood Campaign Setting, Hit Point Press.</span></p>
+  </div>
+
+  <h3>Statystyka rasowa</h3>
+  <div class="tbl-wrap"><table class="lore-table">
+    <tbody>
+      <tr><td><b>Ability Score Increase</b></td><td>Intelligence +2, Charisma +1</td></tr>
+      <tr><td><b>Age</b></td><td>dojrzałość w 15 lat; żyją ponad 90</td></tr>
+      <tr><td><b>Alignment</b></td><td>rzadko good; chaotic częściej niż lawful</td></tr>
+      <tr><td><b>Size / Speed</b></td><td>Medium (4,5–5,5 ft) / 30 ft</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Cechy rasowe</h3>
+  <h4>Darkvision (60 ft)</h4>
+  <p>W dim light widzisz jak w bright light, w darkness jak w dim light (bez koloru).</p>
+
+  <div class="dm-box">
+    <div class="dm-label">Ustalenie DM №2 — wiążące</div>
+    <p class="rule">Sharp Claws zastępują Bite</p>
+    <p class="mono" style="font-size:14px;line-height:1.7;color:var(--ink)">Sharp Claws. Your claws are natural weapons. When you make an unarmed strike with your claws and hit with them, you deal <b>slashing damage equal to 1d4 + your Strength modifier</b>, instead of the bludgeoning damage normal for an unarmed strike.</p>
+    <p>Klon <em>Cat's Claws</em> od Tabaxi (Volo's Guide). Oficjalna interakcja z Martial Arts (Sage Advice): <b>działają razem</b> — Dex zamiast Str, Martial Arts die zamiast 1d4, typ obrażeń zostaje slashing.</p>
+  </div>
+
+  <h4>Sharp Claws × Martial Arts — wynik netto dla Jacka</h4>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Poziom</th><th>Kość</th><th>Mod.</th><th>Typ</th></tr></thead>
+    <tbody>
+      <tr><td>1–4</td><td>1d4</td><td>+Dex</td><td>slashing</td></tr>
+      <tr><td>5–10</td><td>1d6</td><td>+Dex</td><td>slashing</td></tr>
+      <tr><td>11–16</td><td>1d8</td><td>+Dex</td><td>slashing</td></tr>
+      <tr><td>17–20</td><td>1d10</td><td>+Dex</td><td>slashing</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Od lv 5 wzwyż Sharp Claws są mechanicznie tożsame ze zwykłym unarmed strike Monka — różni się tylko <b>typ obrażeń</b>. Retractable claws to przy tym metafora całej postaci: pazury w rękach muzyka, wysuwane z wyboru, nie z instynktu.</p>
+
+  <h4>Evasive</h4>
+  <p>Dodajesz <b>mod. Intelligence</b> do <b>wszystkich Dexterity saving throws</b>. Jedna z najsilniejszych cech rasowych w 5e; z Evasion (lv 7) tworzy podwójną warstwę obrony przeciw fireballom i breath weapons.</p>
+
+  <h4>Bewitching Guile (innate spellcasting, Int, 1×/long rest)</h4>
+  <ul>
+    <li><b>lv 1:</b> <em>charm person</em></li>
+    <li><b>lv 3:</b> <em>ambush prey</em> (Humblewood, 2. poziom — ukrycie + atak z zaskoczenia)</li>
+    <li><b>lv 5:</b> <em>fear</em></li>
+  </ul>
+
+  <h4>Languages</h4>
+  <p><b>Common</b> (w Humblewood: Birdfolk — język handlu i polityki) oraz <b>Vulpin</b>. Subras brak.</p>
+
+  <h3>Lore</h3>
+  <p>Humblewood („The Wood") to magiczny las rządzony przez birdfolk z Alderheart; rdzeniem kosmologii jest <b>Great Rhythm</b> — puls życia i śmierci pod opieką panteonu <b>Amaranthine</b>. Vulpiny noszą reputację „go-to villain" literatury humblefolk — echo czasów <b>Vulpin Empire</b> sprzed Humblefolk Treaty, gdy lisie najazdy łupiły resztę leśnego ludu. Rzeczywistość jest bardziej złożona: empatia istnieje, ale ambicja i instynkt przetrwania często wygrywają. Inteligencją dorównują im tylko <b>Corvum</b> — kruki, uczone i logiczne tam, gdzie Vulpini są kreatywni i intuicyjni. Kochają sztukę: rzeźbę, poezję, <em>refined swordplay</em>; wrodzoną więź z magią lasu kanalizują w dwa słowa — <em>bewitch or terrify</em>.</p>
+</section>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ SEKCJA IV: SYNTEZA ═══════════════ -->
+<section id="s4" class="wrap">
+  <div class="sec-head">
+    <span class="num">SEKCJA IV</span>
+    <h2>Synteza</h2>
+    <p class="sec-intro">Vulpin Int+2/Cha+1 to jedno z&nbsp;najsłabszych dopasowań ASI dla Monka w&nbsp;5e — a&nbsp;jednak ta kombinacja gra. Cztery synergie zamieniają stracone punkty w&nbsp;profil narzędziowy, którego nie ma żaden inny Monk.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card card--fox">
+      <div class="c-tag">Synergia 1</div>
+      <h4>Sharp Claws × Martial Arts</h4>
+      <p>Permanentny slashing damage type na unarmed strike; Dex zamiast Str; MA die skaluje normalnie. Od lv 6 — magiczny slashing.</p>
+    </div>
+    <div class="card card--fox">
+      <div class="c-tag">Synergia 2</div>
+      <h4>Evasive × Evasion</h4>
+      <p>+Int do każdego Dex save (rasa) + „sukces = 0 dmg" (lv 7). Trzecia warstwa obrony obok Unarmored Defense i Patient Defense.</p>
+    </div>
+    <div class="card card--fox">
+      <div class="c-tag">Synergia 3</div>
+      <h4>Bewitching Guile</h4>
+      <p>Open Hand nie ma żadnego castingu — Vulpin dokłada Charm Person (mediacja), Ambush Prey (otwarcie walki), Fear (AoE CC).</p>
+    </div>
+    <div class="card card--fox">
+      <div class="c-tag">Synergia 4</div>
+      <h4>Darkvision 60 ft</h4>
+      <p>Standard, ale realna przewaga w podziemiach i nocnych encounterach — i w korytarzach rodowej nory.</p>
+    </div>
+  </div>
+
+  <p>Open Hand Monk to klasa, której tożsamość nie zależy od pojedynczego buildu — zależy od <b>decyzji w turze</b>. Stunning Strike, OHT i mobilność działają z przyzwoitą Wis; brakujące 2 punkty rasowych ASI wymienia się na trzy wbudowane zaklęcia, bonus do Dex saves i slashing. Postać gra <b>lepiej niż sugerują statystyki</b>, jeśli prowadzi się ją świadomie: omijać walkę Bewitching Guile, otwierać <em>Ambush Prey → Stunning Strike → Flurry + push</em>, bronić się warstwami.</p>
+</section>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ SEKCJA V: JACK ═══════════════ -->
+<section id="s5" class="wrap">
+  <div class="sec-head">
+    <span class="num">SEKCJA V</span>
+    <h2>Jack Leothern</h2>
+    <p class="sec-intro">Rudy lis z&nbsp;Whitewood, który po czterdziestu latach wiejskich sporów spakował torbę po kłótni o&nbsp;zagubioną kurę — i&nbsp;wrócił na szlak jako mnich, mediator i&nbsp;muzyk. Podróżuje nie po to, by uciec, lecz by <b>wrócić lepszym</b>.</p>
+  </div>
+
+  <h3>Tożsamość</h3>
+  <div class="id-grid">
+    <dl>
+      <dt>Imię używane</dt><dd>Jack</dd>
+      <dt>Imię prawdziwe</dt><dd>Leothern <span class="sm">— ród; wypowiadane tylko w kręgu Vulpinów lub wobec absolutnego zaufania</span></dd>
+      <dt>Rasa · Klasa</dt><dd>Vulpin (lis rudy) · Monk, Way of the Open Hand</dd>
+      <dt>Background · Charakter</dt><dd>Entertainer (Dancer, Storyteller, Singer) · Chaotic Good</dd>
+    </dl>
+    <dl>
+      <dt>Wiek</dt><dd>45 lat</dd>
+      <dt>Postura</dt><dd>Medium · 5'5" (167 cm) · 115 lbs (52 kg)</dd>
+      <dt>Oczy · Umaszczenie</dt><dd>piwne · lis rudy; włosy wokół szyi układane w delikatną kryzę</dd>
+    </dl>
+  </div>
+
+  <h3>Point Buy</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Atrybut</th><th>Bazowa</th><th>Koszt</th><th>Rasa</th><th>Finalna</th><th>Mod.</th></tr></thead>
+    <tbody>
+      <tr><td>Strength</td><td>8</td><td>0</td><td>+0</td><td><b>8</b></td><td>−1</td></tr>
+      <tr><td>Dexterity</td><td>15</td><td>9</td><td>+0</td><td><b>15</b></td><td>+2</td></tr>
+      <tr><td>Constitution</td><td>14</td><td>7</td><td>+0</td><td><b>14</b></td><td>+2</td></tr>
+      <tr><td>Intelligence</td><td>10</td><td>2</td><td>+2</td><td><b>12</b></td><td>+1</td></tr>
+      <tr><td>Wisdom</td><td>15</td><td>9</td><td>+0</td><td><b>15</b></td><td>+2</td></tr>
+      <tr><td>Charisma</td><td>8</td><td>0</td><td>+1</td><td><b>9</b></td><td>−1</td></tr>
+    </tbody>
+  </table></div>
+  <p class="mono" style="font-size:13px;color:var(--soft)">Suma Point Buy: 27/27 ✓ · Lv 1: AC 14 · HP 10 · Initiative +2 · Sharp Claws +4, 1d4+2 slashing · Ki DC 12 (od lv 2)</p>
+
+  <h4>Plan ASI</h4>
+  <ul>
+    <li><b>Lv 4:</b> feat <b>Mobile</b> <em>(rekomendacja — „nieuchwytny jak liść na wietrze"; +10 ft, brak OA od celu po ataku)</em></li>
+    <li><b>Lv 8:</b> Dex +2 → 17 · <b>Lv 12:</b> Dex +2 → 19 · <b>Lv 16 / 19:</b> domknięcie Dex 20, potem Wis</li>
+  </ul>
+
+  <h4>Dlaczego „suboptymalne" statystyki pasują</h4>
+  <ul>
+    <li><b>Int 12</b> — rodowa biblioteka Leothernów; „znam historię do każdej sytuacji".</li>
+    <li><b>Cha 9</b> — Jack nie jest charmerem; jego występy to technika, nie magnetyzm. Woli słuchać niż dominować.</li>
+    <li><b>Str 8</b> — 52-kilogramowy lis-tancerz nie wyważa drzwi; obchodzi je.</li>
+    <li><b>Wis 15</b> — rodowy etos zinternalizowany w spokój i osąd.</li>
+  </ul>
+
+  <h3>Historia — trzy warstwy</h3>
+  <h4>I. Ród Leothernów</h4>
+  <p>Vulpini, którzy osiedli w opuszczonych szybach kopalnianych Whitewood — nie kolonizując, lecz <b>adoptując</b> to, co porzucone. Po <b>Powodzi Tysiąclecia</b> otworzyli nory dla ocalonych, nie żądając złota — tylko wiedzy. Tak powstała rodowa biblioteka: fragmenty ksiąg, zapiski zielarskie, szkice instrumentów — i skrzypce, które „nie miały już do kogo wrócić, ale nie powinny były zniknąć".</p>
+  <div class="lore">„Pomoc nie daje prawa do kontroli. Wiedza nie jest towarem, dopóki ktoś jej potrzebuje. Schronienie traci sens, gdy staje się narzędziem wpływu. Im mniej mówisz o swoim znaczeniu, tym dłużej ono trwa."<span class="who">Etos rodu Leothernów — nigdy nie spisany, zawsze przestrzegany</span></div>
+
+  <h4>II. Dzieciństwo</h4>
+  <p>Dorastał w norze, gdzie biblioteka była „przestrzenią, w której uczono, jak obchodzić się z cudzą myślą". Wcześnie rozróżniał imię użytkowe od prawdziwego; rówieśnicy ciągnęli do niego, bo potrafił <b>słuchać bez oceniania</b>. Skrzypce wisiały w futerale — wyciągane rzadko i zawsze z powagą.</p>
+
+  <h4>III. Droga</h4>
+  <p>Po kolejnej kłótni o zagubioną kurę spakował torbę. Wędrowny klasztor nauczył go ścieżki Otwartej Dłoni — dyscypliny przekuwającej lisi spryt w kontrolę i harmonię. Dziś: wędrowny mediator, tancerz, bajkotwórca, śpiewak. W drodze spotkał <b>Vulpinkę z kalimbą</b>, której — pierwszy raz poza rodem — wyjawił prawdziwe imię. Obietnica: nauczy się grać <em>„harmonijnie do niej"</em>, wtedy się znów spotkają.</p>
+
+  <h3>Osobowość (mechanika Entertainera)</h3>
+  <ul>
+    <li><b>Traits:</b> <em>„I love a good insult, even one directed at me."</em> · <em>„I know a story relevant to almost every situation."</em></li>
+    <li><b>Ideals:</b> <b>Beauty</b> (Good) — występ naprawia świat · <b>Creativity</b> (Chaotic) — świat potrzebuje nowych idei i śmiałych czynów.</li>
+    <li><b>Bond:</b> <em>„My instrument is my most treasured possession, and it reminds me of someone I love."</em> — świadomie: kalimba. Nieświadomie: <b>co innego</b> (patrz niżej).</li>
+    <li><b>Flaw:</b> <em>„I'm a sucker for a pretty face."</em> — ironicznie koliduje z Bondem.</li>
+  </ul>
+
+  <h4>Cel</h4>
+  <p>Zdobyć wiedzę i doświadczenie potrzebne do wprowadzenia harmonii w rodzinnej wiosce. Wędrówka jest <b>etapem, nie stanem</b> — Whitewood czeka.</p>
+  <h4>Strach</h4>
+  <p>Że świat wypaczy ideały, w które wierzy — a wraz z nimi jego samego. Empatia i altruizm są potężne, lecz trudne do utrzymania w stanie wolnym od spaczenia. Jack boi się „uściśnięcia ręki" tym, którzy dążą do chaosu: kompromisu podkopującego etos, Charm Person tam, gdzie możliwa była prawdziwa rozmowa, prawdziwego imienia oddanego komuś niegodnemu.</p>
+
+  <h3>Vulpin traits w rękach Jacka</h3>
+  <div class="tbl-wrap"><table class="lore-table">
+    <thead><tr><th>Trait</th><th>Funkcja</th></tr></thead>
+    <tbody>
+      <tr><td><b>Sharp Claws</b></td><td>Pazury w rękach muzyka — wysuwane z wyboru. Ta sama dłoń, która otwiera się w mediacji, może zamknąć się w pazurzastą pięść.</td></tr>
+      <tr><td><b>Evasive</b></td><td>+1 (Int) do każdego Dex save; z Evasion od lv 7 — pełny unik częściej.</td></tr>
+      <tr><td><b>Charm Person</b></td><td>Narzędzie mediatora, gdy negocjacja grzęźnie. Jack używa niechętnie — to relikt lisiej natury. DC 11→13.</td></tr>
+      <tr><td><b>Ambush Prey</b> (lv 3)</td><td>Flagowe otwarcie walki: ukrycie + surprise + pełne kombo.</td></tr>
+      <tr><td><b>Fear</b> (lv 5)</td><td>AoE CC, którego Open Hand nie ma. Na moby wystarczy.</td></tr>
+      <tr><td><b>Darkvision · Languages</b></td><td>Korytarze rodowej nory; karczma po Common, rodowe rozmowy po Vulpin.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ── STRUNY GRUBIEJĄ: instrumenty i Aeliana ── -->
+<div class="strings strings--bass" aria-hidden="true"><span class="tune">E · A · D · G</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<section class="wrap" id="instrumenty">
+  <div class="sec-head">
+    <span class="num">SEKCJA V · CIĄG DALSZY</span>
+    <h2>Instrumenty</h2>
+    <p class="sec-intro">Cztery instrumenty, cztery ciężary. Jeden został w&nbsp;domu, jeden jest narzędziem, jeden obietnicą — a&nbsp;jeden nosi w&nbsp;sobie dźwięk, którego Jack jeszcze nie umie nazwać. Struny tego rozdziału są grubsze nie bez powodu.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card card--ghost">
+      <div class="c-tag">Zostały w Whitewood</div>
+      <h4>Skrzypce rodowe</h4>
+      <p>Dar Powodzi Tysiąclecia — instrument, który „nie miał już do kogo wrócić, ale nie powinien był zniknąć". Jack ich nie zabrał: zbyt wielki ciężar pamięci dla wędrowca. Czekają w bibliotece jako <b>kotwica powrotu</b>. Dzień, w którym po nie sięgnie, to potencjalny finał kampanii.</p>
+    </div>
+    <div class="card">
+      <div class="c-tag">Narzędzie</div>
+      <h4>Lira podróżna</h4>
+      <p>Zabrana z Whitewood do codziennej pracy Entertainera — granie za wikt i nocleg (<em>By Popular Demand</em>). Bez wagi sentymentalnej. Jeśli się zgubi — wzruszenie ramion.</p>
+    </div>
+    <div class="card card--fox">
+      <div class="c-tag">Obietnica · świadomy Bond</div>
+      <h4>Kalimba od Vulpinki</h4>
+      <p>Prezent od Vulpinki spotkanej w drodze — tej, której Jack wyjawił prawdziwe imię. Warunek ponownego spotkania: grać <em>„harmonijnie do niej"</em>. Chroniona jak relikwia, w futerale przy pasie, blisko ciała. Grana rzadko, w chwilach prywatnych, nigdy dla zysku.</p>
+    </div>
+    <div class="card card--night">
+      <div class="c-tag">Echo · nieświadomy ciężar</div>
+      <h4>Skrzypce z Anchurusa</h4>
+      <p>Kupione w Anchurusie — magiczne, samostrojące się. W <b>Ironwake</b>, gdy zaczął na nich grać i tworzyć, obudziła się nostalgia, której nie rozumiał: ręce same szukały niższych tonów. Dodał grubsze struny, by wydobyć <b>kontrabasowe brzmienie</b> — to samo, które płynęło z kontrabasu Aeliany. Zmiana bez świadomego planu.</p>
+    </div>
+  </div>
+
+  <h4>Hierarchia wartości emocjonalnej</h4>
+  <div class="tbl-wrap"><table class="lore-table">
+    <thead><tr><th>Instrument</th><th>Świadoma wartość</th><th>Podświadoma</th><th>Reakcja na utratę</th></tr></thead>
+    <tbody>
+      <tr><td>Lira</td><td>niska</td><td>niska</td><td>wzruszenie ramion</td></tr>
+      <tr><td>Kalimba</td><td><b>bardzo wysoka</b></td><td>wysoka</td><td>rozpacz, odzyskanie za każdą cenę</td></tr>
+      <tr><td>Skrzypce z Anchurusa</td><td>średnia</td><td><b>bardzo wysoka</b></td><td>dziwna, głęboka żałoba, której Jack nie rozumie</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Asymetria między świadomą (kalimba) a podświadomą (skrzypce) miłością jest <b>głównym RP hookiem</b> tego wątku. Jack wierzy, że kocha kalimbę najbardziej. Reakcja na utratę skrzypiec by go zaskoczyła.</p>
+</section>
+
+<section class="aeliana">
+  <div class="wrap">
+    <div class="eyebrow">Corvum · Whitewood · Kontrabas</div>
+    <h3>Aeliana</h3>
+    <p>Kruczyca z Whitewood, z którą Jack grywał przed wyjazdem — wspomnienie, które nosi podświadomie, nie frontalnie. Corvum są intelektualnymi rywalami Vulpinów: uczeni i logiczni tam, gdzie lisy są kreatywne i intuicyjne. Aeliana z kontrabasem — instrumentem większym od niej, wymagającym fizycznej dyscypliny — jest przełamaniem stereotypu. Duet był lustrzany: wysokie, lekkie melodie Jacka nad jej niskimi, gęstymi, podtrzymującymi tonami.</p>
+    <p class="mono" style="font-size:13px;color:var(--night)">Skrzypce stroi się G·D·A·E. Kontrabas — E·A·D·G. Lustrzane odbicia. Grubsze struny w skrzypcach Jacka to próba zagrania obu stron naraz.</p>
+
+    <h4 style="margin-top:34px">Cztery hipotezy narracyjne <span style="font-weight:400;color:var(--soft)">(wybór gracza i DM)</span></h4>
+    <dl class="hyp">
+      <dt><span class="hl">A</span>Rozstanie w niedomówieniu<span class="rec">rekomendowana</span></dt>
+      <dd>Grali razem latami. Jack wyjechał bez formalnego pożegnania; oboje uznali powrót za oczywisty. Nie tęskni świadomie, bo relacji nie zamknął — trwa w zawieszeniu.</dd>
+      <dt><span class="hl">B</span>Utrata</dt>
+      <dd>Aeliana zmarła lub zaginęła po jego wyjeździe. Grubsze struny są nieuświadomionym dialogiem ze zmarłą.</dd>
+      <dt><span class="hl">C</span>Złamana obietnica</dt>
+      <dd>Mieli coś razem stworzyć — utwór, drogę. Jack wyjechał przed ukończeniem; podświadomie próbuje dokończyć.</dd>
+      <dt><span class="hl">D</span>Vulpinka jako zastępstwo</dt>
+      <dd>Prawdziwe imię wyjawione Vulpince było próbą domknięcia relacji, której nie domknął z Aelianą. Kalimba jako substytut kontrabasu.</dd>
+    </dl>
+
+    <div class="lore">„To niezwykle niski ton jak na skrzypce — kto Cię tego nauczył?"<br>„Nikt. Sam to wymyśliłem."<br><em>…i dopiero po chwili, w ciszy, zaczyna pamiętać.</em><span class="who">Scena wywoławcza — nostalgia się budzi</span></div>
+
+    <p><b>Aeliana jako NPC:</b> uczona / archiwistka / muzyczka spotkana w mieście (rozpoznanie stopniowe); punkt odniesienia przy powrocie do Whitewood (prawdziwe imię musi paść drugi raz); lub rywalka, jeśli relacja skończyła się źle. <b>Pytanie otwarte:</b> czy Aeliana znała prawdziwe imię Jacka? Jeśli tak — Vulpinka nie była „pierwszą poza rodem". Kolejna warstwa tego, co Jack ukrywa przed sobą.</p>
+  </div>
+</section>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ SEKCJA VI: TACTICAL ═══════════════ -->
+<section id="s6" class="wrap">
+  <div class="sec-head">
+    <span class="num">SEKCJA VI</span>
+    <h2>Tactical reference</h2>
+    <p class="sec-intro">Ściąga bojowa — profile na kluczowych poziomach, otwarcia, pacing ki i&nbsp;checklisty do stołu.</p>
+  </div>
+
+  <h3>Profile bojowe</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Lv</th><th>Kluczowe wartości</th><th>Co się zmienia</th></tr></thead>
+    <tbody>
+      <tr><td><b>1</b></td><td>AC 14 · HP 10 · Claws +4, 1d4+2 slash</td><td>Attack + bonus unarmed (Martial Arts) · Charm Person 1×/LR</td></tr>
+      <tr><td><b>3</b></td><td>AC 14 · HP ~22 · Ki 3, DC 12</td><td>Open Hand Technique · Deflect Missiles · <b>Ambush Prey</b></td></tr>
+      <tr><td><b>5</b></td><td>AC 14–15 · HP ~38 · Ki 5, DC 13 · MA d6</td><td><b>Extra Attack + Stunning Strike</b> — signature combo online · Fear</td></tr>
+      <tr><td><b>11</b></td><td>Ki 11, DC ~16 · MA d8</td><td><b>Tranquility</b> — sanctuary 24 h; pełen mediator</td></tr>
+      <tr><td><b>17</b></td><td>Ki 17, DC ~18 · MA d10</td><td><b>Quivering Palm</b> — 3 ki, Con save or 0 HP, uzbrojenie na 17 dni</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Otwarcia walki</h3>
+  <ul>
+    <li><b>Optymalne:</b> Ambush Prey → atak z surprise w advantage → Stunning Strike → Flurry → push 15 ft.</li>
+    <li><b>Reaktywne:</b> Mobile (+ Step of the Wind w razie potrzeby) do priorytetu → standardowe kombo.</li>
+    <li><b>Defensywne:</b> Patient Defense (1 ki, Dodge) · Wholeness of Body (lv 6+, 3×lv HP) przy niskim HP.</li>
+    <li><b>Bez walki:</b> Charm Person · Performance/Acrobatics · By Popular Demand (wikt, nocleg, plotki) · Tongue of the Sun and Moon (lv 13).</li>
+  </ul>
+
+  <h3>Pacing ki</h3>
+  <p>Zakładaj 6–8 encounterów / 2 short resty na long rest. Wydawaj 2–3 ki na encounter; zostaw bufor na ratunkowy stun lub (lv 14+) Diamond Soul reroll. <span class="cost">Stunning + Flurry = 2 ki</span> <span class="cost">Patient Defense = 1 ki</span> <span class="cost">Quivering Palm = 3 ki</span></p>
+
+  <div class="checklists">
+    <div class="col">
+      <h4>Checklist — gracz</h4>
+      <ul>
+        <li>Opisuj ataki jako <b>pazury</b>; od lv 5 mechanika tożsama z unarmed strike (różny tylko typ: slashing).</li>
+        <li>Boss-fighty otwieraj przez <b>Ambush Prey</b>.</li>
+        <li>Kombo: <b>Stunning → Flurry → push 15 ft</b> (2 ki). Push jest dominującym wyborem OHT — szukaj krawędzi, AoE, pułapek.</li>
+        <li>Nie zaczynaj walki bez próby mediacji, gdy sytuacja pozwala.</li>
+        <li>Oszczędzaj Charm Person — Jack go nienawidzi używać.</li>
+        <li>Instrument sygnalizuje stan: <b>lira</b> = codzienność · <b>kalimba</b> = Vulpinka, tęsknota · <b>skrzypce</b> = stan, którego sam nie rozumie.</li>
+        <li>Pazury schowane vs wysunięte — gest RP: powściągliwość albo gotowość.</li>
+        <li><b>Prawdziwe imię</b> — raz, może dwa razy w grze. Sygnalizuj DM wagę.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>Checklist — DM</h4>
+      <ul>
+        <li><b>Whitewood</b> jako puls w tle: posłańcy, listy, sen o norze, echo Powodzi.</li>
+        <li><b>Biblioteka rodowa</b> — skarbnica hooków i „pamięci rodu".</li>
+        <li><b>Vulpinka z kalimbą</b> — pending NPC; wprowadzać z wagą.</li>
+        <li><b>Aeliana — slow burn:</b> niski ton zauważony przez NPC, kontrabas w mieście, sen. Pełne objawienie: kilkanaście sesji.</li>
+        <li>Instrumenty jako diagnostyka emocjonalna gracza.</li>
+        <li>„Sucker for a pretty face" — komplikacje z umiarem.</li>
+        <li>Strach o spaczenie = dylematy moralne całej kampanii: „sophisticated mnich" vs „savage Vulpin".</li>
+        <li>Lv 17: czy gracz w ogóle <em>chce</em> używać Quivering Palm? Odmowa też jest w charakterze.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Pięć potencjalnych arców fabularnych</h3>
+  <ol class="arcs">
+    <li><b>Powrót do Whitewood</b> — kampania kończy się „pierwszym dniem wiejskiego arbitra". Jack sięga po skrzypce rodowe.</li>
+    <li><b>Vulpinka z kalimbą</b> — obiecana w niebezpieczeństwie; „harmonijnie do niej" staje się zadaniem dosłownym.</li>
+    <li><b>Biblioteka zagrożona</b> — ktoś szuka dokumentu z zasobów Leothernów; etos rodu na próbie.</li>
+    <li><b>Spaczenie</b> — wybór wymagający Charm Person tam, gdzie możliwa była rozmowa. Decyzja kształtuje ton dalszego RP.</li>
+    <li><b>Quivering Palm jako pokusa</b> — uzbrojona bomba w ciele bossa. Użyć, czy szukać innej drogi?</li>
+  </ol>
+</section>
+
+<div class="strings" aria-hidden="true"><span class="tune">G · D · A · E</span><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+
+<!-- ═══════════════ ZAKOŃCZENIE ═══════════════ -->
+<section class="wrap">
+  <div class="sec-head">
+    <span class="num">CODA</span>
+    <h2>Harmonia zaczyna się od zasad</h2>
+  </div>
+  <p>Jack Leothern to postać zbudowana świadomie wbrew optymalizacji — i w tej niezgodności znajduje głębię. Vulpin nie wzmacnia Monka liczbowo, ale daje pazury w rękach muzyka, trzecią warstwę obrony, magię, której Open Hand nie ma — i cały ciężar „sophisticated and savage", który Jack przerabia w sobie codziennie.</p>
+  <p>Ustalenie per-Flurry wzmacnia jego narrację: każdy Flurry to jedna, świadoma decyzja — jak wszystko w życiu mnicha, który uczy się wybierać między pomaganiem a kontrolowaniem, między imieniem użytkowym a prawdziwym. Trzy instrumenty rozwarstwiają go na trzy głębokości; czwarty czeka w domu. A Aeliana — nawet jeśli nigdy nie wejdzie na scenę — już działa: każdy kontrabasowy ton z jego zmodyfikowanych skrzypiec jest listem, którego ona może nigdy nie przeczytać.</p>
+  <div class="lore">Harmonia, do której Jack dąży, zaczyna się od uporządkowania własnych zasad. Ten dokument jest takim porządkiem na piśmie.</div>
+</section>
+
+<footer class="wrap">
+  <div class="strings" style="margin:0 0 26px;padding:0" aria-hidden="true"><div class="s"></div><div class="s"></div><div class="s"></div><div class="s"></div></div>
+  <div class="colophon">
+    JACK LEOTHERN · DOSSIER SKONSOLIDOWANE · KRĄG CIENI<br>
+    D&amp;D 5E (PHB 2014) · HUMBLEWOOD CAMPAIGN SETTING · USTALENIA DM №1–2 WBUDOWANE<br>
+    SKŁAD: EB GARAMOND · PLAYFAIR DISPLAY · IBM PLEX MONO
+  </div>
+</footer>
+
+</body>
+</html>

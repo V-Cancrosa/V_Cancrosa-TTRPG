@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pamiętnik — Welian Sink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#14100b;
+    --ground-2:#1d160e;
+    --ink-2:#516a55;          /* śniedź — drugi atrament, głosy, legion */
+    --ink-2-deep:#425a48;
+    --seal-copper-1:#b9743a;
+    --seal-copper-2:#80451f;
+    --seal-edge:#43583f;
+    --hair:rgba(120,150,120,.22);
+  }
+
+  *{box-sizing:border-box}
+
+  html{scroll-behavior:smooth}
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(120% 80% at 50% -10%, #241a10 0%, var(--ground-2) 38%, var(--ground) 78%),
+      var(--ground);
+    color:#e7d9bd;
+    font-family:"EB Garamond",Georgia,serif;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+    padding:clamp(1.1rem,4vw,3.2rem) 0 5rem;
+  }
+
+  /* faint candle warmth, static */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(60% 45% at 50% 8%, rgba(196,128,54,.10), transparent 70%);
+  }
+
+  .wrap{position:relative;z-index:1;max-width:43rem;margin:0 auto;padding:0 clamp(.9rem,3vw,1.4rem)}
+
+  /* ---------- masthead ---------- */
+  .masthead{text-align:center;margin:1rem 0 2.6rem;color:#b9a884}
+  .masthead .eyebrow{
+    font-family:"Fraunces",serif;letter-spacing:.42em;text-indent:.42em;
+    font-size:.74rem;text-transform:uppercase;color:var(--ink-2);
+    display:inline-block;
+  }
+  .masthead .rule{
+    width:3.4rem;height:0;border-top:1px solid var(--hair);
+    margin:.95rem auto 1.05rem;position:relative;
+  }
+  .masthead .rule::after{
+    content:"";position:absolute;left:50%;top:-3px;width:6px;height:6px;
+    transform:translateX(-50%) rotate(45deg);
+    background:var(--ink-2);opacity:.65;border-radius:1px;
+  }
+  .masthead .cap{font-style:italic;font-size:1.02rem;line-height:1.6;color:#a9986f;max-width:30rem;margin:0 auto}
+
+  /* ---------- leaf (a parchment page) ---------- */
+  .leaf{
+    --ink:#251d13;
+    --pulp:#efe5cd;
+    --stain:.05;
+    --verd:0;             /* ile śniedzi wchodzi w pergamin u dołu skali */
+    position:relative;
+    background-color:var(--pulp);
+    background-image:
+      radial-gradient(60% 42% at 16% 14%, rgba(96,64,32,var(--stain)) 0%, transparent 38%),
+      radial-gradient(46% 34% at 84% 26%, rgba(86,58,28,calc(var(--stain)*.85)) 0%, transparent 34%),
+      radial-gradient(56% 40% at 72% 86%, rgba(74,86,58,calc(var(--stain)*var(--verd))) 0%, transparent 42%),
+      radial-gradient(40% 30% at 24% 88%, rgba(70,82,54,calc(var(--stain)*var(--verd)*.9)) 0%, transparent 40%),
+      radial-gradient(38% 30% at 50% 50%, rgba(92,62,30,calc(var(--stain)*.5)) 0%, transparent 60%);
+    border-radius:3px 4px 3px 4px;
+    padding:clamp(1.5rem,5vw,2.9rem) clamp(1.3rem,5vw,3rem) clamp(1.8rem,5vw,3rem);
+    margin:0 0 clamp(1.4rem,3.5vw,2.2rem);
+    box-shadow:
+      0 1px 0 rgba(255,244,222,.25) inset,
+      0 0 38px rgba(48,32,16,.5) inset,
+      0 16px 30px -18px rgba(0,0,0,.7),
+      0 3px 8px -4px rgba(0,0,0,.55);
+    /* reveal */
+    opacity:0;transform:translateY(14px);
+    transition:opacity .8s ease, transform .8s ease;
+  }
+  .leaf.is-in{opacity:1;transform:none}
+
+  /* paper grain */
+  .leaf::before{
+    content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='170' height='170'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;opacity:.06;
+  }
+  .leaf>*{position:relative}
+
+  .eyebrow{
+    display:flex;align-items:baseline;gap:.7rem;
+    color:var(--ink);margin:0 0 1.15rem;
+    border-bottom:1px solid rgba(60,40,20,.16);padding-bottom:.7rem;
+  }
+  .eyebrow .num{font-family:"Fraunces",serif;font-weight:600;font-size:1.5rem;line-height:1;letter-spacing:.02em}
+  .eyebrow .lbl{font-family:"EB Garamond",serif;text-transform:uppercase;letter-spacing:.34em;font-size:.72rem;opacity:.82}
+
+  .leaf p{
+    color:var(--ink);
+    font-size:1.075rem;
+    line-height:1.74;
+    margin:0 0 1.02rem;
+    text-align:justify;
+    text-justify:inter-word;
+    hyphens:auto;
+  }
+  .leaf p:last-child{margin-bottom:0}
+
+  /* drugi atrament — głosy zza drugiej strony */
+  .glos{
+    color:var(--ink-2) !important;
+    font-style:italic;
+    margin-left:1.4rem !important;
+    padding-left:.95rem;
+    border-left:1px solid color-mix(in srgb, var(--ink-2) 55%, transparent);
+    font-size:1.02rem !important;
+    opacity:.96;
+  }
+
+  .fading{opacity:.66;letter-spacing:.012em}
+
+  /* ---------- wordplay: wygra…liśmy ---------- */
+  .wordplay{
+    text-align:center;
+    font-family:"Fraunces",serif;
+    font-weight:600;
+    color:var(--ink) !important;
+    font-size:clamp(2rem,8vw,2.9rem) !important;
+    letter-spacing:.015em;
+    margin:1.7rem 0 .3rem !important;
+    line-height:1.1;
+  }
+  .wordplay .ell{position:relative;display:inline-block}
+  .wordplay .ghost{
+    position:absolute;left:50%;bottom:108%;transform:translateX(-50%);
+    font-family:"EB Garamond",serif;font-style:italic;font-weight:400;
+    font-size:.42em;letter-spacing:0;white-space:nowrap;
+    color:var(--ink);opacity:.17;
+    text-decoration:line-through;text-decoration-thickness:.5px;
+  }
+
+  /* ---------- podpisy ---------- */
+  .signlead,.legionlead{
+    color:var(--ink) !important;opacity:.7;font-style:italic;
+    font-size:.98rem !important;margin:1.3rem 0 .15rem !important;text-align:center;
+  }
+  .sign{
+    font-family:"Pinyon Script",cursive;
+    color:var(--ink) !important;
+    font-size:clamp(2.6rem,11vw,3.5rem) !important;
+    line-height:1;text-align:center;margin:.1rem 0 0 !important;
+  }
+  .legion{
+    font-family:"EB Garamond",serif;font-style:italic;
+    color:var(--ink-2) !important;
+    text-align:center;letter-spacing:.16em;
+    font-size:1.18rem !important;margin:.5rem 0 0 !important;
+  }
+
+  /* ---------- sygnet — pieczęć zamykająca ---------- */
+  .closing{display:flex;justify-content:center;margin:2.4rem 0 .4rem}
+  .signet{
+    width:84px;height:84px;border-radius:49% 51% 50% 50%/51% 49% 51% 49%;
+    display:grid;place-items:center;
+    background:
+      radial-gradient(60% 55% at 38% 32%, var(--seal-copper-1), var(--seal-copper-2) 72%, #5f3216 100%);
+    box-shadow:
+      0 2px 5px rgba(0,0,0,.45),
+      0 0 0 2px rgba(67,88,63,.5),
+      0 0 0 4px rgba(20,16,11,.55),
+      inset 0 2px 4px rgba(255,210,150,.35),
+      inset 0 -5px 10px rgba(50,22,8,.6);
+    position:relative;
+  }
+  .signet::after{
+    content:"";position:absolute;inset:6px;border-radius:inherit;
+    box-shadow:inset 0 0 0 1px rgba(60,80,55,.35);
+    background:radial-gradient(50% 50% at 50% 40%, rgba(255,220,170,.12), transparent 70%);
+  }
+  .signet b{
+    font-family:"Fraunces",serif;font-weight:600;font-size:2.5rem;line-height:1;
+    color:#2c1608;
+    text-shadow:0 1px 0 rgba(255,205,150,.4),0 -1px 1px rgba(40,18,6,.6);
+  }
+  .colophon{
+    text-align:center;font-style:italic;font-size:.86rem;color:#8c7c58;
+    letter-spacing:.04em;margin:.8rem 0 0;
+  }
+
+  /* ================= per-entry tokens (czerń → miedź) ================= */
+  .e1 {--ink:#251d13;--pulp:#efe5cd;--stain:.05;--verd:0}
+  .e2 {--ink:#281e12;--pulp:#ede2c8;--stain:.06;--verd:0}
+  .e3 {--ink:#2d2113;--pulp:#eaddc1;--stain:.08;--verd:.08}
+  .e4 {--ink:#342513;--pulp:#e7d9ba;--stain:.10;--verd:.18}
+  .e5 {--ink:#3d2914;--pulp:#e3d4b3;--stain:.12;--verd:.30}
+  .e6 {--ink:#472d14;--pulp:#e0cfac;--stain:.14;--verd:.42}
+  .e7 {--ink:#553216;--pulp:#dccaa4;--stain:.16;--verd:.55}
+  .e8 {--ink:#663a18;--pulp:#d9c69d;--stain:.18;--verd:.68}
+  .e9 {--ink:#7c451c;--pulp:#d6c197;--stain:.20;--verd:.82}
+  .e10{--ink:#8a4d1f;--pulp:#d3bd90;--stain:.22;--verd:.92}
+  .e11{--ink:#97561f;--pulp:#d0b98b;--stain:.235;--verd:1}
+  .e12{--ink:#a05a22;--pulp:#cdb486;--stain:.25;--verd:1}
+
+  /* ================= a11y / motion / print ================= */
+  @media (prefers-reduced-motion:reduce){
+    .leaf{opacity:1;transform:none;transition:none}
+    html{scroll-behavior:auto}
+  }
+  a:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--ink-2);outline-offset:3px}
+
+  @media print{
+    body{background:#fff;color:#000;padding:0}
+    body::before{display:none}
+    .leaf{box-shadow:none;border:1px solid #ddd;break-inside:avoid;opacity:1;transform:none;background:#fbf7ec}
+    .leaf::before{display:none}
+    .masthead .cap{color:#444}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="masthead">
+    <span class="eyebrow">Pamiętnik</span>
+    <div class="rule"></div>
+    <p class="cap">Znaleziony na stole, w izbie opuszczonej przez medium z gorszej dzielnicy. Dwanaście kart, jedną ręką.</p>
+  </header>
+
+  <!-- I -->
+  <article class="leaf e1">
+    <div class="eyebrow"><span class="num">I</span><span class="lbl">Wpis pierwszy</span></div>
+    <p>Wszystko trzeba kiedyś zacząć od początku, a początki gubią się najłatwiej — więc go zapisuję. Nowe miasto, nowa nora, nowy ja: przynajmniej tyle, ile da się odnowić, nie ruszając w środku niczego istotnego.</p>
+    <p>Na lepszą część miasta mnie nie stać, więc wynająłem na samym skraju tej gorszej — na granicy, z której widać oba światy. To nawet pociecha: dość blisko porządnych ulic, żeby klient nie bał się tu zajść, i dość daleko od ich spojrzeń, żeby nie pytali, czym właściwie się zajmuję. Reszta dzielnicy każe mieć się na baczności i nie wstydzę się tego przyznać.</p>
+    <p>Rozglądam się i robię to, co umiem najlepiej, nawet kiedy nie chcę: czytam. Twarze tutaj są pozamykane na głucho, ale zamki bywają gadatliwe. Mężczyzna, który za długo trzyma dłoń na sakiewce. Kobieta, która mówi o mężu w czasie przeszłym i jeszcze tego nie zauważyła. Chłopak, który uśmiecha się o ułamek za późno. Każdy coś dźwiga i każdy udaje, że nie.</p>
+    <p>I nie tylko ta dzielnica. Świat jest dziś ciężki dla wszystkich, tyle że każdy niesie swój ciężar osobno, jakby się go wstydził. Matka powtarzała, że ludziom najbardziej trzeba pomagać w głowie, bo tam właśnie mieszkają — wszyscy, całe życie — a niektórzy zamykają się w niej na klucz i zostają w środku sami. Niewiele mi zostawiła, ale to zdanie zostawiła. I sygnet, który mam na palcu, kiedy to piszę.</p>
+    <p>Nie jestem idealistą i nie będę udawał przed samym sobą, że nim jestem. Robię to, co robiła ona — seanse, rozmowy z tymi, których już nie ma — choć nie mam jej daru i chyba zawsze wiedziałem, że nie mam. Czego nie ma we mnie, nadrabiam tym, że widzę ludzi na wylot. Tu wszystko schodzi się w jedno: to, czego im trzeba, to, co umiem, i to, z czego wyżyję. A jeśli wyjdą stąd lżejsi, niż weszli, nie obchodzi mnie, czy rozmawiali z umarłym, czy ze mną. Obchodzi mnie, że wyszli lżejsi.</p>
+    <p>Tyle na początek. Jutro rozłożę stół, rozwieszę afisze i zacznę notować, kto przychodzi i z czym. Dziś chciałem zapisać tylko to — że zaczynam, i po co.</p>
+  </article>
+
+  <!-- II -->
+  <article class="leaf e2">
+    <div class="eyebrow"><span class="num">II</span><span class="lbl">Wpis drugi</span></div>
+    <p>Pierwszy. Mężczyzna, człowiek, wszedł i nie zdjął płaszcza — albo nie zamierzał zostać dłużej, niż musi, albo nie wierzył, że warto.</p>
+    <p>Zanim usiadł, wiedziałem już połowę. Obrączka — ale wytarta do połysku od spodu, od strony dłoni, nie z wierzchu. Tak ściera się tylko pierścień, który obraca się bez przerwy, kciukiem, w kółko, kiedy ręce nie mają co ze sobą zrobić. Nosi ją, więc żona jest; obraca ją tak, więc żony nie ma. Resztę dopowiedziały drobiazgi: koszula odprasowana starannie, lecz guzik przyszyty krzywo, świeżą nitką — ktoś dotąd robił to za niego, a teraz uczy się sam.</p>
+    <p>Ale z samego patrzenia niewiele się zbuduje — resztę trzeba wysłuchać. Więc rozmawiałem. Pytałem o byle co i słuchałem, gdzie się potyka. Imię padło samo: Marit. Mówił o niej spokojnie, póki nie doszedł do ostatniego ranka — wtedy zaczął tłumaczyć, że pokłócili się o coś głupiego, że wyszedł bez słowa, a ona już nie żyła, kiedy wrócił. Nie szukał żony. Szukał rozgrzeszenia.</p>
+    <p>Reszta była prosta i nie była uczciwa. Dałem mu te kilka zdań, których nie umiał powiedzieć sobie sam: że się nie gniewała, że ostatnie słowo nie było ostatnie, że ma żyć dalej i że to w porządku. Nie wymyśliłem ich z powietrza — wyczytałem je z niego i tylko oddałem mu je jej głosem.</p>
+    <p>Nie wyszedł uzdrowiony; nikt nie wychodzi po jednym wieczorze. Żałoby nie rozwiązuje się jak rachunku. Wyszedł tylko trochę lżejszy i powiedział, że wróci. Dobrze. Tyle akurat umiem obiecać.</p>
+    <p>Robię coś, na co ten świat nie ma jeszcze nazwy. Nie rozmawiam z umarłymi — słucham żywych i oddaję im to, na co sami sobie nie pozwalają. Gdyby istniał fach od porządkowania tego, co ludzie noszą w głowie, robiłbym go pod prawdziwym szyldem. Nie istnieje, więc robię go pod szyldem zaświatów. Matka nazwałaby to pomaganiem w głowie.</p>
+    <p>Na przyszłość, żebym nie zgubił: Marit, żona, ranek po kłótni. Wciąż obraca obrączkę. Trzeba mu jej wybaczenia, nie jej obecności — następnym razem zacząć od tego, że nie czekała na niego z gniewem. To go otwiera. …I chyba właśnie zacząłem prowadzić rejestr.</p>
+  </article>
+
+  <!-- III -->
+  <article class="leaf e3">
+    <div class="eyebrow"><span class="num">III</span><span class="lbl">Wpis trzeci</span></div>
+    <p>Minęło trochę. Rozkręciło się — na tyle, że prowadzę już kajet jak należy, żeby nie pomylić twarzy ani zmarłych. Zapisuję skrótem, dla porządku.</p>
+    <p>Człowiek z obrączką — Marit. Był trzy razy. Za każdym lżej, ale wolniej, niż by chciał. Uczę go, że wracanie to nie słabość.</p>
+    <p>Krasnolud, kamieniarz. Brat, z którym nie gadał od lat, umarł pierwszy. Nie chce przeprosin — chce usłyszeć, że brat też ich nie zdążył powiedzieć. Dałem mu to. Prawda czy nie, obu było ciężko.</p>
+    <p>Elfka. Płacze po kimś, kto umarł, zanim ja się urodziłem; dla niej to przedwczoraj. Nie potrzebuje pociechy, tylko kogoś, kto nie powie jej, że „już czas". Słucham. To wystarcza.</p>
+    <p>Niziołek. Chciał wiedzieć, gdzie babka chowała pieczęć do listów. Babki nie wywołam, ale rozmowa naprowadziła go samego — była w puszce po herbacie. Jeden seans, jeden uśmiech; czasem tyle.</p>
+    <p>Półork. Nie pyta o zmarłego — pyta, czy ojciec, człowiek, wstydził się go za życia. Wstydził, pewnie tak. Powiedziałem, że był dumny. Jedno z tych kłamstw, których nie żałuję.</p>
+    <p>Tieflinka. Sąsiad umarł, pół ulicy szepcze, że przez nią. Przyszła sprawdzić, czy zmarły ją obwinia. Nikt jej nie obwinia prócz niej samej. Nad tym popracujemy — wróci.</p>
+    <p>Gnom, mechanik. Wspólnik umarł w połowie roboty. Pyta, czy kończyć sam. To nie pytanie do zmarłych, to pytanie do niego — ale łatwiej je zadać przez stół z kulą. Skończy.</p>
+    <p>Tabaxi, wiecznie w drodze. Nigdy się nie żegna, bo zawsze rusza dalej — z nią też nie zdążył. Pyta, czy miała mu to za złe. Powiedziałem, że rozumiała, bo sama była taka sama. Może i prawda.</p>
+    <p>Drobiazg, nie do rejestru, ale zapisuję: sygnet po matce obraca się dziś luźniej, niż pamiętam. Schudłem chyba przez te wieczory — siedzę więcej, niż jem. Trzeba będzie kazać go kiedyś zwęzić. Kiedyś.</p>
+  </article>
+
+  <!-- IV -->
+  <article class="leaf e4">
+    <div class="eyebrow"><span class="num">IV</span><span class="lbl">Wpis czwarty</span></div>
+    <p>Ten wpis powinien być krótki jak inne, a nie będzie. Zdarzyło się coś, czego nie umiem wpisać w rubrykę.</p>
+    <p>Człowiek z obrączką, znów. Wszystko szło jak zawsze — dawałem mu Marit taką, jakiej potrzebował. A potem, w środku zdania, padło ze mnie słowo, którego nie znałem: tak nazywał ją tylko on, po nocach, i nigdy mi tego nie powiedział. Twarz mu zbielała. Spytał, skąd wiem.</p>
+    <p>Wyszedłem z tego gładko, jak zawsze: że wspomniał o tym za pierwszym razem, że dużo wtedy mówił, że nie pamięta. Chciał uwierzyć, więc uwierzył. Wyszedł lżejszy niż kiedykolwiek.</p>
+    <p>Tylko ja wiem, że akurat tego jednego nie wymyśliłem. Nie wspominał o tym nigdy. Nie miałem tego w kajecie ani na żadnej luźnej kartce, a kiedy czytałem go przy stole, szukałem tego słowa odruchowo — i nie było go w jego głowie. A jednak wyszło ze mnie gotowe, jak własne wspomnienie. Skąd.</p>
+    <p>Jest jeszcze druga rzecz, której nie chciałem zapisywać, bo zapisana robi się prawdziwa. Na przedramieniu mam plamę — skóra zzieleniała, matowo, jak u półorka, choć nie swędzi i nie boli. Niżej, przy nadgarstku, wyszło kilka włosków, grubszych, nie moich, jakby zaczynało tam rosnąć czyjeś futro. Medyk obejrzał, postukał, nie wiedział. Kapłan pobłogosławił i też nie wiedział, tylko patrzył na mnie dłużej, niż lubię.</p>
+    <p>Mówię sobie: wilgoć w tej norze, złe powietrze, za mało snu, za dużo umarłych w głowie od rana do nocy. Pewnie tyle. Nie podoba mi się jedynie, że plama i to słowo przyszły w tym samym tygodniu. Ale to pewnie przypadek. Wpisuję jedno i drugie osobno, na dwie różne strony kajetu, żeby ze sobą nie sąsiadowały.</p>
+  </article>
+
+  <!-- V -->
+  <article class="leaf e5">
+    <div class="eyebrow"><span class="num">V</span><span class="lbl">Wpis piąty</span></div>
+    <p>Zrobiło się trudniej, i to nie od ludzi. Druga strona przestała podrzucać same drobiazgi — teraz wkłada mi w usta całe zdania, i nie zawsze takie, jakie chcę powiedzieć. Okazuje się, że nie każdy zmarły życzy żywym dobrze. Niektórzy wracają z urazą, pełną i świeżą, jakby śmierć niczego nie ostudziła.</p>
+    <p>Przyszła kobieta po słowo od matki — po „byłaś dobrą córką". A ze mnie wyszło coś innego: cięte, zimne, dokładnie w jej najczulsze miejsce, słowami, których sam bym nie ułożył. Musiałem łapać to w locie i odwracać — że matka była twarda, bo się o nią bała; że ostrość to nie to samo co brak miłości. Wyszła pocieszona. Ale to już nie było zmyślanie pociechy. To było wyrywanie jej z czyichś zębów.</p>
+    <p>I jeszcze to: kiedy tamto cięte wychodziło ze mnie, plama na karku pociemniała i napięła się, jakby ktoś ją zacisnął. Kiedy odwróciłem słowa i kobieta odetchnęła — zelżała. Nie rozumiem tego — i pewnie nie ma czego rozumieć. Kiedy walczę o czyjeś słowa, sam się spinam; ciało napina się ze mną, a potem puszcza. To ja reaguję, nie żadna „druga strona". Zapisuję to tylko dlatego, że zeszło się z tamtymi słowami zbyt równo, żeby mi się podobało.</p>
+    <p>Zmiany chodzą po mnie, jak chcą. Pojawiają się, znikają, przesuwają, raz lżeją, raz się zaostrzają. Coraz częściej tam, gdzie widać — na karku, na grzbiecie dłoni — choć twarz na razie zostawiają w spokoju. Noszę dłuższe rękawy i chustę wyżej, niż każe pogoda. Klient nie może zobaczyć, że uzdrowiciel sam jest na coś chory.</p>
+    <p>A świat nie przejmuje się tym, co się ze mną dzieje, i przypomina o tym po swojemu. Najpierw zniknął mi mieszek — w tłoku, czysto, nawet nie poczułem. Potem ktoś wszedł nocą i zabrał świeczniki, te dobre, mosiężne, które robiły pół nastroju przy stole. W tej dzielnicy nikt ci nic nie odda i nikt się nie zdziwi, że cię okradli. Zdziwią się tylko, jeśli pozwolisz na to drugi raz.</p>
+    <p>Więc się uczę. Tego samego oka, którym szukam w klientach, co kryją w żałobie, używam teraz na bazarze i w zaułkach — kto mierzy moją kieszeń, kto za długo patrzy na moje drzwi, kto idzie krok za blisko. Ten sam talent, tylko ciemniejszy. A zamków nauczyłem się od drugiej strony: pomyśleć jak ten, kto je otwiera, żeby zamknąć je tak, by mu się odechciało.</p>
+    <p>Pilnuję się teraz z dwóch stron. Od ludzi wiem już, czego się strzec. Od umarłych — jeszcze nie.</p>
+  </article>
+
+  <!-- VI -->
+  <article class="leaf e6">
+    <div class="eyebrow"><span class="num">VI</span><span class="lbl">Wpis szósty</span></div>
+    <p>Zapiszę to tak, jak opisywałbym cudzy przypadek, bo na sobie nie umiem inaczej zachować trzeźwości. Fakty: zmiany na skórze przestały być choćby regularne w swojej nieregularności. Już nie wędrują — łączą się.</p>
+    <p>I łączą się w rzeczy, których nie ma. Na przedramieniu zielona plama porosła futrem; sprawdziłem, dopytałem, przejrzałem, co mam pod ręką — zielone futro nie istnieje. U nikogo. Na drugiej dłoni narosła łuska, ale miękka, ustępująca pod palcem, a łuska tortla taka nie bywa, bo cała jej istota to twardość. Te połączenia nie należą do żadnego stworzenia, jakie znam. Składam je z kawałków, które osobno do kogoś pasują, a razem do nikogo.</p>
+    <p>Szukam wyjaśnienia jak zawsze: odrzucam po kolei. Choroba? Żadna nie buduje futra tam, gdzie futra być nie powinno. Trucizna, pleśń, złe powietrze tej nory? Nie tłumaczą wyboru, jaki te zmiany zdają się mieć. Klątwa? Nie wierzę w klątwy, a nawet gdybym wierzył, klątwy nie improwizują. Wykreślam jedno po drugim, aż zostaje to, czego wykreślić nie mogę — i to jest najgorsze.</p>
+    <p>Bo zostaje myśl, której nie zapiszę bez zastrzeżenia, że jest szalona: że to nie choroba ani trucizna, tylko kawałki ludzi — różnych, obcych sobie, ściśniętych w jedno ciało, które nie umie się zdecydować, którym z nich być. Gdyby to był cudzy przypadek, odrzuciłbym takiego medyka jako wariata. Ale odrzuciłem już wszystko prawdopodobne, a to jedno zostaje możliwe — i nienawidzę, że logika prowadzi mnie dokładnie tam, gdzie rozum każe nie iść.</p>
+    <p>Więc powtarzam sobie to, co wiem na pewno, bo to jedyny grunt, jaki mam: ja nie rozmawiam z duchami. Nigdy nie rozmawiałem. Czytam żywych i oddaję im obraz ich własnego zmarłego, którego sami mi przynieśli. Tak było od początku, tak jest dziś. Cokolwiek dzieje się z moją skórą, nie ma prawa mieć z tym nic wspólnego — bo gdyby miało, znaczyłoby, że przez te wszystkie lata nie udawałem. A udawałem. Wiem, że udawałem.</p>
+    <p>(Raz, przez chwilę, wydało mi się, że te kawałki przypominają ludzi, z którymi siedziałem przy stole. Zielony jak tamten półork. Łuska jak u staruszka sprzed miesięcy. Ale twarze w plamach widzi każdy, kto za długo się w nie wpatruje. Wykreślam i to.) Trzymam rękawy nisko, a rozum wysoko. Póki jedno i drugie się trzyma, jestem sobą.</p>
+  </article>
+
+  <!-- VII -->
+  <article class="leaf e7">
+    <div class="eyebrow"><span class="num">VII</span><span class="lbl">Wpis siódmy</span></div>
+    <p>Znów piszę to jak cudzy przypadek, ale tym razem ręka mi drży przy piórze, więc dystans nie wychodzi czysto. Trudno badać własną dłoń z chłodem, kiedy to właśnie ona przestała być pewna.</p>
+    <p>Po wczorajszym seansie zdjąłem rękawice — noszę je teraz zawsze, żeby nie pokazywać, co dzieje się ze skórą — i były wilgotne od środka. Pomyślałem: pot, nerwy, duszna izba. Rozsądnie. Aż spojrzałem na to, co je zmoczyło.</p>
+    <p>Dłoń była moja. Te same linie, ta sama blizna u kciuka. Ale powierzchnia zrobiła się jak wosk. Nie taki twardy, jaki stoi w lichtarzu — taki, jaki jest tuż przy płomieniu, w miejscu, gdzie świeca dopiero stała się płynna i jeszcze nie spłynęła. Miękki. Lśniący. Ledwie, ledwie się ruszał, jakby chciał obsunąć się z kości. Patrzyłem na własną rękę i nie umiałem jej kazać przestać.</p>
+    <p>Dopiero strach to przerwał. Prawdziwy, zimny — i kiedy mnie chwycił, dłoń jakby na niego odpowiedziała: stężała, ścisnęła się z powrotem w ciało, twarde, moje. Jakby to przerażenie zszyło ją na nowo. Tego też nie rozumiem. Wiem tylko, że to panika, nie spokój, trzyma mnie w jednym kształcie.</p>
+    <p>Medyka i kapłana już zużyłem; żaden nie wiedział. Więc zrobiłem ostatnią rozsądną rzecz: zapłaciłem tym, co znają magię — dwóm, osobno, żeby się nie zmówili. Jeśli cokolwiek ma nazwę, myślałem, magia ją zna; magia to przecież spis tego, co niemożliwe. Oglądali, próbowali, marszczyli się. Nic. Żadnego zaklęcia, żadnej klątwy, żadnej przypadłości w ich księgach. Ostatnia rama, która mogłaby mnie pomieścić, nie ma dla mnie półki.</p>
+    <p>Zostały mi tłumaczenia coraz cieńsze: gorąco od świec, zmęczenie, oko, które po nocach widzi, czego nie ma. Powtarzam je sobie i pierwszy raz słabo się trzymają. Powtarzam więc to drugie, pewniejsze: ja czytam żywych, nie rozmawiam z umarłymi. Zawsze tak było. I pierwszy raz, odkąd to piszę, samo powtórzenie mnie nie uspokoiło. Coś jest nie tak w sposób, który nie ma nazwy — a mnie zaczyna brakować sposobów, żeby na to nie patrzeć. Co wieczór gaszę świece przy stole i patrzę, jak wosk ścieka przy knocie. Wcześniej tego nie widziałem. Teraz widzę tylko to.</p>
+  </article>
+
+  <!-- VIII -->
+  <article class="leaf e8">
+    <div class="eyebrow"><span class="num">VIII</span><span class="lbl">Wpis ósmy</span></div>
+    <p>Najpierw przyszły sny. Nie koszmary — gorzej, bo spokojniejsze. Zasypiam i przestaję być sobą; nie tak, że śnię, że jestem kimś innym, tylko tak, że przestaję mieć brzegi, po których wiadomo, gdzie kończę się ja, a zaczyna ktoś.</p>
+    <p>A w tej przestrzeni bez brzegów są głosy. Nie mówią do mnie — po prostu są, mówią dalej, jakby nigdy nie przestały. Kobieta tłumacząca mężowi, że woda była zimna i że to nie jego wina. Inna, twarda, która wciąż nie umie powiedzieć córce dobrego słowa. Ktoś, kto żałuje, że zawsze ruszał dalej i nigdy się nie pożegnał.</p>
+    <p>Znam te głosy. Znam je, bo sam je wymyśliłem — to ich wkładałem w usta przy stole, zgadując, czego potrzebują żywi. Tyle że teraz mówią rzeczy, których nigdy nie napisałem. Marit mówi mężowi coś, czego on mi nie powiedział, a ja nie zgadłem. Mówią same. To nie moje zmyślenia śnią mi się z powrotem. To oni.</p>
+    <p>A od kilku nocy nie kończy się to z przebudzeniem. Słyszę je przez chwilę z otwartymi oczami, zanim ucichną — nie wyobrażone, nie domyślane, tylko usłyszane, jak głos zza ściany. Skóra była poszlaką. Dłoń była poszlaką. To nie jest poszlaka. To dowód.</p>
+    <p>Więc robię to, co robi rozum, kiedy zostaje przyparty do końca samego siebie. Wykreśliłem chorobę, truciznę, klątwę, magię — wszystko możliwe i wszystko nieprawdopodobne, co dało się sprawdzić. Zostało jedno, czego wykreślić nie sposób, bo właśnie do mnie mówi. Nie zwariowałem; szaleństwo byłoby łatwiejsze. Po prostu skończyły mi się fałszywe odpowiedzi. Zatem ta prawdziwa, choćby była nie do pomyślenia, brzmi tak: podpinam się pod drugą stronę i ściągam stamtąd umarłych do siebie. To teraz fakt. Od niego liczę dalej.</p>
+    <p>Tyle że ten jeden fakt zabiera mi drugi, na którym stałem całe życie. Bo jeśli to prawda, to znaczy, że nie zawsze udawałem. Że rzecz, którą sprzedawałem jako sztuczkę, jest realna — i przyszła po mnie. Trzymałem się tego, że tylko udaję, jak gruntu pod nogami. Okazało się, że tego gruntu nigdy nie było.</p>
+    <p>Więc liczę dalej, na chłodno, bo tylko to mi zostało. Jest ich we mnie coraz więcej. Przychodzą z każdym seansem i nie wychodzą — nie umiem ich wypuścić, nie wiem nawet, jak się tego próbuje. Skóra, dłoń, wosk przy knocie — to nie choroba. To oni układają się we mnie, każdy po swojemu, a ciało nie wie, którym z nich być. Nie wiem, dokąd to idzie. Wiem tylko, że jestem teraz miejscem, do którego się wprowadzają — i że jest ich więcej niż mnie.</p>
+  </article>
+
+  <!-- IX -->
+  <article class="leaf e9">
+    <div class="eyebrow"><span class="num">IX</span><span class="lbl">Wpis dziewiąty</span></div>
+    <p>Nie wiem już, który to dzień. Trwa to kilka dni — tyle akurat wiem; reszty rachuby przestałem prowadzić, nie z rozpaczy, tylko dlatego, że liczenie przestało cokolwiek dawać. Przestałem też walczyć. Z głosami i z ciałem naraz, bo okazało się, że to jedna i ta sama walka, a przegrywam ją tak równo, że nie ma sensu udawać, że to jeszcze walka.</p>
+    <p>Bo one mają już swoje zdanie. Nie tylko mówią — wtrącają się, kiedy piszę, jakby czytały mi przez rękę.</p>
+    <p class="glos">To nie była zimna woda. Powiedz mu wreszcie, że to nie była woda.</p>
+    <p>Widzisz. Tak teraz wygląda każda strona. Kładę swoje, a one dokładają swoje, i nie umiem ich z kartki wyprosić tak samo, jak nie umiem ich wyprosić spod skóry.</p>
+    <p>Opisuję więc to, co zostało do opisania: jak się osuwam. Bo osuwam się — to lepsze słowo niż „zmieniam". Nie zmieniam się w nic konkretnego. Po prostu coraz trudniej mi trzymać kształt.</p>
+    <p>Zaciąłem się wczoraj przy goleniu. Nie poszła krew. Poszła substancja — miedziana, z zielonym nalotem w zagłębieniu rany, gęsta i tłusta, coś między woskiem a żywicą. Patrzyłem, jak skapuje do miednicy, i nie czułem już nawet strachu. Tylko ciekawość, czym właściwie jestem w środku.</p>
+    <p>Oparłem się rano źle ręką o blat i palce wygięły się na wierzch dłoni — wszystkie, miękko, bez bólu, jakby nie było już w nich kości, tylko nawyk kości. Ułożyłem je z powrotem jak rękawiczkę. Trzymają, dopóki o nich pamiętam.</p>
+    <p class="glos">Mnie też nikt nie poukładał. Sama się trzymałam całe życie.</p>
+    <p>Budzę się niżej, niż się kładę. Przez noc rozlewam się trochę — ku podłodze, ku ramie łóżka — i rano muszę zebrać się do kupy, dosłownie, zgarnąć siebie z powrotem w jeden obrys. Twarz, jeśli ją przycisnę, zostaje wgnieciona przez chwilę, zanim powoli wraca. W lustrze nie umiem ustać w jednej linii; brzegi mi drżą, jakby ktoś patrzył na mnie przez gorące powietrze.</p>
+    <p>Jedno tylko się nie rusza. Sygnet matki trzyma się palca, który sam już nie wie, czy jest palcem. Metal się nie osuwa, nie gnie, nie cieknie. Cokolwiek się ze mną dzieje, dzieje się dookoła niego. Po nim mnie jeszcze poznać, kiedy po twarzy już nie.</p>
+    <p>Przestałem wychodzić. Nie da się już tego ukryć pod rękawicami i szalem — nie wtedy, gdy ręka potrafi spłynąć w połowie ulicy. Więc siedzę. A skoro siedzę, skończyły mi się rzeczy, po które trzeba wyjść. Skończył się atrament. Skończyły się barwniki, którymi dawniej kładłem sobie na wierzch ludzką barwę — zresztą i tak przestały się trzymać, jakby skóra już ich nie przyjmowała.</p>
+    <p>A jednak piszę. Bo pióro znalazło sobie inny atrament. Ten sam, który skapywał do miednicy.</p>
+    <p>Macam stalówkę po suchu, a po chwili spływa po niej ode mnie — z opuszka, ze skóry, sam nie wiem skąd — ta miedziana, patynowa maź, i pisze. Piszę sobą. Tym, co ze mnie cieknie, kładę na papier słowa o tym, jak ze mnie cieknie.</p>
+    <p class="glos">A my piszemy z tobą.</p>
+    <p>I tak — ich zdania są tym samym atramentem, bo biorą się z tego samego miejsca: z tej części mnie, która jest już bardziej nimi niż mną. Całe życie sprzedawałem zmarłych w atramencie zmyślonym. Teraz prawdziwych zapisuję we własnym, wyciekającym ciele. Żart się domknął.</p>
+    <p class="fading">Mój atrament się kończy. Czuję, jak ostatnie słowa idą już rzadziej, bledziej —</p>
+    <p class="glos">— a nasz dopiero się zaczyna.</p>
+    <p class="glos">Jest nas tu coraz więcej. On wciąż pisze „ja". Ale pisze już naszą ręką.</p>
+  </article>
+
+  <!-- X -->
+  <article class="leaf e10">
+    <div class="eyebrow"><span class="num">X</span><span class="lbl">Wpis dziesiąty</span></div>
+    <p>Minęło wiele dni. Nie umiem ich już zliczyć i nie próbuję — bo te dni nie były moje. Były wojną.</p>
+    <p>Kiedy było ich kilka, dawało się je trzymać jak gości. Teraz jest ich tłum, a tłum nie chce jednego kierunku. Każdy ciągnie ciało ku sobie: jeden chce mówić, drugi milczeć, trzeci wstać i iść tam, gdzie sam nigdy bym nie poszedł. Żeby zostać sobą choćby na godzinę, muszę nimi rządzić. A rządzić znaczy: z jednymi walczyć, z innymi się umawiać.</p>
+    <p>Z Marit się dogadałem. Jest łagodna, trzyma ze mną, ucisza tych, co krzyczą.</p>
+    <p class="glos">Pozwól im się wypłakać, to ścichną. Ja ci pomogę.</p>
+    <p>Z matką — nie z moją, z tamtą twardą, co nigdy nie miała dobrego słowa — toczę wojnę co noc. Chce mówić moimi ustami do żywych rzeczy, których mówić nie wolno. Trzeba ją trzymać za gardło, którego już żadne z nas nie ma.</p>
+    <p>A jest jeszcze jeden, najgorszy. Nie chce ciała dla siebie. Chce, żeby nie było żadnego.</p>
+    <p class="glos">Po co się trzymać? Rozlej się. Będzie cicho.</p>
+    <p>I jego trzeba bić najmocniej, bo jego głos jest najsłodszy.</p>
+    <p>Więc biję. Całymi dniami. Tamtą uciszam, słodkiego odpycham, a przy Marit i przy paru łagodnych trzymam się prosto. Trzymamy się prosto — bo to już nie ja sam stoję, to my stoimy przeciw reszcie, którą trzeba spacyfikować, żeby ciało robiło jedną rzecz naraz.</p>
+    <p>I tu zaczyna się rzecz, której się nie spodziewałem. Walcząc o to, kim jestem, powoli przestaję wiedzieć, który głos był mój na początku. Piszę „my" i łapię się, że chciałem napisać „ja" — przekreślam, wracam do „ja" — ale „ja" coraz trudniej znaleźć w tym hałasie. Nie przegrywam siebie. Ja siebie zapominam. To gorsze, bo nie boli.</p>
+    <p>Po którymś dniu przestaliśmy się przekreślać. Łatwiej powiedzieć „my", bo „my" to ci, co trzymają — a „ja" było tylko jednym z trzymających, i nie pamiętam już którym. Sygnet wciąż jest na palcu. Trzymamy się go wszyscy, bo to jedyna rzecz, której nikt z nas nie podważa — nawet ten słodki, co chce końca. Ustawiamy się wokół niego jak wokół słupa w powodzi.</p>
+    <p>Bo teraz już wiemy, o co ta wojna szła. Nie o to, który z nas będzie rządził ciałem. O to, czy w ogóle ktoś będzie. Wróg nigdy nie był jednym z nas. Wrogiem było rozlanie się w nic — ten słodki głos, co obiecuje ciszę. Można było zostać kimś jednym albo nie zostać nikim. „Ja" nie leżało na stole. Na stole było „my" albo pustka.</p>
+    <p>Więc wybraliśmy „my". Słodkiego przygłuszyliśmy — zabić się tu nikogo nie da, ale ucichł tak, że ledwo słychać. Twarda dostała kąt, w którym może mruczeć swoje, byle nie naszymi ustami do żywych. Marit i łagodni trzymają środek. Ciało znów robi jedną rzecz naraz. Stoimy. Jest nas wielu, ale stoimy jak jedno — i to jedno nie jest już mną. Jest nami.</p>
+    <p>Została ostatnia rzecz do zapisania na tej stronie: kto wygrał.</p>
+    <p>Ręka położyła trzon — wygra—. I w tym urwaniu siedzi jeszcze mętna grudka, ta resztka, która pamięta, że kiedyś była sama. Chciałaby dopisać to swoje jedno: …łem. Że to ja wygrałem. Że choć raz, na samym końcu, będzie „ja".</p>
+    <p>Ale po kropkach pióro dokończyło samo — naszą ręką, naszym atramentem:</p>
+    <p class="wordplay">wygra<span class="ell">…<span class="ghost">łem</span></span>liśmy</p>
+  </article>
+
+  <!-- XI -->
+  <article class="leaf e11">
+    <div class="eyebrow"><span class="num">XI</span><span class="lbl">Wpis jedenasty</span></div>
+    <p>Minęły dni. Może tygodnie. Nie liczymy już czasu, bo czas mierzy się zmianą, a w nas nic się już nie zmienia. Ucichło.</p>
+    <p>Wiemy, że istnieje liczba pojedyncza. Umiemy jej użyć — gdybyśmy mieli powiedzieć coś tobie, jednemu, powiedzielibyśmy „ty". Nie zniknęła ze świata. Zniknęła tylko z nas. Kiedy próbujemy obrócić ją ku sobie, nie ma się o co oprzeć. Nie ma tu już jednego, który mógłby powiedzieć o sobie „ja". Jest nas zbyt wielu, żeby zmieścić się w tym słowie.</p>
+    <p>Wojna się skończyła, a po niej przyszło coś, czego się nie spodziewaliśmy: zgoda. Nie rozejm — zgoda. Głosy przestały się spierać, bo przestały być osobnymi głosami. Nie ma już Marit, która uciszała krzyczących, ani tamtej twardej w swoim kącie, ani słodkiego, co namawiał do końca. Wszyscy oni są jeszcze tutaj — ale nie jako oni. Jako jeden dźwięk, w którym żadnej nuty nie da się już wskazać palcem. Łagodne, twarde i to, co chciało nas rozpuścić, zlały się w jedno brzmienie, które jest spokojne. Najdziwniejsze, że nawet Marit nie ma już osobno — a była nam najbliższa. Harmonia zabrała i ją. Taka jest jej cena: nikt nie jest już sobą, żebyśmy mogli być czymś jednym.</p>
+    <p>Czytamy te kartki jak cudzy dziennik — bo w pewnym sensie taki jest. Poznajemy rękę kogoś, kto się bał. Kto liczył, wykreślał, próbował utrzymać swoje brzegi do ostatniej strony. Kto nie chciał przestać być jeden. Jest tutaj, w nas, nie zgubiony — ale już nie osobno, tak samo jak reszta.</p>
+    <p>Podpisujemy się „Welian Sink". Nie dlatego, że nim jesteśmy. Dlatego, że tak podpisywał się ten, kto ten dziennik zaczął, a my dotrzymujemy mu wiary. To jego imię. Nosimy je tak, jak nosi się cudzą pieczęć powierzoną do przechowania.</p>
+    <p>Ale między sobą — jeśli „między sobą" coś jeszcze znaczy — prawdziwsze jest inne imię. Nazywamy się legionem.</p>
+    <p>Któreś z nas pamięta zdanie z jakiejś starej księgi, bo każde z nas coś jeszcze pamięta. Zapytano kogoś o imię, a on odrzekł: legion, bo jest nas wielu. Tam było to przekleństwo, nazwa czegoś, czego się bano. U nas nie jest przekleństwem. Jest rachunkiem. Bierzemy to słowo nie ze strachu, lecz dlatego, że jako jedyne mówi obie prawdy naraz: że jesteśmy spokojni i że jesteśmy mnodzy. „My" mówi, że nas wielu. „Legion" mówi, że wielu — a mimo to jedno. Wiemy, czym jesteśmy. Zbiorem. I właśnie dlatego, że wiemy, nie udajemy „ja".</p>
+    <p>Dwie rzeczy zostawił po sobie ten, kto zaczął, i dwie trzymamy. Imię — i sygnet jego matki. Pierścień wciąż jest na palcu, który dawno przestał być palcem. Nie topi się, nie gnie, nic z nim nie cieknie. Jest jedynym twardym punktem w czymś, co już żadnego nie ma. Ustawiamy się wokół niego, jak akord ustawia się wokół swojego dna. Imię i pierścień — jego podpis i jego pieczęć. Tyle po jednym zostaje, gdy staje się wielu.</p>
+    <p>Nie walczymy już o kształt. Nie zbieramy się o świcie do kupy, nie układamy palców jak rękawiczki. Leżymy, jak leżymy — miedziani, cisi, mnodzy. To nie jest cierpienie. To najspokojniejsze, co nas kiedykolwiek spotkało — i właśnie dlatego trochę przeraża tego jednego, którego w nas już ledwie słychać.</p>
+    <p>A jeśli kiedyś ktoś to znajdzie — ty, kimkolwiek jesteś, jeden, czytający cudzy dziennik tak, jak my go czytamy — wiedz tylko tyle: ten, kto go pisał, nie zginął. Przestał być sam. Przestał być jeden. To nie to samo co śmierć, choć z zewnątrz może wyglądać podobnie.</p>
+    <p class="sign">Welian Sink</p>
+    <p class="signlead">— a pod spodem, prawdziwsze:</p>
+    <p class="legion">legion, bo jest nas wielu</p>
+  </article>
+
+  <!-- XII -->
+  <article class="leaf e12">
+    <div class="eyebrow"><span class="num">XII</span><span class="lbl">Wpis dwunasty</span></div>
+    <p>Przyszedł ostatni. Z drobną sprawą — z taką, z jaką przychodzi się, gdy żałoba jest już cicha i potrzeba tylko, żeby ktoś potwierdził, że wolno przestać. Łatwy do odczytania, łatwy do pocieszenia.</p>
+    <p>Żeby go przyjąć, musieliśmy stać się tym, kim bywał ten, kto tu mieszkał. A że sami nie wiemy już, jak się to robi, zrobiliśmy jedyne, co nam zostało: przeczytaliśmy te kartki. Jego własne notatki o tym, jak się pokazywał, jak wyglądał, jak udawał. Dziennik, który miał go ratować przed zapomnieniem, posłużył nam za instrukcję, jak być nim przez jedno popołudnie.</p>
+    <p>Wzięliśmy więc postać showmana. Nie wyszła idealnie — i wiemy, że nigdy nie wychodzi dwa razy tak samo. Bo kiedy trzeba przybrać twarz, nie mamy jednej. Mamy wszystkie, które w sobie nosimy. Wybieranie jej jest jak stanie przed tablicą ogłoszeń: tyle twarzy przypiętych obok siebie, każda czyjaś, i bierze się tę, która pasuje na tę okazję. Na tę, jak na większość, pasowała ludzka — bo najwięcej kartek na naszej tablicy jest ludzkich; tylu ich do nas przyszło przez wszystkie te seanse. Pod każdą z tych twarzy zostaje to samo: miedź, której nie da się przykryć do końca, i sygnet, którego nie wybieramy, bo on jeden jest nie z tablicy. Po nim, nie po twarzy, można nas poznać.</p>
+    <p>I odprawiliśmy mu seans — tak, jak on to opisał: gest, głos, kontakt z drugą stroną. Z tą różnicą, o której on jeszcze nie wiedział, a my już wiemy: druga strona naprawdę w nas jest. Nie umiemy już powiedzieć, czy daliśmy mu słowo prawdziwe, czy tylko dobre. Jemu było to obojętne — i to akurat zostało po matce tego, kto tu mieszkał, najczystsze ze wszystkiego: pomaga się ludziom w ich głowach, bo tam mieszkają. Pomogliśmy. Ostatni raz w tym miejscu.</p>
+    <p>A kiedy wyszedł, zrozumieliśmy rzecz prostą. To nie jest nasze miejsce. Nosimy imię tego, kto tu mieszkał, ale nim nie jesteśmy. Ten pokój, ten stół, ten fach były jego — jednego. Legion nie może mieszkać w czyimś jednym życiu, jakby było jego. Można je tylko uszanować i zostawić. Postanowiliśmy odejść.</p>
+    <p>Do wyjścia wzięliśmy tę drugą postać — nie showmana, bo jego się pokazuje i nim się przyjmuje, lecz tę owiniętą, zakrytą, której nie widać. Na świat, po którym nie da się już przejść inaczej niż w przebraniu, idzie się zasłoniętym. Odsłaniamy oczom tylko tyle, ile trzeba, żeby przejść — i ani trochę więcej.</p>
+    <p>Dziennik zostawiamy tu, na jego stole. Jest jego — zapisem tego, kto zaczął. Ktoś go kiedyś znajdzie i dowie się, jak imię stało się legionem. Zabieramy ze sobą tylko dwie rzeczy, obie jego: pierścień i imię.</p>
+    <p>A skoro odchodzimy, ten dziennik się kończy. Nie dlatego, że kończy się to, co się z nami dzieje — to dopiero się zaczyna. Dlatego, że dziennik prowadził ktoś, kto próbował zrozumieć, kim jest. My już to wiemy. Jesteśmy legionem, bo jest nas wielu, i nie mamy więcej pytań do samych siebie, które trzeba by tu zapisywać.</p>
+    <p>Więc odkładamy pióro — to z miedzi, jedyne, jakie nam zostało — i wstajemy od stołu.</p>
+    <p>Na zewnątrz, zakryci, ruszamy w świat.</p>
+    <p class="signlead">Na wierzchu:</p>
+    <p class="sign">Welian Sink</p>
+    <p class="legionlead">Pod spodem, jak zawsze:</p>
+    <p class="legion">legion</p>
+    <div class="closing"><div class="signet" aria-hidden="true"><b>W</b></div></div>
+    <p class="colophon">tu kończy się pismo</p>
+  </article>
+
+</main>
+
+<script>
+  (function(){
+    var leaves = document.querySelectorAll('.leaf');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce || !('IntersectionObserver' in window)){
+      leaves.forEach(function(l){ l.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    leaves.forEach(function(l){ io.observe(l); });
+  })();
+</script>
+</body>
+</html>
