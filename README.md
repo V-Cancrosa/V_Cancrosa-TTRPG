@@ -21,9 +21,9 @@ Archiwum kampanii D&D 5e „Krąg Cieni”: postacie, notatki z sesji i materia�
 | `postacie/welian-sink/` | dossier: miedź, patyna, świeca | trzy postaci z przełącznikiem (prawdziwa forma faluje jak płynna miedź), światło świecy za kursorem, seans ze zdaniami z pamiętnika, kości psioniczne Soul Knife |
 | `postacie/durgan-vundrakkun/` | iluminacja: welin, złoto, lazur | imię składa się z rozsypanych liter, echa na iluminacji, złote okruchy do zebrania, widzenie w szarości, łacińska dewiza słowo po słowie |
 | `postacie/opi/` | teczka projektu: krem, mosiądz, stemple | suwak skóra ↔ mechanizm, serce i usypiany umysł, zaczernione „NIE WIE” do odsłonięcia, trzy imiona |
-| `postacie/fusk-yaki/` | konosament: pokład, linia wodna, morze | pieczęcie na karcie, plomba o stałej temperaturze, prywatna lista długów, rejestr zdarzeń, saldo paktu, głębokościomierz |
+| `postacie/fusk-yaki/` | karta i konosament: pokład, linia wodna, morze, ołowiane szkło | pieczęcie na karcie, plomba o stałej temperaturze, pakt przy stole (Doręczenie z rzutami, sloty paktu, uniki, lot), rejestr zdarzeń, prywatna lista długów, okienko Odbiorcy i przedsionek z suplementu, saldo paktu, głębokościomierz |
 
-Stan liczników (ki, sloty, kości, lista długów, liczba seansów) zapisuje się tylko w przeglądarce, na danym urządzeniu.
+Stan liczników (ki, sloty, kości, uniki, lista długów, liczba seansów) zapisuje się tylko w przeglądarce, na danym urządzeniu.
 
 Dokumenty, które istniały tylko jako Word lub PDF, dostały strony w stylu postaci, z tekstem przeniesionym bez zmian:
 
