@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fusk · Krąg Cieni</title>
+  <meta name="description" content="Fusk [Yaki] — Hadozee, Warlock, Sailor. Kurier, którego przesyłka doszła do skutku na dnie. Kampania Krąg Cieni.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/postac.css">
+  <style>
+    :root {
+      --serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', Consolas, monospace;
+      --disp: 'Playfair Display', Georgia, serif;
+      --ink: #241c12; --rust: #a83a28;
+      --sea1a: #2e7e8c; --sea1b: #1d5c6d; --sea2b: #0e3a4d; --sea3b: #06202f; --sea4b: #020a11;
+      --wood: repeating-linear-gradient(90deg, rgba(0,0,0,.16) 0 2px, rgba(0,0,0,0) 2px 148px), repeating-linear-gradient(0deg, rgba(255,255,255,.028) 0 2px, rgba(255,255,255,0) 2px 64px), linear-gradient(#6d4a30, #583a24);
+      --pasek-font: 500 .7rem/1.3 'IBM Plex Mono', ui-monospace, monospace;
+      --pasek-ink: #3a4a50;
+      --pasek-akcent: #a83a28;
+      --pasek-szer: 680px;
+      color-scheme: dark;
+    }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; font-family: var(--serif); background: var(--sea4b); color: #cfe2e1; -webkit-font-smoothing: antialiased; }
+    a { color: #f2cfae; }
+    a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #f2cfae; outline-offset: 3px; }
+
+    .sky { background: linear-gradient(#e3ecef 0%, #cfdde2 62%, #b7cbd2 100%); padding-bottom: 5vh; }
+    .deck { background: var(--wood); padding: 6vh 18px 8vh; }
+    .card { max-width: 680px; margin: 0 auto; position: relative; transform: rotate(-.5deg); background: linear-gradient(174deg, #f2e9d4, #e7dabb); color: var(--ink);
+      border: 1px solid #c8b78e; border-radius: 3px; padding: 32px 28px 54px; box-shadow: 0 24px 50px rgba(15,8,0,.5), inset 0 0 70px rgba(120,90,40,.15); cursor: pointer; }
+    .eyebrow { font: 400 10.5px/1.5 var(--mono); letter-spacing: .26em; color: #6f5836; border-bottom: 1px solid #cbb98d; padding-bottom: 11px; margin-bottom: 22px; }
+    h1 { font: 800 clamp(58px, 15vw, 106px)/.95 var(--disp); letter-spacing: .03em; color: var(--ink); margin: 0 0 10px; }
+    .reg { font: 400 11px/1.5 var(--mono); letter-spacing: .06em; color: #6f5836; margin-bottom: 16px; }
+    .stat { font: 400 11.5px/1.6 var(--mono); letter-spacing: .13em; color: #3a2d1c; border-top: 1px dashed #c2ae7f; border-bottom: 1px dashed #c2ae7f; padding: 9px 0; margin-bottom: 20px; }
+    .motto { font-style: italic; font-size: clamp(18px, 3.4vw, 22px); color: #43331f; margin: 0 0 26px; }
+    dl.manifest { display: grid; grid-template-columns: max-content 1fr; gap: 9px 16px; font-size: 16px; margin: 0; }
+    dl.manifest dt { font: 400 10.5px/1.4 var(--mono); letter-spacing: .2em; color: #7a6238; text-transform: uppercase; padding-top: 4px; }
+    dl.manifest dd { margin: 0; color: #2b2114; }
+    @media (max-width: 520px) { .card { padding: 26px 18px 54px; } dl.manifest { grid-template-columns: 1fr; gap: 2px; } dl.manifest dd { margin-bottom: 10px; } }
+    .stempel { position: absolute; font: 600 13px/1 var(--mono); letter-spacing: .24em; color: var(--rust); border: 3px double var(--rust); border-radius: 5px; padding: 8px 13px; opacity: .85; pointer-events: none; white-space: nowrap; }
+    .stempel.glowny { right: 18px; bottom: 18px; transform: rotate(-11deg); }
+    .stempel.nowy { animation: bach .35s cubic-bezier(.2,1.6,.4,1) both; }
+    @keyframes bach { from { transform: rotate(var(--r)) scale(2.2); opacity: 0; } to { transform: rotate(var(--r)) scale(1); opacity: .82; } }
+    .rada { text-align: center; font: 400 10px/1.4 var(--mono); letter-spacing: .24em; color: rgb(240 230 210 / .55); margin: 14px 0 0; }
+
+    .zalaczniki { max-width: 760px; margin: 6vh auto 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 640px) { .zalaczniki { grid-template-columns: repeat(2, 1fr); } }
+    .foto { display: block; background: #f4efe3; padding: 7px 7px 10px; box-shadow: 0 14px 30px rgba(15,8,0,.45); text-decoration: none; transition: transform .3s ease; }
+    .foto:nth-child(1) { transform: rotate(-2.4deg); } .foto:nth-child(2) { transform: rotate(1.6deg); } .foto:nth-child(3) { transform: rotate(-1deg); } .foto:nth-child(4) { transform: rotate(2.2deg); }
+    .foto:hover { transform: rotate(0) translateY(-4px); }
+    .foto img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 20%; }
+    .foto span { display: block; margin-top: 7px; font: 500 9.5px/1.3 var(--mono); letter-spacing: .14em; color: #6f5836; text-transform: uppercase; text-align: center; }
+
+    .wlwrap { position: relative; background: var(--wood); }
+    .wlwrap svg { display: block; width: 100%; height: 92px; }
+    .wlab { position: absolute; left: 16px; bottom: 8px; font: 400 10px/1 var(--mono); letter-spacing: .3em; color: rgba(240,250,250,.9); text-shadow: 0 1px 4px rgba(0,20,25,.6); }
+
+    .sea { position: relative; overflow: hidden; padding: 13vh 22px; }
+    .s1 { background: linear-gradient(var(--sea1a), var(--sea1b)); }
+    .s2 { background: linear-gradient(var(--sea1b), var(--sea2b)); }
+    .s3 { background: linear-gradient(var(--sea2b), var(--sea3b)); }
+    .s4 { background: linear-gradient(var(--sea3b), var(--sea4b)); padding-bottom: 18vh; }
+    .fx { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+    .bb { position: absolute; bottom: -40px; border-radius: 50%; border: 1px solid rgba(255,255,255,.32); background: radial-gradient(circle at 32% 30%, rgba(255,255,255,.4), rgba(255,255,255,.04) 62%); animation: rise linear infinite; }
+    @keyframes rise { 0% { transform: translateY(0); opacity: 0; } 12% { opacity: .55; } 88% { opacity: .35; } 100% { transform: translateY(-110vh) translateX(16px); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { .fx { display: none; } }
+    .inner { position: relative; z-index: 2; max-width: 620px; margin: 0 auto; }
+    .mark { font: 400 10.5px/1.4 var(--mono); letter-spacing: .34em; color: #9fc3c5; margin-bottom: 16px; }
+    h2 { font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: #ecf4ef; font-size: clamp(19px, 4.6vw, 27px); margin: 0 0 24px; text-shadow: 0 0 22px rgba(140,220,200,.22); }
+    .sea p { font-size: clamp(16.5px, 2.2vw, 19px); line-height: 1.78; margin: 0 0 1.2em; }
+    .k { color: #f2cfae; letter-spacing: .02em; font-weight: 600; }
+
+    /* plomba */
+    .plomba-box { display: grid; gap: 18px; align-items: center; margin: 22px 0 8px; padding: 18px; border: 1px solid rgba(160,200,200,.25); background: rgba(2,20,28,.35); }
+    @media (min-width: 560px) { .plomba-box { grid-template-columns: 120px 1fr; } }
+    .plomba { width: 110px; height: 110px; margin: 0 auto; filter: drop-shadow(0 6px 14px rgba(0,0,0,.5)); transition: filter .6s ease; }
+    .plomba.ogien { filter: drop-shadow(0 0 18px rgba(255,140,60,.75)); }
+    .plomba.lod { filter: drop-shadow(0 0 18px rgba(170,225,255,.8)); }
+    .termo { font: 500 12px/1.6 var(--mono); letter-spacing: .14em; color: #bfe0da; }
+    .termo b { font-size: 20px; letter-spacing: .06em; color: #ecf4ef; font-weight: 500; }
+    .przyciski { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .btn { appearance: none; cursor: pointer; border: 1px solid rgba(207,226,225,.5); background: transparent; color: #cfe2e1; padding: 8px 12px; font: 500 11px/1.2 var(--mono); letter-spacing: .16em; text-transform: uppercase; }
+    .btn:hover { background: rgba(207,226,225,.12); }
+    .btn.rdza { border-color: #d27a5c; color: #f2cfae; }
+
+    /* lista długów */
+    .ksiega { margin: 22px 0 0; background: linear-gradient(174deg, #e9dfc6, #ddd0b0); color: var(--ink); padding: 18px 18px 14px; border-radius: 2px; box-shadow: 0 18px 40px rgba(0,0,0,.45); transform: rotate(.4deg); }
+    .ksiega h3 { margin: 0 0 4px; font: 600 11px/1.4 var(--mono); letter-spacing: .24em; color: #6f5836; }
+    .ksiega .pod { font-style: italic; color: #5a4632; margin: 0 0 12px; font-size: 15.5px; }
+    .ksiega form { display: grid; gap: 8px; grid-template-columns: 1fr; margin-bottom: 10px; }
+    @media (min-width: 560px) { .ksiega form { grid-template-columns: 1fr 1.4fr auto; } }
+    .ksiega input { font: 400 15px/1.3 var(--serif); padding: 7px 9px; border: 1px solid #b8a47a; background: #f6efdc; color: var(--ink); border-radius: 2px; min-width: 0; }
+    .ksiega button { appearance: none; cursor: pointer; border: 0; background: var(--rust); color: #f6efdc; padding: 8px 12px; font: 600 11px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+    .ksiega ol { list-style: none; margin: 0; padding: 0; counter-reset: dlug; }
+    .ksiega li { counter-increment: dlug; display: grid; grid-template-columns: 2.2em 1fr auto; gap: 8px; align-items: baseline; padding: 7px 0; border-top: 1px dashed #b8a47a; font-size: 16px; }
+    .ksiega li::before { content: counter(dlug, decimal-leading-zero); font: 400 11px/1 var(--mono); color: #7a6238; }
+    .ksiega li b { font-weight: 600; }
+    .ksiega li span { color: #5a4632; font-style: italic; }
+    .ksiega li button { background: none; color: #7a6238; padding: 2px 6px; font-size: 10px; }
+    .ksiega li.pusto::before { content: none; }
+    .ksiega .pusto { border-top: 1px dashed #b8a47a; padding: 10px 0 4px; color: #7a6238; font: 400 11px/1.6 var(--mono); letter-spacing: .1em; }
+    .ksiega .stopka-k { margin: 10px 0 0; font: 400 10.5px/1.5 var(--mono); letter-spacing: .12em; color: #6f5836; }
+
+    /* rejestr */
+    .rejestr { list-style: none; margin: 10px 0 0; padding: 0; border-left: 1px solid rgba(160,200,200,.3); }
+    .rejestr li { position: relative; padding: 6px 0 18px 26px; opacity: .08; transform: translateY(10px); transition: opacity 1.2s ease, transform 1.2s ease; }
+    .rejestr li.wid { opacity: 1; transform: none; }
+    .rejestr li::before { content: ""; position: absolute; left: -5px; top: 15px; width: 9px; height: 9px; border-radius: 50%; background: #9fc3c5; box-shadow: 0 0 10px rgba(140,230,205,.5); }
+    .rejestr .nr { display: block; font: 400 10px/1.4 var(--mono); letter-spacing: .3em; color: #7fa3a6; }
+    @media (prefers-reduced-motion: reduce) { .rejestr li { opacity: 1; transform: none; transition: none; } }
+
+    /* saldo */
+    .saldo { font: 500 clamp(14px, 3.2vw, 18px)/1.6 var(--mono); letter-spacing: .22em; color: #bfe0da; text-align: center; margin: 40px 0 10px; text-shadow: 0 0 14px rgba(140,230,205,.35); }
+    .saldo b { color: #ecf4ef; font-weight: 500; display: inline-block; min-width: 9ch; }
+    .srodek { text-align: center; }
+    .notes { margin-top: 48px; padding-top: 22px; border-top: 1px solid rgba(160,200,200,.18); font: 400 11px/2 var(--mono); letter-spacing: .05em; color: #8fb3b6; }
+
+    .arch { list-style: none; margin: 18px 0 0; padding: 0; }
+    .arch li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 14px; padding: 12px 0; border-bottom: 1px solid rgba(160,200,200,.18); }
+    .arch b { font: 600 13px/1.4 var(--mono); letter-spacing: .16em; color: #ecf4ef; text-transform: uppercase; }
+    .arch span.d { display: block; font-size: 15px; color: #9fc3c5; font-style: italic; }
+    .formaty { display: flex; flex-wrap: wrap; gap: 6px; }
+    .fmt { display: inline-flex; gap: 6px; align-items: baseline; text-decoration: none; border: 1px solid rgba(207,226,225,.45); padding: 5px 10px; font: 500 10.5px/1.2 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: #ecf4ef; white-space: nowrap; }
+    .fmt small { letter-spacing: 0; text-transform: none; color: #9fc3c5; }
+    .fmt:hover { background: rgba(207,226,225,.12); }
+    .fin { margin-top: 12vh; text-align: center; font: 400 10px/1 var(--mono); letter-spacing: .5em; color: #5f8486; }
+
+    /* głębokościomierz */
+    .glebia { position: fixed; right: 10px; top: 50%; transform: translateY(-50%); z-index: 9; height: min(54vh, 360px); width: 46px; pointer-events: none; font-family: var(--mono); opacity: 0; transition: opacity .6s ease; }
+    .glebia.wid { opacity: 1; }
+    .glebia .rura { position: absolute; right: 6px; top: 0; bottom: 0; width: 3px; background: rgba(207,226,225,.22); border-radius: 2px; }
+    .glebia .znacznik { position: absolute; right: 0; width: 15px; height: 15px; margin-top: -7px; border-radius: 50%; background: #f2cfae; box-shadow: 0 0 12px rgba(242,207,174,.7); top: var(--g, 0%); }
+    .glebia .war { position: absolute; right: 18px; font-size: 8px; letter-spacing: .1em; color: rgba(207,226,225,.6); transform: translateY(-50%); white-space: nowrap; }
+    .glebia .ile { position: absolute; right: 0; top: calc(100% + 8px); font-size: 11px; letter-spacing: .1em; color: #ecf4ef; white-space: nowrap; text-shadow: 0 1px 4px rgba(0,0,0,.65); }
+    @media (max-width: 760px) { .glebia { right: 4px; width: 22px; } .glebia .war { display: none; } .glebia .ile { font-size: 9px; } }
+  </style>
+</head>
+<body>
+  <div class="glebia" aria-hidden="true">
+    <div class="rura"></div>
+    <span class="war" style="top:0%">0 M</span><span class="war" style="top:25%">40 M</span><span class="war" style="top:50%">900 M</span><span class="war" style="top:75%">2 600 M</span><span class="war" style="top:100%">4 000 M</span>
+    <div class="znacznik"></div>
+    <div class="ile">POKŁAD</div>
+  </div>
+
+  <header class="sky">
+    <nav class="pasek" aria-label="Nawigacja">
+      <a href="../../">← Krąg Cieni</a>
+      <span class="obok"><a href="../opi/" rel="prev">‹ Opi</a><a href="../jack-leothern/" rel="next">Jack ›</a></span>
+    </nav>
+  </header>
+
+  <section class="deck">
+    <div class="card" id="karta" role="button" tabindex="0" aria-label="Karta kuriera — kliknij, by przybić pieczątkę">
+      <div class="eyebrow">KARTA POSTACI · KURIER · KRĄG CIENI</div>
+      <h1>FUSK</h1>
+      <div class="reg">w rejestrze załogi: «Yaki» — imię drugie, nieużywane · nazwiska brak</div>
+      <div class="stat">HADOZEE (SMALL · ~3½ STOPY) · WARLOCK · SAILOR · CHAOTIC NEUTRAL</div>
+      <p class="motto">„To nie był fuks. To była dostawa.”</p>
+      <dl class="manifest">
+        <dt>Rasa</dt><dd>Hadozee — Spelljammer AAG, wersja po erracie; wymaga zgody DM.</dd>
+        <dt>Patron</dt><dd>otwarte — Fathomless / Great Old One / Genie.</dd>
+        <dt>Ładunek</dt><dd>1 (słownie: jedna) przesyłka opieczętowana. Zawartość: nie dotyczy kuriera.</dd>
+        <dt>Trasa</dt><dd>port wyjścia → dno.</dd>
+        <dt>Status</dt><dd>dostarczono.</dd>
+      </dl>
+      <div class="stempel glowny">POKWITOWANO</div>
+    </div>
+    <p class="rada">KLIKNIJ KARTĘ, BY PRZYBIĆ PIECZĘĆ</p>
+
+    <div class="zalaczniki" aria-label="Załączniki — wizerunki">
+      <a class="foto" href="Fusk%20%5BYaki%5D.png" data-galeria="fusk" data-duzy="../../assets/portrety/fusk-yaki-1.webp" data-podpis="Załącznik A · Fusk [Yaki]"><img src="../../assets/miniatury/fusk-yaki-1.webp" alt="Szkic Fuska — hadozee z białą grzywą i czerwoną twarzą" loading="lazy"><span>Zał. A</span></a>
+      <a class="foto" href="Fusk%20%5BYaki%5D%20True.png" data-galeria="fusk" data-duzy="../../assets/portrety/fusk-yaki-2.webp" data-podpis="Załącznik B · Fusk [Yaki] True — arkusz koncepcyjny"><img src="../../assets/miniatury/fusk-yaki-2.webp" alt="Arkusz koncepcyjny Fuska z detalami goglów, błon i plomby" loading="lazy"><span>Zał. B</span></a>
+      <a class="foto" href="Fusk%20%5BYaki%5D%20True%20Style.png" data-galeria="fusk" data-duzy="../../assets/portrety/fusk-yaki-3.webp" data-podpis="Załącznik C · Fusk [Yaki] True Style"><img src="../../assets/miniatury/fusk-yaki-3.webp" alt="Fusk przycupnięty na murku, z goglami wciśniętymi w grzywę i plombą na piersi" loading="lazy"><span>Zał. C</span></a>
+      <a class="foto" href="Fusk%20%5BYaki%5D%20True%20Style%20Flying.png" data-galeria="fusk" data-duzy="../../assets/portrety/fusk-yaki-4.webp" data-podpis="Załącznik D · Fusk [Yaki] True Style Flying"><img src="../../assets/miniatury/fusk-yaki-4.webp" alt="Fusk w locie, z rozpostartymi czerwonymi błonami" loading="lazy"><span>Zał. D</span></a>
+    </div>
+  </section>
+
+  <div class="wlwrap">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,58 L48,34 L96,62 L150,26 L204,60 L262,38 L318,68 L372,30 L430,56 L488,24 L540,60 L600,40 L656,70 L712,32 L768,58 L826,26 L884,62 L940,44 L1000,68 L1056,30 L1112,58 L1170,36 L1228,64 L1286,28 L1344,54 L1392,38 L1440,60 L1440,100 L0,100 Z" fill="#2e7e8c"/>
+      <path d="M0,58 L48,34 L96,62 L150,26 L204,60 L262,38 L318,68 L372,30 L430,56 L488,24 L540,60 L600,40 L656,70 L712,32 L768,58 L826,26 L884,62 L940,44 L1000,68 L1056,30 L1112,58 L1170,36 L1228,64 L1286,28 L1344,54 L1392,38 L1440,60" fill="none" stroke="#edf6f5" stroke-width="4" opacity=".9"/>
+    </svg>
+    <div class="wlab">0 M · LINIA WODNA</div>
+  </div>
+
+  <main>
+    <section class="sea s1" data-glebia="40">
+      <div class="fx"></div>
+      <div class="inner">
+        <div class="mark">— 40 M · PLOMBA</div>
+        <h2>Plomba</h2>
+        <p>Woskowa pieczęć z tamtej przesyłki, która przestała być woskiem. Nie topi się, nie kruszy, nie daje się zarysować i ma zawsze tę samą temperaturę — nad ogniem i w lodzie — jakby wypadła z obiegu świata. Odcisk znaku pozostał czytelny, tylko nikt go nie rozpoznaje. Spina główny rzemień uprzęży na piersi: kiedyś plombowała przesyłkę, teraz plombuje jego.</p>
+        <div class="plomba-box">
+          <svg class="plomba" viewBox="0 0 110 110" aria-hidden="true">
+            <path d="M55 6 C70 8 76 2 86 12 C96 22 92 30 100 40 C108 52 100 60 104 72 C106 86 94 90 86 98 C76 108 66 102 55 106 C44 102 34 108 24 98 C16 90 4 86 6 72 C10 60 2 52 10 40 C18 30 14 22 24 12 C34 2 40 8 55 6 Z" fill="#8f2a1f"/>
+            <circle cx="55" cy="56" r="34" fill="#a83a28" stroke="#6e1d14" stroke-width="2"/>
+            <circle cx="55" cy="56" r="27" fill="none" stroke="#c45a43" stroke-width="1.2" opacity=".7"/>
+            <path d="M55 36 L62 52 L78 56 L62 61 L55 77 L48 61 L32 56 L48 52 Z" fill="#6e1d14" opacity=".85"/>
+            <ellipse cx="44" cy="40" rx="10" ry="5" fill="#fff" opacity=".18" transform="rotate(-30 44 40)"/>
+          </svg>
+          <div>
+            <div class="termo" aria-live="polite">TEMPERATURA PLOMBY<br><b id="temp">ta sama co zawsze</b><br><span id="otoczenie">otoczenie: pokład</span></div>
+            <div class="przyciski">
+              <button type="button" class="btn rdza" data-otoczenie="ogien">Nad ogień</button>
+              <button type="button" class="btn" data-otoczenie="lod">W lód</button>
+              <button type="button" class="btn" data-otoczenie="poklad">Na pokład</button>
+            </div>
+          </div>
+        </div>
+        <p><strong class="k">Wygląd.</strong> Makak japoński przełożony na hadozee: gęste, srebrno‑płowe futro i nastroszona grzywa okalająca nagą, czerwoną twarz. Twarz ciemnieje przy silnych emocjach — jedyna rzecz na jego ciele, której nie kontroluje, i szczerze jej za to nie znosi. <a href="fusk_konosament.html">Cały opis w konosamencie →</a></p>
+      </div>
+    </section>
+
+    <section class="sea s2" data-glebia="900">
+      <div class="fx"></div>
+      <div class="inner">
+        <div class="mark">— 900 M · KSIĘGOWOŚĆ</div>
+        <h2>Lista długów</h2>
+        <p>Rdzeń: rachunek. Świat to fracht — wszystko ma nadawcę, odbiorcę i koszt przewozu. Prowadzi prywatną listę długów: imiona tych, których koszt poniósł ktoś inny. Nie z winy — z księgowości.</p>
+        <div class="ksiega">
+          <h3>PRYWATNA LISTA DŁUGÓW · F.</h3>
+          <p class="pod">Rachunki muszą się kiedyś zgodzić.</p>
+          <form id="dlug-form" autocomplete="off">
+            <input id="dlug-imie" maxlength="60" placeholder="imię" aria-label="Imię" required>
+            <input id="dlug-koszt" maxlength="120" placeholder="kto poniósł koszt i jaki" aria-label="Koszt">
+            <button type="submit">Wpisz</button>
+          </form>
+          <ol id="dlugi"></ol>
+          <p class="stopka-k">Lista zapisuje się tylko w tej przeglądarce — jak notes w kieszeni kuriera.</p>
+        </div>
+        <p style="margin-top:1.4em">Nie kłamie. Dyskrecja tak — nie pyta, nie zagląda, dostarcza — ale kłamstwo to zbędny bagaż. Mówi na głos to, co wszyscy myślą, tonem inwentaryzacji: „Dwóch z nas stąd nie wyjdzie. Wolałbym nie być jednym z nich. Bez urazy.”</p>
+      </div>
+    </section>
+
+    <section class="sea s3" data-glebia="2600">
+      <div class="fx"></div>
+      <div class="inner">
+        <div class="mark">— 2 600 M · REJESTR ZDARZEŃ</div>
+        <h2>Dostawa</h2>
+        <ol class="rejestr">
+          <li><span class="nr">WPIS 01</span>Był kurierem. Jedna przesyłka, opieczętowana, zawartość nieznana. Nie pytał, nie zaglądał, dostarczał.</li>
+          <li><span class="nr">WPIS 02</span>Macki wyszły z wody bez ostrzeżenia. Pomagał, póki pomoc była tania. Kiedy przestała być tania — pchnął. To nie była decyzja, tylko rachunek policzony szybciej, niż zdążył go pomyśleć.</li>
+          <li><span class="nr">WPIS 03</span>Uciekał w dół, pod pokłady, z przesyłką przy piersi. Nie dlatego, że była cenna. Dlatego, że była jedyną stałą rzeczą w świecie, który właśnie tracił kształt.</li>
+          <li><span class="nr">WPIS 04</span>Statek nie zatonął. Statek został ściągnięty. Cały: z załogą, z ładunkiem, z imionami.</li>
+          <li><span class="nr">WPIS 05</span>Na dnie powstała przestrzeń, w której dało się oddychać. Nie bańka i nie jaskinia — miejsce, w którym woda cofnęła swoje prawa, bo ktoś jej tak kazał.</li>
+          <li><span class="nr">WPIS 06</span>Wtedy zrozumiał, że dostawa doszła do skutku. Odbiorca czekał na dole. Pokwitowaniem był pakt.</li>
+          <li><span class="nr">WPIS 07</span>Wynurzył się z linią wodną na futrze i z plombą, która przestała być woskiem. Reszta rejsu pozostała w rejestrze. Rejestr pozostał na dnie.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="sea s4" data-glebia="4000">
+      <div class="fx"></div>
+      <div class="inner">
+        <div class="mark">— 4 000 M · STRONA UMOWY</div>
+        <h2>Odbiorca</h2>
+        <p>Nie wie, kim jest Odbiorca, i nie pyta. Kurier nie zagląda do paczki. Do odbiorcy tym bardziej.</p>
+        <p>Pakt czyta jak warunki dostawy: świadczenie przyjęte, kwota nieuzgodniona. Jego własne życie jest teraz otwartym rachunkiem — a nieokreślony dług jest gorszy od wysokiego. Nie chce zerwać paktu. Chce poznać cenę.</p>
+        <div class="saldo" aria-live="polite">ODBIORCA: ——————— · SALDO: <b id="saldo">NIEZNANE</b></div>
+        <div class="srodek"><button type="button" class="btn" id="sprawdz">Sprawdź saldo</button></div>
+
+        <div class="notes">ADNOTACJE SŁUŻBOWE<br>
+          · rasa: Spelljammer AAG, wersja po erracie — wymaga zgody DM<br>
+          · patron / podklasa: otwarte — Fathomless / Great Old One / Genie; tekst neutralny wobec wszystkich trzech<br>
+          · point buy, ekwipunek, detale builda — do ustalenia<br>
+          · „Yaki”: imię drugie, nieużywane — nie nazwisko
+        </div>
+
+        <ul class="arch">
+          <li><span><b>Konosament</b><span class="d">List przewozowy — egzemplarz kuriera, z głębokościomierzem.</span></span><span class="formaty"><a class="fmt" href="fusk_konosament.html">Strona<small>139 KB</small></a></span></li>
+          <li><span><b>Załączniki</b><span class="d">A · B · C · D</span></span><span class="formaty"><a class="fmt" href="Fusk%20%5BYaki%5D.png">PNG<small>756 KB</small></a><a class="fmt" href="Fusk%20%5BYaki%5D%20True.png">PNG<small>2,5 MB</small></a><a class="fmt" href="Fusk%20%5BYaki%5D%20True%20Style.png">PNG<small>2,2 MB</small></a><a class="fmt" href="Fusk%20%5BYaki%5D%20True%20Style%20Flying.png">PNG<small>2,0 MB</small></a></span></li>
+        </ul>
+        <div class="fin">· · · DNO · · ·</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="../../assets/postac.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var K = window.Krag;
+
+    /* bąbelki */
+    if (!K.reduce) {
+      document.querySelectorAll('.fx').forEach(function (fx, n) {
+        for (var i = 0; i < 9 + n * 2; i++) {
+          var b = document.createElement('span');
+          var s = 4 + Math.random() * 12;
+          b.className = 'bb';
+          b.style.width = b.style.height = s + 'px';
+          b.style.left = (Math.random() * 100) + '%';
+          b.style.animationDuration = (9 + Math.random() * 12) + 's';
+          b.style.animationDelay = (-Math.random() * 18) + 's';
+          fx.appendChild(b);
+        }
+      });
+    }
+
+    /* pieczęcie na karcie */
+    var karta = document.getElementById('karta');
+    var STEMPLE = ['DOSTARCZONO', 'OPŁACONO Z GÓRY', 'POKWITOWANO', 'NIE DOTYCZY KURIERA', 'SALDO: NIEZNANE'];
+    var ile = 0;
+    function przybij(e) {
+      var r = karta.getBoundingClientRect();
+      var s = document.createElement('div');
+      s.className = 'stempel nowy';
+      s.textContent = STEMPLE[ile % STEMPLE.length];
+      var x = e && e.clientX ? e.clientX - r.left : r.width * (0.25 + Math.random() * 0.5);
+      var y = e && e.clientY ? e.clientY - r.top : r.height * (0.3 + Math.random() * 0.5);
+      s.style.left = Math.max(6, Math.min(r.width - 180, x - 80)) + 'px';
+      s.style.top = Math.max(6, Math.min(r.height - 40, y - 16)) + 'px';
+      s.style.setProperty('--r', (Math.random() * 30 - 15).toFixed(1) + 'deg');
+      s.style.transform = 'rotate(' + s.style.getPropertyValue('--r') + ')';
+      karta.appendChild(s);
+      ile++;
+      var stare = karta.querySelectorAll('.stempel.nowy');
+      if (stare.length > 6) stare[0].remove();
+    }
+    karta.addEventListener('click', function (e) { if (e.target.closest('a')) return; przybij(e); });
+    karta.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); przybij(); } });
+
+    /* plomba — zawsze ta sama temperatura */
+    var plomba = document.querySelector('.plomba'), temp = document.getElementById('temp'), ot = document.getElementById('otoczenie');
+    var OT = { ogien: 'otoczenie: nad ogniem', lod: 'otoczenie: w lodzie', poklad: 'otoczenie: pokład' };
+    document.querySelectorAll('[data-otoczenie]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var o = b.getAttribute('data-otoczenie');
+        plomba.classList.toggle('ogien', o === 'ogien');
+        plomba.classList.toggle('lod', o === 'lod');
+        ot.textContent = OT[o];
+        temp.textContent = '…';
+        setTimeout(function () { temp.textContent = 'ta sama co zawsze'; }, K.reduce ? 0 : 700);
+      });
+    });
+
+    /* lista długów */
+    var lista = document.getElementById('dlugi');
+    var dlugi = K.store.get('krag.fusk.dlugi', []);
+    function rysuj() {
+      lista.innerHTML = '';
+      if (!dlugi.length) {
+        var p = document.createElement('li');
+        p.className = 'pusto';
+        p.style.display = 'block';
+        p.textContent = 'BRAK WPISÓW. NA RAZIE.';
+        lista.appendChild(p);
+        return;
+      }
+      dlugi.forEach(function (d, i) {
+        var li = document.createElement('li');
+        var t = document.createElement('div');
+        var b = document.createElement('b'); b.textContent = d.imie;
+        t.appendChild(b);
+        if (d.koszt) { var s = document.createElement('span'); s.textContent = ' — ' + d.koszt; t.appendChild(s); }
+        var x = document.createElement('button');
+        x.type = 'button'; x.textContent = 'spłacone';
+        x.setAttribute('aria-label', 'Wykreśl: ' + d.imie);
+        x.addEventListener('click', function () { dlugi.splice(i, 1); K.store.set('krag.fusk.dlugi', dlugi); rysuj(); });
+        li.appendChild(t); li.appendChild(x);
+        lista.appendChild(li);
+      });
+    }
+    document.getElementById('dlug-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var im = document.getElementById('dlug-imie'), ko = document.getElementById('dlug-koszt');
+      if (!im.value.trim()) return;
+      dlugi.push({ imie: im.value.trim(), koszt: ko.value.trim() });
+      K.store.set('krag.fusk.dlugi', dlugi);
+      im.value = ''; ko.value = '';
+      rysuj();
+      im.focus();
+    });
+    rysuj();
+
+    /* rejestr — wpisy wynurzają się przy przewijaniu */
+    var wpisy = document.querySelectorAll('.rejestr li');
+    if (K.reduce || !('IntersectionObserver' in window)) {
+      wpisy.forEach(function (w) { w.classList.add('wid'); });
+    } else {
+      var io = new IntersectionObserver(function (w) {
+        w.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('wid'); io.unobserve(x.target); } });
+      }, { rootMargin: '0px 0px -18% 0px' });
+      wpisy.forEach(function (w) { io.observe(w); });
+    }
+
+    /* saldo — nigdy się nie ustala */
+    var saldo = document.getElementById('saldo'), kreci = null;
+    document.getElementById('sprawdz').addEventListener('click', function () {
+      if (kreci) return;
+      var t = 0;
+      kreci = setInterval(function () {
+        t++;
+        var s = '';
+        for (var i = 0; i < 7; i++) s += '0123456789'.charAt(Math.floor(Math.random() * 10));
+        saldo.textContent = s.replace(/(\d)(?=(\d{3})+$)/g, '$1 ');
+        if (t > (K.reduce ? 1 : 26)) { clearInterval(kreci); kreci = null; saldo.textContent = 'NIEZNANE'; }
+      }, 60);
+    });
+
+    /* głębokościomierz */
+    var glebia = document.querySelector('.glebia'), zn = glebia.querySelector('.znacznik'), ileEl = glebia.querySelector('.ile');
+    var wl = document.querySelector('.wlwrap');
+    var morza = Array.prototype.slice.call(document.querySelectorAll('.sea'));
+    var PROGI = [0, 40, 900, 2600, 4000];
+    function fmt(m) { return Math.round(m).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' M'; }
+    function mierz() {
+      var y = scrollY + innerHeight * 0.5;
+      var start = wl.offsetTop + wl.offsetHeight;
+      if (y < start) { glebia.classList.remove('wid'); ileEl.textContent = 'POKŁAD'; zn.style.setProperty('--g', '0%'); return; }
+      glebia.classList.add('wid');
+      var m = 0, pos = 0;
+      for (var i = 0; i < morza.length; i++) {
+        var s = morza[i], top = s.offsetTop, dol = top + s.offsetHeight;
+        if (y >= top && y < dol || i === morza.length - 1) {
+          var f = Math.max(0, Math.min(1, (y - top) / s.offsetHeight));
+          m = PROGI[i] + (PROGI[i + 1] - PROGI[i]) * f;
+          pos = (i + f) / morza.length;
+          break;
+        }
+      }
+      zn.style.setProperty('--g', (pos * 100).toFixed(1) + '%');
+      ileEl.textContent = '−' + fmt(m);
+    }
+    addEventListener('scroll', mierz, { passive: true });
+    addEventListener('resize', mierz);
+    mierz();
+  })();
+  </script>
+</body>
+</html>

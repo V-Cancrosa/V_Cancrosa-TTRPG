@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welian Sink · Krąg Cieni</title>
+  <meta name="description" content="Welian [Legion] Sink — Plazmoid, Łotrzyk Soul Knife, Szarlatan. Spirytysta, który okłamuje żywych z dobroci.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,800;1,500&family=Spectral:ital,wght@0,400;0,500;1,400&family=Pinyon+Script&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/postac.css">
+  <style>
+    :root {
+      --dno: #16130d; --dno-2: #100d09;
+      --papier: #e8dcc4; --papier-cichy: #b3a587;
+      --miedz: #dd9a4c; --miedz-ciemna: #9c5a22; --miedz-blada: #c79a64;
+      --patyna: #6aa888; --patyna-ciemna: #3f7a5f;
+      --akcent: var(--miedz);
+      --pasek-font: 500 .7rem/1.3 'Spectral', Georgia, serif;
+      --pasek-ink: #6aa888;
+      --pasek-akcent: #dd9a4c;
+      --pasek-szer: 60rem;
+      --x: 50%; --y: 12%;
+      color-scheme: dark;
+    }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body {
+      margin: 0; min-height: 100vh;
+      background: radial-gradient(120% 80% at 50% 0%, #1d1810 0%, var(--dno) 45%, var(--dno-2) 100%) fixed;
+      font: 400 1.06rem/1.78 'Spectral', Georgia, serif; color: var(--papier);
+      -webkit-font-smoothing: antialiased;
+    }
+    /* świeca za kursorem */
+    body::before {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(34rem 26rem at var(--x) var(--y), rgb(221 154 76 / calc(.11 * var(--plomien, 1))), transparent 70%);
+    }
+    body.patyna::after {
+      content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+      background: radial-gradient(90% 70% at 50% 110%, rgb(63 122 95 / var(--sniedz, 0)), transparent 70%);
+      transition: background 1.2s ease;
+    }
+    a { color: var(--miedz-blada); }
+    a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--miedz); outline-offset: 3px; }
+    .pasek, .sheet { position: relative; z-index: 1; }
+    .sheet { max-width: 60rem; margin: 0 auto; padding: 4vh 6vw 12vh; }
+
+    .signet { width: 84px; height: 84px; margin: 0 auto; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 0; cursor: pointer; position: relative; overflow: hidden;
+      background: radial-gradient(circle at 38% 32%, #e7b070 0%, #c07e36 46%, #8a4e1e 100%);
+      box-shadow: inset 0 2px 4px rgba(255,225,180,.55), inset 0 -4px 8px rgba(0,0,0,.55), 0 0 30px rgba(221,154,76,.22), 0 7px 18px rgba(0,0,0,.55); }
+    .signet span { font-family: 'Pinyon Script', cursive; font-size: 2.9rem; line-height: 1; color: #5e3413; text-shadow: 0 1px 0 rgba(255,224,176,.6), 0 -1px 1px rgba(0,0,0,.4); padding-bottom: .1em; }
+    .signet::after { content: ""; position: absolute; inset: -40%; background: linear-gradient(115deg, transparent 40%, rgb(255 236 200 / .75) 50%, transparent 60%); transform: translateX(-120%); }
+    .signet.blysk::after { transition: transform .9s ease; transform: translateX(120%); }
+
+    header { text-align: center; margin-bottom: 3.5rem; }
+    header .name { font-family: 'Pinyon Script', cursive; font-weight: 400; font-size: clamp(3rem, 9vw, 5rem); line-height: 1; color: var(--miedz); margin: 1.4rem 0 .2rem; text-shadow: 0 0 26px rgba(221,154,76,.16); }
+    header .alias { display: block; font: italic 500 .95rem/1 'Fraunces', serif; letter-spacing: .3em; color: var(--patyna); margin-top: .4rem; }
+    header .epithet { font-style: italic; color: var(--papier-cichy); font-size: 1.05rem; margin: .8rem 0 1.6rem; }
+    .statline { font-size: .72rem; letter-spacing: .32em; text-transform: uppercase; color: var(--patyna); display: inline-block; border-top: 1px solid var(--patyna-ciemna); border-bottom: 1px solid var(--patyna-ciemna); padding: .7rem 0; max-width: 38rem; line-height: 2.1; }
+    .statline b { color: var(--miedz-blada); font-weight: 500; }
+    .thesis { text-align: center; font-style: italic; font-size: clamp(1.25rem, 3vw, 1.6rem); line-height: 1.5; max-width: 34rem; margin: 3rem auto 4rem; }
+    .thesis::before, .thesis::after { content: ""; display: block; width: 46px; height: 1px; margin: 1.3rem auto; background: linear-gradient(90deg, transparent, var(--miedz-ciemna), transparent); }
+
+    section { margin: 0 auto 4rem; max-width: 44rem; }
+    section.szeroka { max-width: 56rem; }
+    h2 { font: 600 1.18rem/1.3 'Fraunces', Georgia, serif; text-transform: uppercase; letter-spacing: .18em; color: var(--miedz); margin: 0 0 .15rem; }
+    h2.srodek { text-align: center; }
+    .rule { height: 1px; background: linear-gradient(90deg, var(--patyna-ciemna), transparent); margin: 0 0 1.4rem; }
+    .rule.srodek { max-width: 9rem; margin: .2rem auto 2rem; background: linear-gradient(90deg, transparent, var(--miedz-ciemna), transparent); }
+    p { margin: 0 0 1rem; }
+    .quiet { color: var(--papier-cichy); font-size: .96rem; }
+    strong { color: var(--miedz-blada); font-weight: 500; }
+    .wound { border-left: 2px solid var(--patyna-ciemna); padding-left: 1.4rem; font-style: italic; color: var(--papier-cichy); }
+
+    /* trzy postaci */
+    .formy { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.6rem; }
+    .forma { appearance: none; cursor: pointer; background: transparent; color: var(--papier-cichy); border: 1px solid var(--miedz-ciemna); border-radius: 999px; padding: .45rem 1.1rem; font: 500 .74rem/1.2 'Spectral', serif; letter-spacing: .24em; text-transform: uppercase; transition: background .3s ease, color .3s ease; }
+    .forma[aria-selected="true"] { background: var(--akcent); color: #1a120a; border-color: var(--akcent); }
+    .scena { display: grid; gap: 2rem; align-items: start; }
+    @media (min-width: 760px) { .scena { grid-template-columns: 320px 1fr; } }
+    .ramka { position: relative; border: 1px solid var(--miedz-ciemna); border-radius: 2px; overflow: hidden; aspect-ratio: 2 / 3; background: #0c0a07; box-shadow: 0 10px 26px rgba(0,0,0,.55), 0 0 22px rgba(221,154,76,.08); max-width: 320px; margin: 0 auto; width: 100%; }
+    .ramka a { display: block; position: absolute; inset: 0; }
+    .ramka img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s ease; }
+    .ramka img.jest { opacity: 1; }
+    .ramka img.ciecz { filter: url(#ciecz); }
+    .ring { position: absolute; right: 10px; bottom: 10px; width: 34px; height: 34px; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle at 38% 32%, #e7b070, #c07e36 50%, #8a4e1e); box-shadow: 0 0 14px rgb(221 154 76 / .45), inset 0 -2px 4px rgb(0 0 0 / .5);
+      display: grid; place-items: center; font: 400 1.1rem/1 'Pinyon Script', cursive; color: #5e3413; }
+    .cap { font-style: italic; font-size: .86rem; color: var(--papier-cichy); text-align: center; margin: .7rem .2rem 0; }
+    .opis .tag { font-size: .66rem; letter-spacing: .26em; text-transform: uppercase; color: var(--patyna); margin: 0 0 .15rem; }
+    .opis h3 { font: 600 1.4rem/1.2 'Fraunces', serif; color: var(--akcent); margin: 0 0 .8rem; transition: color .5s ease; }
+    .opis p { font-size: .98rem; line-height: 1.75; color: var(--papier-cichy); }
+    .ring-note { text-align: center; font-style: italic; color: var(--miedz-blada); font-size: .98rem; margin-top: 2rem; }
+
+    /* seans */
+    .seans { position: relative; border: 1px solid var(--miedz-ciemna); border-radius: 50% / 18%; padding: 2.4rem 1.6rem 2rem; text-align: center;
+      background: radial-gradient(70% 60% at 50% 30%, rgb(221 154 76 / .1), transparent 70%), linear-gradient(180deg, rgba(221,154,76,.05), rgba(0,0,0,.2)); }
+    .swieca { width: 14px; height: 46px; margin: 0 auto 1rem; position: relative; background: linear-gradient(90deg, #d8cba9, #f1e6c9 40%, #c9b98f); border-radius: 3px 3px 2px 2px; }
+    .swieca::before { content: ""; position: absolute; left: 50%; top: -24px; width: 12px; height: 22px; transform: translateX(-50%); border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%;
+      background: radial-gradient(circle at 50% 70%, #fff3c4 0 20%, #ffc35a 45%, rgb(221 120 40 / .2) 75%, transparent 80%); animation: plomien 1.8s ease-in-out infinite alternate; transform-origin: 50% 100%; }
+    @keyframes plomien { 0% { transform: translateX(-50%) scale(1, 1) rotate(-2deg); } 40% { transform: translateX(-50%) scale(.92, 1.08) rotate(2deg); } 100% { transform: translateX(-50%) scale(1.05, .94) rotate(-1deg); } }
+    @media (prefers-reduced-motion: reduce) { .swieca::before { animation: none; } }
+    .odpowiedz { min-height: 6.5em; display: grid; place-items: center; margin: .5rem auto 1rem; max-width: 34rem; }
+    .odpowiedz p { margin: 0; font: italic 400 1.22rem/1.6 'EB Garamond', Georgia, serif; color: var(--papier); }
+    .odpowiedz p.glos { color: var(--patyna); }
+    .odpowiedz .podpis { display: block; margin-top: .7rem; font: 400 1.6rem/1 'Pinyon Script', cursive; color: var(--miedz-blada); }
+    .odpowiedz .glos + .podpis, .odpowiedz .podpis.legion { font: italic 400 .95rem/1 'EB Garamond', serif; letter-spacing: .16em; color: var(--patyna); }
+    .odpowiedz .zrodlo { display: block; margin-top: .6rem; font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: var(--papier-cichy); }
+    .przycisk { appearance: none; cursor: pointer; border: 1px solid var(--miedz); background: transparent; color: var(--miedz); border-radius: 2px; padding: .6rem 1.3rem; font: 500 .76rem/1.2 'Spectral', serif; letter-spacing: .26em; text-transform: uppercase; transition: background .3s ease, color .3s ease; }
+    .przycisk:hover { background: var(--miedz); color: #1a120a; }
+    .przycisk.cichy { border-color: var(--patyna-ciemna); color: var(--patyna); }
+    .przycisk.cichy:hover { background: var(--patyna-ciemna); color: var(--papier); }
+    .licznik { margin-top: 1rem; font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: var(--papier-cichy); }
+
+    /* soul knife */
+    .ostrze { border: 1px solid var(--miedz-ciemna); border-radius: 4px; padding: 1.6rem; background: linear-gradient(180deg, rgba(221,154,76,.07), rgba(221,154,76,.02)); }
+    .ostrze-gora { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 1.6rem; }
+    .ostrze label { display: block; font-size: .66rem; letter-spacing: .26em; text-transform: uppercase; color: var(--patyna); margin-bottom: .35rem; }
+    .ostrze select { font: 500 1rem/1.2 'Spectral', serif; background: var(--dno); color: var(--papier); border: 1px solid var(--miedz-ciemna); border-radius: 2px; padding: .4rem .6rem; }
+    .staty { display: flex; flex-wrap: wrap; gap: .3rem 1.4rem; font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--papier-cichy); }
+    .staty b { color: var(--miedz); font-weight: 500; }
+    .kosci { display: flex; flex-wrap: wrap; gap: .55rem; margin: 1.4rem 0 .4rem; }
+    .kosc { appearance: none; cursor: pointer; width: 34px; height: 34px; padding: 0; border: 1px solid var(--patyna); transform: rotate(45deg); border-radius: 4px; background: radial-gradient(circle at 40% 40%, #9fd9bc, var(--patyna) 55%, var(--patyna-ciemna)); box-shadow: 0 0 12px rgb(106 168 136 / .35); transition: opacity .3s ease, transform .3s ease; }
+    .kosc.zuzyta { opacity: .2; transform: rotate(45deg) scale(.8); box-shadow: none; }
+    .akcje { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+    .wynik { margin-top: 1rem; min-height: 1.6em; font-size: 1rem; color: var(--papier); }
+    .wynik b { color: var(--patyna); font-weight: 500; }
+    .wynik .maly { color: var(--papier-cichy); font-size: .85rem; }
+
+    /* archiwum */
+    .arch { list-style: none; margin: 0; padding: 0; }
+    .arch li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .6rem 1.4rem; padding: 1rem 0; border-bottom: 1px solid rgb(63 122 95 / .4); }
+    .arch h3 { margin: 0; font: 600 1.05rem/1.3 'Fraunces', serif; color: var(--miedz); letter-spacing: .04em; }
+    .arch p { margin: .1rem 0 0; font-size: .9rem; color: var(--papier-cichy); }
+    .formaty { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .fmt { display: inline-flex; gap: .45rem; align-items: baseline; text-decoration: none; border: 1px solid var(--miedz-ciemna); border-radius: 2px; padding: .35rem .8rem; font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; color: var(--miedz); white-space: nowrap; }
+    .fmt small { letter-spacing: 0; text-transform: none; color: var(--papier-cichy); font-size: .75rem; }
+    .fmt:hover { background: rgb(221 154 76 / .12); }
+    .galeria { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 1rem; }
+    .galeria a { display: block; width: 64px; height: 96px; border: 1px solid var(--miedz-ciemna); border-radius: 2px; overflow: hidden; }
+    .galeria img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    footer { text-align: center; margin-top: 4.5rem; }
+    footer .line { width: 64px; height: 1px; margin: 0 auto 1.6rem; background: linear-gradient(90deg, transparent, var(--miedz-ciemna), transparent); }
+    footer p { font-size: .8rem; letter-spacing: .18em; text-transform: uppercase; color: var(--patyna); }
+
+    body[data-forma="niepozorny"] { --akcent: #a99fb5; }
+    body[data-forma="showman"] { --akcent: #d6a54e; }
+    body[data-forma="prawdziwa"] { --akcent: var(--miedz); }
+  </style>
+</head>
+<body data-forma="showman">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="ciecz" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.010 0.028" numOctaves="2" seed="7" result="szum">
+        <animate attributeName="baseFrequency" dur="16s" values="0.010 0.028;0.014 0.022;0.010 0.028" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="szum" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <nav class="pasek" aria-label="Nawigacja">
+    <a href="../../">← Krąg Cieni</a>
+    <span class="obok"><a href="../fretka-auri/" rel="prev">‹ Fretka</a><a href="../durgan-vundrakkun/" rel="next">Dûrgan ›</a></span>
+  </nav>
+
+  <div class="sheet">
+    <header>
+      <button type="button" class="signet" aria-label="Sygnet z literą W — jedyna rzecz, która się nie rozmywa"><span>W</span></button>
+      <h1 class="name">Welian Sink</h1>
+      <span class="alias">[ legion ]</span>
+      <p class="epithet">spirytysta z szemranej dzielnicy — ten, który okłamuje żywych z dobroci</p>
+      <div class="statline">
+        <b>Plazmoid</b> &nbsp;·&nbsp; <b>Łotrzyk — Soul Knife</b> &nbsp;·&nbsp; <b>Szarlatan</b><br>
+        poziom 7+ &nbsp;·&nbsp; oficjalne D&amp;D 5e (2014) &nbsp;·&nbsp; bez homebrew
+      </div>
+    </header>
+
+    <p class="thesis">Okłamuje żywych, żeby ich ukoić — i nie wie, że przy okazji naprawdę dotyka umarłych.</p>
+
+    <section class="szeroka wjazd" id="postaci">
+      <h2 class="srodek">Trzy postaci</h2>
+      <div class="rule srodek"></div>
+      <div class="formy" role="tablist" aria-label="Trzy postaci Weliana">
+        <button type="button" class="forma" role="tab" data-forma="niepozorny" aria-selected="false">Niepozorny</button>
+        <button type="button" class="forma" role="tab" data-forma="showman" aria-selected="true">Showman</button>
+        <button type="button" class="forma" role="tab" data-forma="prawdziwa" aria-selected="false">Prawdziwa postać</button>
+      </div>
+      <div class="scena">
+        <div>
+          <div class="ramka">
+            <a href="Incognito.png" data-galeria="welian" data-duzy="../../assets/portrety/welian-sink-3.webp" data-podpis="Niepozorny — „Mijasz go bez spojrzenia”" data-forma="niepozorny" tabindex="-1">
+              <img src="../../assets/portrety/welian-sink-3.webp" alt="Welian niepozorny — opatulona postać w deszczowym zaułku pod gazową latarnią" data-forma="niepozorny">
+            </a>
+            <a href="Showman.png" data-galeria="welian" data-duzy="../../assets/portrety/welian-sink-2.webp" data-podpis="Showman — „Grand Séance — cuda zza zasłony”" data-forma="showman">
+              <img src="../../assets/portrety/welian-sink-2.webp" alt="Welian jako showman w cylindrze, w parlourze spirytysty" data-forma="showman" class="jest">
+            </a>
+            <a href="Legion.png" data-galeria="welian" data-duzy="../../assets/portrety/welian-sink-1.webp" data-podpis="Prawdziwa postać — „Stoi przed portretem maski, którą nosi”" data-forma="prawdziwa" tabindex="-1">
+              <img src="../../assets/portrety/welian-sink-1.webp" alt="Prawdziwa postać — wysoka sylwetka z wolno ściekającej miedzi" data-forma="prawdziwa">
+            </a>
+            <span class="ring" aria-hidden="true">W</span>
+          </div>
+          <p class="cap"></p>
+        </div>
+        <div class="opis" aria-live="polite">
+          <p class="tag"></p>
+          <h3></h3>
+          <p class="tekst"></p>
+        </div>
+      </div>
+      <p class="ring-note">Pierścień jest jeden i ten sam we wszystkich trzech. To po nim, nie po twarzy, można go rozpoznać.</p>
+    </section>
+
+    <section class="wjazd">
+      <h2>Kim jest</h2>
+      <div class="rule"></div>
+      <p>Welian Sink był kiedyś żywym medium w szemranej dzielnicy jednego z imperialnych miast — drobnym oszustem, który seansami koił żałobę. Nie sięgał po zmarłych: czytał żywych i podawał im głos, ku któremu mogli się wypłakać. Kłamał z dobroci i widział, że to działa.</p>
+      <p>Kontakt z drugą stroną przyszedł jako efekt uboczny. Utajona iskra psioniczna sama podpinała się pod zaświaty i ściągała stamtąd moc oraz ślad cudzych dusz. Z każdym seansem zatracał trochę siebie, a sprowadzał trochę z tamtej strony — bo rządziła tym jedna zasada: <strong>dusza kształtuje ciało</strong>. Po tysiącach pożyczonych dusz jego forma przestała umieć utrzymać jeden kształt i stał się plazmoidem.</p>
+      <p class="quiet">Z dawnego „niego” nie został nikt — tylko bezkształtne, miedziane ciało i imię, które odczytuje z własnego pamiętnika, żeby pamiętać, że ktoś tu był.</p>
+    </section>
+
+    <section class="wjazd">
+      <h2>Rana</h2>
+      <div class="rule"></div>
+      <p class="wound">Co wieczór przyjmuje w siebie cudzy żal i zdejmuje go z ludzi. Naszego nie zdejmuje nikt. Nie ma medium dla medium, nikogo „wyżej”, do kogo mógłby przejść i zostać wysłuchanym. Jest zlewem na cudzą stratę — i powoli osuwa się w siebie.</p>
+      <p class="quiet">Stąd „Sink”: i naczynie, do którego wszystko spływa, i samo zapadanie się w dół.</p>
+    </section>
+
+    <section class="wjazd" id="seans">
+      <h2 class="srodek">Seans</h2>
+      <div class="rule srodek"></div>
+      <div class="seans">
+        <div class="swieca" aria-hidden="true"></div>
+        <div class="odpowiedz" aria-live="polite"><p class="quiet">Połóż dłoń na stole. Welian czyta żywych — ale za zasłoną ktoś też słucha.</p></div>
+        <button type="button" class="przycisk" id="seans-start">Rozpocznij seans</button>
+        <div class="licznik" id="seans-licznik"></div>
+      </div>
+      <p class="quiet" style="text-align:center;margin-top:1rem">Zdania pochodzą z <a href="pamietnik-welian-sink-final.html">pamiętnika</a>: jego ręką — albo drugim atramentem.</p>
+    </section>
+
+    <section class="wjazd" id="ostrze">
+      <h2>Ostrze z myśli</h2>
+      <div class="rule"></div>
+      <div class="ostrze">
+        <div class="ostrze-gora">
+          <div><label for="poziom">Poziom łotrzyka</label><select id="poziom"></select></div>
+          <div class="staty" id="staty"></div>
+        </div>
+        <div class="kosci" id="kosci" aria-label="Kości energii psionicznej"></div>
+        <div class="akcje">
+          <button type="button" class="przycisk" data-rzut="ostrze">Psychic Blade 1d6</button>
+          <button type="button" class="przycisk" data-rzut="druga">Drugie ostrze 1d4</button>
+          <button type="button" class="przycisk" data-rzut="sneak">Sneak Attack</button>
+          <button type="button" class="przycisk cichy" data-rzut="psi">Kość psioniczna</button>
+          <button type="button" class="przycisk cichy" data-rzut="odzyskaj">Odzyskaj jedną (bonus action)</button>
+          <button type="button" class="przycisk cichy" data-rzut="odpocznij">Długi odpoczynek</button>
+        </div>
+        <div class="wynik" id="wynik" aria-live="polite"></div>
+      </div>
+      <p class="quiet" style="margin-top:1rem">Psionika Soul Knife = „część mocy” ściągniętej z zaświatów. Modyfikatory dolicz z karty — strona rzuca same kości. Stan zapisuje się w tej przeglądarce.</p>
+    </section>
+
+    <section class="wjazd" id="archiwum">
+      <h2>Archiwum</h2>
+      <div class="rule"></div>
+      <ul class="arch">
+        <li><div><h3>Dossier</h3><p>Kim jest, rana, trzy postaci, sygnet — i list do Mistrza Gry.</p></div><div class="formaty"><a class="fmt" href="dossier-welian-sink.html">Strona<small>540 KB</small></a><a class="fmt" href="Dossier%20%E2%80%94%20Welian%20Sink-1.pdf">PDF<small>774 KB</small></a></div></li>
+        <li><div><h3>Pamiętnik</h3><p>Dwanaście kart, jedną ręką — in-game artefakt dokumentujący jego zatratę.</p></div><div class="formaty"><a class="fmt" href="pamietnik-welian-sink-final.html">Strona<small>44 KB</small></a><a class="fmt" href="Pami%C4%99tnik%20%E2%80%94%20Welian%20Sink-1.pdf">PDF<small>1,2 MB</small></a></div></li>
+        <li><div><h3>Grafiki</h3><p>Legion · Showman · Incognito</p></div><div class="formaty"><a class="fmt" href="Legion.png">PNG<small>2,2 MB</small></a><a class="fmt" href="Showman.png">PNG<small>2,0 MB</small></a><a class="fmt" href="Incognito.png">PNG<small>2,0 MB</small></a></div></li>
+      </ul>
+    </section>
+
+    <footer>
+      <div class="line"></div>
+      <p>Welian Sink · Krąg Cieni · do uznania Mistrza Gry</p>
+    </footer>
+  </div>
+
+  <script src="../../assets/postac.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var K = window.Krag;
+    var ZDANIA = [[1,"Wszystko trzeba kiedyś zacząć od początku, a początki gubią się najłatwiej — więc go zapisuję."],[1,"Nowe miasto, nowa nora, nowy ja: przynajmniej tyle, ile da się odnowić, nie ruszając w środku niczego istotnego."],[1,"Na lepszą część miasta mnie nie stać, więc wynająłem na samym skraju tej gorszej — na granicy, z której widać oba światy."],[1,"To nawet pociecha: dość blisko porządnych ulic, żeby klient nie bał się tu zajść, i dość daleko od ich spojrzeń, żeby nie pytali, czym właściwie się zajmuję."],[1,"Reszta dzielnicy każe mieć się na baczności i nie wstydzę się tego przyznać."],[1,"Rozglądam się i robię to, co umiem najlepiej, nawet kiedy nie chcę: czytam."],[1,"Twarze tutaj są pozamykane na głucho, ale zamki bywają gadatliwe."],[1,"Mężczyzna, który za długo trzyma dłoń na sakiewce."],[1,"Kobieta, która mówi o mężu w czasie przeszłym i jeszcze tego nie zauważyła."],[1,"Chłopak, który uśmiecha się o ułamek za późno."],[1,"Świat jest dziś ciężki dla wszystkich, tyle że każdy niesie swój ciężar osobno, jakby się go wstydził."],[1,"Niewiele mi zostawiła, ale to zdanie zostawiła."],[1,"I sygnet, który mam na palcu, kiedy to piszę."],[1,"Nie jestem idealistą i nie będę udawał przed samym sobą, że nim jestem."],[1,"Robię to, co robiła ona — seanse, rozmowy z tymi, których już nie ma — choć nie mam jej daru i chyba zawsze wiedziałem, że nie mam."],[1,"Czego nie ma we mnie, nadrabiam tym, że widzę ludzi na wylot."],[1,"Tu wszystko schodzi się w jedno: to, czego im trzeba, to, co umiem, i to, z czego wyżyję."],[1,"A jeśli wyjdą stąd lżejsi, niż weszli, nie obchodzi mnie, czy rozmawiali z umarłym, czy ze mną."],[1,"Jutro rozłożę stół, rozwieszę afisze i zacznę notować, kto przychodzi i z czym."],[1,"Dziś chciałem zapisać tylko to — że zaczynam, i po co."],[2,"Mężczyzna, człowiek, wszedł i nie zdjął płaszcza — albo nie zamierzał zostać dłużej, niż musi, albo nie wierzył, że warto."],[2,"Obrączka — ale wytarta do połysku od spodu, od strony dłoni, nie z wierzchu."],[2,"Tak ściera się tylko pierścień, który obraca się bez przerwy, kciukiem, w kółko, kiedy ręce nie mają co ze sobą zrobić."],[2,"Nosi ją, więc żona jest; obraca ją tak, więc żony nie ma."],[2,"Resztę dopowiedziały drobiazgi: koszula odprasowana starannie, lecz guzik przyszyty krzywo, świeżą nitką — ktoś dotąd robił to za niego, a teraz uczy się sam."],[2,"Ale z samego patrzenia niewiele się zbuduje — resztę trzeba wysłuchać."],[2,"Pytałem o byle co i słuchałem, gdzie się potyka."],[2,"Dałem mu te kilka zdań, których nie umiał powiedzieć sobie sam: że się nie gniewała, że ostatnie słowo nie było ostatnie, że ma żyć dalej i że to w porządku."],[2,"Nie wymyśliłem ich z powietrza — wyczytałem je z niego i tylko oddałem mu je jej głosem."],[2,"Nie wyszedł uzdrowiony; nikt nie wychodzi po jednym wieczorze."],[2,"Wyszedł tylko trochę lżejszy i powiedział, że wróci."],[2,"Robię coś, na co ten świat nie ma jeszcze nazwy."],[2,"Nie rozmawiam z umarłymi — słucham żywych i oddaję im to, na co sami sobie nie pozwalają."],[2,"Gdyby istniał fach od porządkowania tego, co ludzie noszą w głowie, robiłbym go pod prawdziwym szyldem."],[2,"Nie istnieje, więc robię go pod szyldem zaświatów."],[2,"Na przyszłość, żebym nie zgubił: Marit, żona, ranek po kłótni."],[2,"Trzeba mu jej wybaczenia, nie jej obecności — następnym razem zacząć od tego, że nie czekała na niego z gniewem."],[3,"Rozkręciło się — na tyle, że prowadzę już kajet jak należy, żeby nie pomylić twarzy ani zmarłych."],[3,"Brat, z którym nie gadał od lat, umarł pierwszy."],[3,"Nie chce przeprosin — chce usłyszeć, że brat też ich nie zdążył powiedzieć."],[3,"Płacze po kimś, kto umarł, zanim ja się urodziłem; dla niej to przedwczoraj."],[3,"Nie potrzebuje pociechy, tylko kogoś, kto nie powie jej, że „już czas\"."],[3,"Chciał wiedzieć, gdzie babka chowała pieczęć do listów."],[3,"Babki nie wywołam, ale rozmowa naprowadziła go samego — była w puszce po herbacie."],[3,"Nie pyta o zmarłego — pyta, czy ojciec, człowiek, wstydził się go za życia."],[3,"Sąsiad umarł, pół ulicy szepcze, że przez nią."],[3,"To nie pytanie do zmarłych, to pytanie do niego — ale łatwiej je zadać przez stół z kulą."],[3,"Nigdy się nie żegna, bo zawsze rusza dalej — z nią też nie zdążył."],[3,"Powiedziałem, że rozumiała, bo sama była taka sama."],[3,"Drobiazg, nie do rejestru, ale zapisuję: sygnet po matce obraca się dziś luźniej, niż pamiętam."],[3,"Schudłem chyba przez te wieczory — siedzę więcej, niż jem."],[4,"Ten wpis powinien być krótki jak inne, a nie będzie."],[4,"Zdarzyło się coś, czego nie umiem wpisać w rubrykę."],[4,"Wszystko szło jak zawsze — dawałem mu Marit taką, jakiej potrzebował."],[4,"A potem, w środku zdania, padło ze mnie słowo, którego nie znałem: tak nazywał ją tylko on, po nocach, i nigdy mi tego nie powiedział."],[4,"Wyszedłem z tego gładko, jak zawsze: że wspomniał o tym za pierwszym razem, że dużo wtedy mówił, że nie pamięta."],[4,"Tylko ja wiem, że akurat tego jednego nie wymyśliłem."],[4,"Nie miałem tego w kajecie ani na żadnej luźnej kartce, a kiedy czytałem go przy stole, szukałem tego słowa odruchowo — i nie było go w jego głowie."],[4,"A jednak wyszło ze mnie gotowe, jak własne wspomnienie."],[4,"Jest jeszcze druga rzecz, której nie chciałem zapisywać, bo zapisana robi się prawdziwa."],[4,"Na przedramieniu mam plamę — skóra zzieleniała, matowo, jak u półorka, choć nie swędzi i nie boli."],[4,"Niżej, przy nadgarstku, wyszło kilka włosków, grubszych, nie moich, jakby zaczynało tam rosnąć czyjeś futro."],[4,"Kapłan pobłogosławił i też nie wiedział, tylko patrzył na mnie dłużej, niż lubię."],[4,"Mówię sobie: wilgoć w tej norze, złe powietrze, za mało snu, za dużo umarłych w głowie od rana do nocy."],[4,"Nie podoba mi się jedynie, że plama i to słowo przyszły w tym samym tygodniu."],[4,"Wpisuję jedno i drugie osobno, na dwie różne strony kajetu, żeby ze sobą nie sąsiadowały."],[5,"Druga strona przestała podrzucać same drobiazgi — teraz wkłada mi w usta całe zdania, i nie zawsze takie, jakie chcę powiedzieć."],[5,"Okazuje się, że nie każdy zmarły życzy żywym dobrze."],[5,"Niektórzy wracają z urazą, pełną i świeżą, jakby śmierć niczego nie ostudziła."],[5,"Przyszła kobieta po słowo od matki — po „byłaś dobrą córką\"."],[5,"A ze mnie wyszło coś innego: cięte, zimne, dokładnie w jej najczulsze miejsce, słowami, których sam bym nie ułożył."],[5,"Musiałem łapać to w locie i odwracać — że matka była twarda, bo się o nią bała; że ostrość to nie to samo co brak miłości."],[5,"I jeszcze to: kiedy tamto cięte wychodziło ze mnie, plama na karku pociemniała i napięła się, jakby ktoś ją zacisnął."],[5,"Kiedy odwróciłem słowa i kobieta odetchnęła — zelżała."],[5,"Nie rozumiem tego — i pewnie nie ma czego rozumieć."],[5,"Kiedy walczę o czyjeś słowa, sam się spinam; ciało napina się ze mną, a potem puszcza."],[5,"Zapisuję to tylko dlatego, że zeszło się z tamtymi słowami zbyt równo, żeby mi się podobało."],[5,"Pojawiają się, znikają, przesuwają, raz lżeją, raz się zaostrzają."],[5,"Coraz częściej tam, gdzie widać — na karku, na grzbiecie dłoni — choć twarz na razie zostawiają w spokoju."],[5,"Noszę dłuższe rękawy i chustę wyżej, niż każe pogoda."],[5,"Klient nie może zobaczyć, że uzdrowiciel sam jest na coś chory."],[5,"A świat nie przejmuje się tym, co się ze mną dzieje, i przypomina o tym po swojemu."],[5,"Najpierw zniknął mi mieszek — w tłoku, czysto, nawet nie poczułem."],[5,"Potem ktoś wszedł nocą i zabrał świeczniki, te dobre, mosiężne, które robiły pół nastroju przy stole."],[5,"W tej dzielnicy nikt ci nic nie odda i nikt się nie zdziwi, że cię okradli."],[5,"Zdziwią się tylko, jeśli pozwolisz na to drugi raz."],[5,"A zamków nauczyłem się od drugiej strony: pomyśleć jak ten, kto je otwiera, żeby zamknąć je tak, by mu się odechciało."],[6,"Zapiszę to tak, jak opisywałbym cudzy przypadek, bo na sobie nie umiem inaczej zachować trzeźwości."],[6,"Fakty: zmiany na skórze przestały być choćby regularne w swojej nieregularności."],[6,"Na przedramieniu zielona plama porosła futrem; sprawdziłem, dopytałem, przejrzałem, co mam pod ręką — zielone futro nie istnieje."],[6,"Na drugiej dłoni narosła łuska, ale miękka, ustępująca pod palcem, a łuska tortla taka nie bywa, bo cała jej istota to twardość."],[6,"Te połączenia nie należą do żadnego stworzenia, jakie znam."],[6,"Składam je z kawałków, które osobno do kogoś pasują, a razem do nikogo."],[6,"Szukam wyjaśnienia jak zawsze: odrzucam po kolei."],[6,"Żadna nie buduje futra tam, gdzie futra być nie powinno."],[6,"Nie tłumaczą wyboru, jaki te zmiany zdają się mieć."],[6,"Nie wierzę w klątwy, a nawet gdybym wierzył, klątwy nie improwizują."],[6,"Wykreślam jedno po drugim, aż zostaje to, czego wykreślić nie mogę — i to jest najgorsze."],[6,"Gdyby to był cudzy przypadek, odrzuciłbym takiego medyka jako wariata."],[6,"Ale odrzuciłem już wszystko prawdopodobne, a to jedno zostaje możliwe — i nienawidzę, że logika prowadzi mnie dokładnie tam, gdzie rozum każe nie iść."],[6,"Więc powtarzam sobie to, co wiem na pewno, bo to jedyny grunt, jaki mam: ja nie rozmawiam z duchami."],[6,"Czytam żywych i oddaję im obraz ich własnego zmarłego, którego sami mi przynieśli."],[6,"Cokolwiek dzieje się z moją skórą, nie ma prawa mieć z tym nic wspólnego — bo gdyby miało, znaczyłoby, że przez te wszystkie lata nie udawałem."],[6,"(Raz, przez chwilę, wydało mi się, że te kawałki przypominają ludzi, z którymi siedziałem przy stole."],[6,"Ale twarze w plamach widzi każdy, kto za długo się w nie wpatruje."],[6,"Wykreślam i to.) Trzymam rękawy nisko, a rozum wysoko."],[7,"Znów piszę to jak cudzy przypadek, ale tym razem ręka mi drży przy piórze, więc dystans nie wychodzi czysto."],[7,"Trudno badać własną dłoń z chłodem, kiedy to właśnie ona przestała być pewna."],[7,"Po wczorajszym seansie zdjąłem rękawice — noszę je teraz zawsze, żeby nie pokazywać, co dzieje się ze skórą — i były wilgotne od środka."],[7,"Nie taki twardy, jaki stoi w lichtarzu — taki, jaki jest tuż przy płomieniu, w miejscu, gdzie świeca dopiero stała się płynna i jeszcze nie spłynęła."],[7,"Ledwie, ledwie się ruszał, jakby chciał obsunąć się z kości."],[7,"Patrzyłem na własną rękę i nie umiałem jej kazać przestać."],[7,"Prawdziwy, zimny — i kiedy mnie chwycił, dłoń jakby na niego odpowiedziała: stężała, ścisnęła się z powrotem w ciało, twarde, moje."],[7,"Wiem tylko, że to panika, nie spokój, trzyma mnie w jednym kształcie."],[7,"Medyka i kapłana już zużyłem; żaden nie wiedział."],[7,"Więc zrobiłem ostatnią rozsądną rzecz: zapłaciłem tym, co znają magię — dwóm, osobno, żeby się nie zmówili."],[7,"Jeśli cokolwiek ma nazwę, myślałem, magia ją zna; magia to przecież spis tego, co niemożliwe."],[7,"Żadnego zaklęcia, żadnej klątwy, żadnej przypadłości w ich księgach."],[7,"Ostatnia rama, która mogłaby mnie pomieścić, nie ma dla mnie półki."],[7,"Zostały mi tłumaczenia coraz cieńsze: gorąco od świec, zmęczenie, oko, które po nocach widzi, czego nie ma."],[7,"Powtarzam je sobie i pierwszy raz słabo się trzymają."],[7,"Powtarzam więc to drugie, pewniejsze: ja czytam żywych, nie rozmawiam z umarłymi."],[7,"I pierwszy raz, odkąd to piszę, samo powtórzenie mnie nie uspokoiło."],[7,"Coś jest nie tak w sposób, który nie ma nazwy — a mnie zaczyna brakować sposobów, żeby na to nie patrzeć."],[7,"Co wieczór gaszę świece przy stole i patrzę, jak wosk ścieka przy knocie."],[8,"Zasypiam i przestaję być sobą; nie tak, że śnię, że jestem kimś innym, tylko tak, że przestaję mieć brzegi, po których wiadomo, gdzie kończę się ja, a zaczyna ktoś."],[8,"Nie mówią do mnie — po prostu są, mówią dalej, jakby nigdy nie przestały."],[8,"Kobieta tłumacząca mężowi, że woda była zimna i że to nie jego wina."],[8,"Inna, twarda, która wciąż nie umie powiedzieć córce dobrego słowa."],[8,"Ktoś, kto żałuje, że zawsze ruszał dalej i nigdy się nie pożegnał."],[8,"Znam je, bo sam je wymyśliłem — to ich wkładałem w usta przy stole, zgadując, czego potrzebują żywi."],[8,"Tyle że teraz mówią rzeczy, których nigdy nie napisałem."],[8,"Marit mówi mężowi coś, czego on mi nie powiedział, a ja nie zgadłem."],[8,"To nie moje zmyślenia śnią mi się z powrotem."],[8,"A od kilku nocy nie kończy się to z przebudzeniem."],[8,"Słyszę je przez chwilę z otwartymi oczami, zanim ucichną — nie wyobrażone, nie domyślane, tylko usłyszane, jak głos zza ściany."],[8,"Więc robię to, co robi rozum, kiedy zostaje przyparty do końca samego siebie."],[8,"Wykreśliłem chorobę, truciznę, klątwę, magię — wszystko możliwe i wszystko nieprawdopodobne, co dało się sprawdzić."],[8,"Zostało jedno, czego wykreślić nie sposób, bo właśnie do mnie mówi."],[8,"Nie zwariowałem; szaleństwo byłoby łatwiejsze."],[8,"Po prostu skończyły mi się fałszywe odpowiedzi."],[8,"Zatem ta prawdziwa, choćby była nie do pomyślenia, brzmi tak: podpinam się pod drugą stronę i ściągam stamtąd umarłych do siebie."],[8,"Tyle że ten jeden fakt zabiera mi drugi, na którym stałem całe życie."],[8,"Bo jeśli to prawda, to znaczy, że nie zawsze udawałem."],[8,"Że rzecz, którą sprzedawałem jako sztuczkę, jest realna — i przyszła po mnie."],[8,"Trzymałem się tego, że tylko udaję, jak gruntu pod nogami."],[8,"Więc liczę dalej, na chłodno, bo tylko to mi zostało."],[8,"Przychodzą z każdym seansem i nie wychodzą — nie umiem ich wypuścić, nie wiem nawet, jak się tego próbuje."],[8,"Skóra, dłoń, wosk przy knocie — to nie choroba."],[8,"To oni układają się we mnie, każdy po swojemu, a ciało nie wie, którym z nich być."],[8,"Wiem tylko, że jestem teraz miejscem, do którego się wprowadzają — i że jest ich więcej niż mnie."]];
+    var GLOSY = [
+      [9, 'To nie była zimna woda. Powiedz mu wreszcie, że to nie była woda.'],
+      [9, 'Mnie też nikt nie poukładał. Sama się trzymałam całe życie.'],
+      [9, 'A my piszemy z tobą.'],
+      [9, '— a nasz dopiero się zaczyna.'],
+      [9, 'Jest nas tu coraz więcej. On wciąż pisze „ja”. Ale pisze już naszą ręką.'],
+      [10, 'Pozwól im się wypłakać, to ścichną. Ja ci pomogę.'],
+      [10, 'Po co się trzymać? Rozlej się. Będzie cicho.']
+    ];
+    var FORMY = {
+      niepozorny: { tag: 'dzień · obcy', h: 'Niepozorny', cap: '„Mijasz go bez spojrzenia”',
+        t: 'Zapomniana, opatulona sylwetka w deszczowym zaułku pod gazową latarnią. Warstwy postrzępionych, łuskowatych szmat w przygaszonych barwach, a przez nie wpleciony spłowiały fioletowy szal — duch showmana, który przetrwał. Twarz owinięta; widać tylko parę przyćmionych, miedzianych oczu i jedną miedzianą dłoń z sygnetem. Zakrywa z siebie jak najwięcej, żeby nie musieć przefarbowywać całego ciała.' },
+      showman: { tag: 'występ', h: 'Showman', cap: '„Grand Séance — cuda zza zasłony”',
+        t: 'Purpurowo-złoty płaszcz o brokatowym wykończeniu, haftowana kamizelka z dewizkami, ascot, cylinder. Za nim parlour spirytysty: kopcące świece, kryształowa kula, czaszki i ręcznie malowane afisze obiecujące kontakt zza zasłony. Twarz w pełni ludzka, ciepła, teatralna; dłoń otwarta w geście zaproszenia, na palcu sygnet. Tu ukrywa, że strój jest z niego, i gra charyzmatycznego medium — jak najdalej od ooze.' },
+      prawdziwa: { tag: 'noc · odpoczynek · zaufani (drużyna)', h: 'Prawdziwa postać', cap: '„Stoi przed portretem maski, którą nosi”',
+        t: 'Wysoka sylwetka z wolno ściekającej miedzi, pożyłkowana i zalana patyną. Gładka głowa bez rysów; kto patrzy dłużej, widzi, jak w piersi wypływają i toną cudze twarze. Dłonie z miedzi, które nie chcą się domknąć. Stóp brak — dół rozlewa się w miedzianą kałużę na podłodze. Sygnet to jedyny twardy znak, który światło chwyta czysto.' }
+    };
+
+    /* świeca za kursorem */
+    var root = document.documentElement;
+    addEventListener('pointermove', function (e) {
+      root.style.setProperty('--x', e.clientX + 'px');
+      root.style.setProperty('--y', e.clientY + 'px');
+    }, { passive: true });
+    if (!K.reduce) {
+      (function migocz() {
+        root.style.setProperty('--plomien', (0.8 + Math.random() * 0.45).toFixed(2));
+        setTimeout(migocz, 90 + Math.random() * 180);
+      })();
+    }
+
+    /* sygnet */
+    var signet = document.querySelector('.signet');
+    signet.addEventListener('click', function () {
+      signet.classList.remove('blysk'); void signet.offsetWidth; signet.classList.add('blysk');
+    });
+
+    /* trzy postaci */
+    var tabs = document.querySelectorAll('.forma');
+    var imgs = document.querySelectorAll('.ramka img');
+    var linki = document.querySelectorAll('.ramka a');
+    var opis = document.querySelector('.opis'), cap = document.querySelector('.scena .cap');
+    function ustaw(f) {
+      var d = FORMY[f];
+      document.body.setAttribute('data-forma', f);
+      tabs.forEach(function (t) { t.setAttribute('aria-selected', t.getAttribute('data-forma') === f ? 'true' : 'false'); });
+      imgs.forEach(function (i) {
+        var on = i.getAttribute('data-forma') === f;
+        i.classList.toggle('jest', on);
+        i.classList.toggle('ciecz', on && f === 'prawdziwa' && !K.reduce);
+      });
+      linki.forEach(function (a) {
+        var on = a.getAttribute('data-forma') === f;
+        a.style.zIndex = on ? 2 : 1;
+        a.tabIndex = on ? 0 : -1;
+      });
+      opis.querySelector('.tag').textContent = d.tag;
+      opis.querySelector('h3').textContent = d.h;
+      opis.querySelector('.tekst').textContent = d.t;
+      cap.textContent = d.cap;
+      K.store.set('krag.welian.forma', f);
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { ustaw(t.getAttribute('data-forma')); }); });
+    ustaw(K.store.get('krag.welian.forma', 'showman'));
+
+    /* seans — z każdym seansem głosy odzywają się częściej */
+    var liczba = K.store.get('krag.welian.seanse', 0);
+    var odp = document.querySelector('.odpowiedz');
+    var licz = document.getElementById('seans-licznik');
+    var btnSeans = document.getElementById('seans-start');
+    var piszacy = null;
+    function pokazLicznik() {
+      var sniedz = Math.min(0.5, liczba * 0.03);
+      document.body.classList.add('patyna');
+      root.style.setProperty('--sniedz', sniedz.toFixed(2));
+      licz.textContent = liczba ? 'seanse: ' + liczba + ' · śniedź: ' + Math.round(sniedz * 200) + '%' : '';
+    }
+    function pisz(el, tekst, gotowe) {
+      if (piszacy) clearInterval(piszacy);
+      if (K.reduce) { el.textContent = tekst; gotowe(); return; }
+      var i = 0;
+      el.textContent = '';
+      piszacy = setInterval(function () {
+        i += 1 + (Math.random() < 0.3 ? 1 : 0);
+        el.textContent = tekst.slice(0, i);
+        if (i >= tekst.length) { clearInterval(piszacy); piszacy = null; gotowe(); }
+      }, 34);
+    }
+    btnSeans.addEventListener('click', function () {
+      liczba++;
+      K.store.set('krag.welian.seanse', liczba);
+      var szansa = Math.min(0.7, 0.1 + liczba * 0.06);
+      var glos = Math.random() < szansa;
+      var wpis = glos ? K.wybierz(GLOSY) : K.wybierz(ZDANIA);
+      var p = document.createElement('p');
+      if (glos) p.className = 'glos';
+      var podpis = document.createElement('span');
+      podpis.className = 'podpis' + (glos ? ' legion' : '');
+      var zrodlo = document.createElement('span');
+      zrodlo.className = 'zrodlo';
+      odp.innerHTML = '';
+      var box = document.createElement('div');
+      box.appendChild(p);
+      odp.appendChild(box);
+      btnSeans.disabled = true;
+      pisz(p, wpis[1], function () {
+        podpis.textContent = glos ? 'legion, bo jest nas wielu' : 'Welian Sink';
+        zrodlo.textContent = 'pamiętnik · wpis ' + ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'][wpis[0]];
+        box.appendChild(podpis);
+        box.appendChild(zrodlo);
+        btnSeans.disabled = false;
+        btnSeans.textContent = 'Kolejny seans';
+      });
+      pokazLicznik();
+    });
+    pokazLicznik();
+
+    /* Soul Knife */
+    var sel = document.getElementById('poziom');
+    for (var p = 3; p <= 20; p++) { var o = document.createElement('option'); o.value = p; o.textContent = 'Poziom ' + p; sel.appendChild(o); }
+    var stan = K.store.get('krag.welian.psi', { poziom: 7, zuzyte: 0, odzyskana: false });
+    var PB = function (p) { return 2 + Math.floor((p - 1) / 4); };
+    var KOSC = function (p) { return p >= 17 ? 12 : p >= 11 ? 10 : p >= 5 ? 8 : 6; };
+    var ILE = function (p) { return 2 * PB(p); };
+    var SNEAK = function (p) { return Math.ceil(p / 2); };
+    var wynik = document.getElementById('wynik');
+    function zapisz() { K.store.set('krag.welian.psi', stan); }
+    function rysuj() {
+      var p = stan.poziom, max = ILE(p);
+      stan.zuzyte = Math.min(stan.zuzyte, max);
+      sel.value = p;
+      document.getElementById('staty').innerHTML = '<span>PB <b>+' + PB(p) + '</b></span><span>Energia psioniczna <b>' + max + '×d' + KOSC(p) + '</b></span><span>Sneak Attack <b>' + SNEAK(p) + 'd6</b></span>';
+      var box = document.getElementById('kosci');
+      box.innerHTML = '';
+      for (var i = 0; i < max; i++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'kosc' + (i >= max - stan.zuzyte ? ' zuzyta' : '');
+        b.setAttribute('aria-label', 'Kość psioniczna ' + (i + 1));
+        (function (i) {
+          b.addEventListener('click', function () {
+            var wolne = max - stan.zuzyte;
+            stan.zuzyte = i >= wolne ? max - i - 1 : max - i;
+            zapisz(); rysuj();
+          });
+        })(i);
+        box.appendChild(b);
+      }
+    }
+    function suma(n, s) { var w = []; for (var i = 0; i < n; i++) w.push(K.roll(s)); return w; }
+    sel.addEventListener('change', function () { stan.poziom = +sel.value; zapisz(); rysuj(); });
+    document.querySelectorAll('[data-rzut]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var p = stan.poziom, r = b.getAttribute('data-rzut'), w;
+        if (r === 'ostrze') { w = K.roll(6); wynik.innerHTML = 'Psychic Blade: <b>' + w + '</b> psychic <span class="maly">+ modyfikator · ostrze znika po ciosie i nie zostawia śladu</span>'; }
+        else if (r === 'druga') { w = K.roll(4); wynik.innerHTML = 'Drugie ostrze: <b>' + w + '</b> psychic <span class="maly">bonus action, + modyfikator</span>'; }
+        else if (r === 'sneak') { w = suma(SNEAK(p), 6); wynik.innerHTML = 'Sneak Attack: <b>' + w.reduce(function (a, c) { return a + c; }, 0) + '</b> <span class="maly">' + SNEAK(p) + 'd6 [' + w.join(', ') + ']</span>'; }
+        else if (r === 'psi') {
+          if (ILE(p) - stan.zuzyte < 1) { wynik.innerHTML = 'Brak energii psionicznej. <span class="maly">Odzyskaj jedną albo odpocznij.</span>'; return; }
+          w = K.roll(KOSC(p)); stan.zuzyte++; zapisz(); rysuj();
+          wynik.innerHTML = 'Kość psioniczna: <b>' + w + '</b> <span class="maly">d' + KOSC(p) + ' · Psi-Bolstered Knack, Psychic Whispers…</span>';
+        }
+        else if (r === 'odzyskaj') {
+          if (stan.odzyskana) { wynik.innerHTML = 'Już odzyskana <span class="maly">— ponownie po krótkim lub długim odpoczynku.</span>'; return; }
+          if (!stan.zuzyte) { wynik.innerHTML = 'Wszystkie kości są na miejscu.'; return; }
+          stan.zuzyte--; stan.odzyskana = true; zapisz(); rysuj();
+          wynik.innerHTML = 'Jedna kość wraca zza zasłony. <span class="maly">bonus action · raz na odpoczynek</span>';
+        }
+        else if (r === 'odpocznij') { stan.zuzyte = 0; stan.odzyskana = false; zapisz(); rysuj(); wynik.innerHTML = 'Odpoczynek. Czyta pamiętnik, żeby pamiętać, że ktoś tu był.'; }
+      });
+    });
+    rysuj();
+  })();
+  </script>
+</body>
+</html>

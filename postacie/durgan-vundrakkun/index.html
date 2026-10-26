@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dûrgan · Krąg Cieni</title>
+  <meta name="description" content="Dûrgan z klanu Vundrakkûn — krasnolud-górnik rozsypany między światami. Karta postaci kampanii Krąg Cieni.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/postac.css">
+  <style>
+    :root {
+      --vellum: #e8d7b2; --vellum-2: #dcc79b; --backdrop: #191510;
+      --ink: #271d12; --ink-soft: #5c4a33;
+      --gold: #a8761a; --gold-bright: #d8a93c;
+      --lazur: #284b87; --cynober: #9a2c23; --green: #4d5f31;
+      --font-body: 'EB Garamond', 'Garamond', Georgia, 'Times New Roman', serif;
+      --font-display: 'UnifrakturCook', 'EB Garamond', Georgia, serif;
+      --pasek-font: 600 .72rem/1.3 'EB Garamond', Georgia, serif;
+      --pasek-ink: #d8a93c;
+      --pasek-akcent: #e8d7b2;
+      --pasek-szer: 1180px;
+      color-scheme: dark;
+    }
+    body { margin: 0; font-family: var(--font-body); color: var(--ink); min-height: 100vh;
+      background: radial-gradient(140% 90% at 50% 12%, #2a2117 0%, var(--backdrop) 62%);
+      padding: 0 clamp(10px, 3.5vw, 52px) clamp(14px, 3.5vw, 52px); -webkit-font-smoothing: antialiased; }
+    body.szarosc .codex { filter: grayscale(1) contrast(.92) brightness(1.02); }
+    .codex { transition: filter 1.2s ease; }
+    a { color: var(--cynober); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--lazur); outline-offset: 3px; }
+
+    .codex { position: relative; max-width: 1180px; margin: 0 auto; padding: clamp(26px, 4vw, 58px);
+      background-color: var(--vellum);
+      background-image: radial-gradient(120% 80% at 18% 8%, rgba(255,250,235,.55), transparent 55%), radial-gradient(120% 120% at 92% 100%, rgba(120,92,46,.30), transparent 60%), linear-gradient(180deg, var(--vellum) 0%, var(--vellum-2) 100%);
+      border: 2px solid var(--gold); box-shadow: 0 24px 70px rgba(0,0,0,.55), 0 2px 0 rgba(255,255,255,.15) inset; overflow: hidden; }
+    .codex::after { content: ""; position: absolute; inset: 11px; pointer-events: none; border: 1px solid var(--gold); opacity: .55; }
+    .corner { position: absolute; color: var(--gold); opacity: .8; font-size: 1.3rem; line-height: 1; z-index: 2; }
+    .corner.tl { top: 14px; left: 16px; } .corner.tr { top: 14px; right: 16px; }
+    .corner.bl { bottom: 14px; left: 16px; } .corner.br { bottom: 14px; right: 16px; }
+
+    .eyebrow { display: block; font-size: .72rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: .9rem; }
+    .namerow { display: flex; align-items: center; gap: 1.1rem; }
+    .initial { flex: 0 0 auto; position: relative; overflow: hidden; width: clamp(72px, 9vw, 98px); height: clamp(72px, 9vw, 98px); display: grid; place-items: center;
+      font-family: var(--font-display); font-size: clamp(3rem, 5.4vw, 4rem); color: var(--gold-bright);
+      background: radial-gradient(circle at 30% 28%, rgba(216,169,60,.30), transparent 42%), radial-gradient(circle at 72% 74%, rgba(216,169,60,.20), transparent 44%), var(--lazur);
+      border: 2px solid var(--gold); box-shadow: 0 0 0 2px var(--cynober) inset, 0 4px 12px rgba(0,0,0,.35); text-shadow: 0 1px 0 rgba(0,0,0,.35); }
+    .initial::after { content: ""; position: absolute; inset: -30%; background: linear-gradient(120deg, transparent 42%, rgb(255 236 170 / .55) 50%, transparent 58%); animation: zloto 6s ease-in-out infinite; }
+    @keyframes zloto { 0%, 70% { transform: translateX(-110%); } 100% { transform: translateX(110%); } }
+    .name { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.6rem, 6.4vw, 4.2rem); line-height: .96; margin: 0; color: #241a10; }
+    .name .l { display: inline-block; transition: transform 1.6s cubic-bezier(.2,.7,.2,1), opacity 1.6s ease, filter 1.6s ease; }
+    .name.rozsypane .l { opacity: 0; filter: blur(6px); transform: translate(var(--dx), var(--dy)) rotate(var(--r)); }
+    .clan { font-size: clamp(.95rem, 1.6vw, 1.1rem); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); margin-top: .45rem; }
+    .clan b { color: var(--cynober); font-weight: 600; }
+    .epithet { font-style: italic; font-size: clamp(1.12rem, 1.9vw, 1.34rem); margin: 1.4rem 0 .25rem; max-width: 48ch; }
+    .epithet .w { position: relative; cursor: help; border-bottom: 1px dotted rgb(168 118 26 / .6); }
+    .epithet .w::after { content: attr(data-pl); position: absolute; left: 50%; bottom: 125%; transform: translateX(-50%) translateY(4px); white-space: nowrap; font-style: normal; font-size: .8rem; letter-spacing: .06em;
+      background: var(--lazur); color: var(--vellum); border: 1px solid var(--gold); padding: .15rem .5rem; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; z-index: 3; }
+    .epithet .w:hover::after, .epithet .w:focus::after, .epithet .w.pokaz::after { opacity: 1; transform: translateX(-50%); }
+    .epithet .w:focus { outline: none; background: rgb(216 169 60 / .25); }
+    .gloss { font-style: italic; font-size: .96rem; color: var(--ink-soft); margin: 0; max-width: 52ch; }
+
+    .spread { display: grid; grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr); gap: clamp(1.6rem, 3vw, 2.6rem); align-items: start; margin-top: clamp(1.8rem, 3vw, 2.6rem); }
+    @media (max-width: 900px) { .spread { grid-template-columns: 1fr; } }
+    .plate { margin: 0; position: relative; }
+    .plate-ramka { position: relative; display: block; isolation: isolate; }
+    .plate img { width: 100%; height: auto; display: block; border: 1px solid rgba(120,92,46,.6); box-shadow: 0 8px 30px rgba(0,0,0,.45); position: relative; z-index: 1; }
+    .echo { position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0; mix-blend-mode: luminosity; background-size: cover; background-position: center; }
+    .echo.dryf { animation: dryf 9s ease-in-out infinite; }
+    .echo.dryf.b { animation-duration: 12s; animation-delay: -4s; }
+    @keyframes dryf { 0%, 100% { opacity: .0; transform: translate(0, 0); } 30% { opacity: .22; transform: translate(14px, -4px); } 60% { opacity: .12; transform: translate(-10px, 3px); } }
+    .echo.cios { animation: cios 1.1s ease-out forwards; }
+    @keyframes cios { 0% { opacity: .0; transform: translateX(0) scale(1); } 25% { opacity: .55; transform: translateX(10%) scale(1.02); } 45% { opacity: .5; transform: translateX(18%) scale(1.03); } 100% { opacity: 0; transform: translateX(26%) scale(1.04); filter: blur(4px); } }
+    @media (prefers-reduced-motion: reduce) { .echo.dryf, .initial::after { animation: none; } }
+    .plate figcaption { margin-top: .6rem; text-align: center; font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+
+    .rule { display: flex; align-items: center; gap: .8rem; color: var(--gold); margin: .1rem 0 1.3rem; }
+    .rule::before, .rule::after { content: ""; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+    .rule span { font-size: 1.15rem; line-height: 1; }
+    .body { font-size: clamp(1.05rem, 1.55vw, 1.15rem); line-height: 1.78; text-align: justify; hyphens: auto; margin: 0 0 1.1rem; }
+    @media (max-width: 900px) { .body { text-align: left; hyphens: none; } }
+    .body.inicjal::first-letter { font-family: var(--font-display); float: left; font-size: 3.4em; line-height: .8; padding: .08em .12em 0 0; color: var(--cynober); }
+    .seal { width: 46px; height: 46px; margin: 1.7rem auto 3.2rem; display: grid; place-items: center; border: 1.5px solid var(--gold); border-radius: 50%; color: var(--gold); font-size: 1.2rem; box-shadow: 0 0 0 3px rgba(168,118,26,.18); transition: box-shadow .6s ease, background .6s ease, color .6s ease; position: relative; }
+    .seal.pelna { background: var(--gold); color: var(--vellum); box-shadow: 0 0 0 3px rgba(168,118,26,.35), 0 0 24px rgb(216 169 60 / .6); }
+    .seal .ile { position: absolute; top: 100%; margin-top: .45rem; left: 50%; transform: translateX(-50%); width: max-content; max-width: min(26rem, 76vw); text-align: center; line-height: 1.5; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+
+    /* okruchy */
+    .okruch { position: absolute; z-index: 4; width: 30px; height: 30px; padding: 0; border: 0; background: none; cursor: pointer; color: var(--gold-bright); }
+    .okruch svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 0 4px rgb(216 169 60 / .7)); animation: unos 5s ease-in-out infinite alternate; }
+    @keyframes unos { from { transform: translateY(-4px) rotate(-12deg); opacity: .75; } to { transform: translateY(5px) rotate(14deg); opacity: 1; } }
+    .okruch.leci { transition: transform .9s cubic-bezier(.5,0,.3,1), opacity .9s ease; pointer-events: none; }
+    .okruch.gasnie { transition: opacity 3.5s ease, filter 3.5s ease; opacity: 0; filter: blur(5px); pointer-events: none; }
+    @media (prefers-reduced-motion: reduce) { .okruch svg { animation: none; } }
+
+    .sekcja { margin-top: clamp(2.2rem, 4vw, 3.4rem); }
+    .sekcja h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.8rem, 3.6vw, 2.4rem); margin: 0 0 .6rem; color: #241a10; }
+    .sekcja h2 .cz { color: var(--cynober); }
+    .uwaga { font-style: italic; color: var(--ink-soft); }
+
+    .moce { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); margin: 1rem 0; }
+    .moc { border: 1px solid rgb(168 118 26 / .7); background: rgb(255 250 235 / .35); padding: 1rem 1.1rem; position: relative; }
+    .moc h3 { margin: 0 0 .4rem; font: 600 .82rem/1.3 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--lazur); }
+    .moc p { margin: 0 0 .8rem; font-size: 1.02rem; line-height: 1.55; }
+    .przycisk { appearance: none; cursor: pointer; border: 1.5px solid var(--gold); background: var(--lazur); color: var(--vellum); padding: .5rem 1rem; font: 600 .78rem/1.2 var(--font-body); letter-spacing: .2em; text-transform: uppercase; box-shadow: 0 0 0 2px var(--cynober) inset; }
+    .przycisk:hover { background: #1f3c6f; }
+    .przycisk[aria-pressed="true"] { background: var(--cynober); box-shadow: 0 0 0 2px var(--lazur) inset; }
+    .cytat { margin: 1.4rem 0 0; padding: 1rem 1.2rem; border-left: 3px solid var(--cynober); font-style: italic; font-size: 1.15rem; background: rgb(255 250 235 / .3); }
+    .cytat small { display: block; font-style: normal; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); margin-top: .4rem; }
+
+    .arch { list-style: none; margin: 1rem 0 0; padding: 0; border-top: 1px solid rgb(168 118 26 / .6); }
+    .arch li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 1.2rem; align-items: center; padding: .9rem 0; border-bottom: 1px solid rgb(168 118 26 / .6); }
+    .arch b { font-size: 1.15rem; font-weight: 600; }
+    .arch span.d { display: block; font-style: italic; color: var(--ink-soft); font-size: .98rem; }
+    .formaty { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .fmt { display: inline-flex; gap: .4rem; align-items: baseline; text-decoration: none; border: 1px solid var(--gold); padding: .3rem .75rem; font: 600 .74rem/1.2 var(--font-body); letter-spacing: .18em; text-transform: uppercase; color: var(--lazur); background: rgb(255 250 235 / .4); white-space: nowrap; }
+    .fmt small { font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink-soft); font-size: .8rem; }
+    .fmt:hover { background: var(--lazur); color: var(--vellum); }
+    .fmt:hover small { color: var(--vellum-2); }
+    .kolofon { text-align: center; margin-top: 2.4rem; font-size: .78rem; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+  <nav class="pasek" aria-label="Nawigacja">
+    <a href="../../">← Krąg Cieni</a>
+    <span class="obok"><a href="../welian-sink/" rel="prev">‹ Welian</a><a href="../opi/" rel="next">Opi ›</a></span>
+  </nav>
+
+  <main class="codex">
+    <span class="corner tl" aria-hidden="true">&#10087;</span><span class="corner tr" aria-hidden="true">&#10087;</span>
+    <span class="corner bl" aria-hidden="true">&#10087;</span><span class="corner br" aria-hidden="true">&#10087;</span>
+
+    <header>
+      <span class="eyebrow">Karta postaci &middot; stan obecny</span>
+      <div class="namerow">
+        <span class="initial" aria-hidden="true">D</span>
+        <div>
+          <h1 class="name" aria-label="Dûrgan">Dûrgan</h1>
+          <div class="clan">wśród krasnoludów: <b>z klanu Vundrakkûn</b></div>
+        </div>
+      </div>
+      <p class="epithet" lang="la">
+        <span class="w" tabindex="0" data-pl="syn">filius</span> <span class="w" tabindex="0" data-pl="ziemi">terrae</span> <span class="w" tabindex="0" data-pl="i">et</span> <span class="w" tabindex="0" data-pl="cienia">umbrae</span>, <span class="w" tabindex="0" data-pl="który">qui</span> <span class="w" tabindex="0" data-pl="drąży">fodit</span> <span class="w" tabindex="0" data-pl="w">in</span> <span class="w" tabindex="0" data-pl="ciemności">tenebris</span>, <span class="w" tabindex="0" data-pl="i">et</span> <span class="w" tabindex="0" data-pl="niczego">nihil</span> <span class="w" tabindex="0" data-pl="nie zatrzymuje">retinet</span>.
+      </p>
+      <p class="gloss">syn ziemi i cienia, który drąży w ciemności i nie zatrzymuje niczego</p>
+    </header>
+
+    <div class="spread">
+      <figure class="plate">
+        <a class="plate-ramka" href="D%C3%BBrgan%20Vundrakk%C3%BBn.png" data-galeria="durgan" data-duzy="../../assets/portrety/durgan-vundrakkun-1.webp" data-podpis="Iluminacja · welin, złoto płatkowe">
+          <img src="../../assets/portrety/durgan-vundrakkun-1.webp" width="933" height="1400" alt="Iluminacja: krępy, szaroskóry krasnolud-górnik o splecionej brodzie, na wpół przezroczysty i rozmywający się w mgłę; za nim stoją blade, widmowe echa tej samej postaci. W dłoni trzyma górniczy kilof. Złocone tło i zdobna średniowieczna bordiura.">
+          <span class="echo dryf" aria-hidden="true"></span>
+          <span class="echo dryf b" aria-hidden="true"></span>
+        </a>
+        <figcaption>Iluminacja &middot; welin, złoto płatkowe</figcaption>
+      </figure>
+
+      <section class="leaf">
+        <div class="rule"><span aria-hidden="true">&#9874;</span></div>
+        <p class="body inicjal">Był krasnoludem-górnikiem. Nie głupim, ale i nie uczonym; znał kamień, narzędzia i ciężar, nie magię. Pracował kilofem, który miał rozbijać moc rudy w chwili uderzenia — czy własnym, czy danym mu do próby, nie roztrząsa. Pewnego razu trafił w żyłę, której nie rozumiał. Nie było zwykłego wybuchu. Coś w rudzie obróciło się przeciw niemu i rozdarło nie skałę, lecz jego — rozsypało go po miejscach pomiędzy światami.</p>
+        <p class="body">Zbierał się długo. Nie wiedział jak; po prostu nie dał się rozpuścić — kawałek po kawałku ściągał siebie z powrotem do jednego środka, aż większość zrosła się w jedno, ledwie materialne ciało. Reszta nie wróciła. Dziś jest na wpół przezroczysty, widzi w szarości, czasem wsuwa się tam, gdzie inni nie sięgają, a te uwięzione kawałki potrafi na moment wezwać, by stanęły i uderzyły obok niego.</p>
+        <p class="body">Z tamtego dnia pamięta niewiele. Czym była ruda, jak działał kilof, kto kazał mu uderzać — zatarło się to razem z resztą, której nie odzyskał. Nie został z tego magiem ani nikim wybranym; po prostu tym, któremu się to przydarzyło. Trzyma się dwóch rzeczy: roboczego rozsądku, z jakim się urodził, i własnego imienia — jedynego, czego się nie wyrzekł, gdy inne wspomnienia odpłynęły.</p>
+        <div class="seal" aria-live="polite"><span aria-hidden="true">&#9874;</span><span class="ile"></span></div>
+      </section>
+    </div>
+
+    <section class="sekcja">
+      <div class="rule"><span aria-hidden="true">&#10087;</span></div>
+      <h2><span class="cz">T</span>o, co mu zostało</h2>
+      <p class="uwaga">Po karcie rozsypały się złote okruchy. Zbierz je kliknięciem — kawałek po kawałku, do jednego środka.</p>
+      <div class="moce">
+        <div class="moc">
+          <h3>Echa</h3>
+          <p>Uwięzione kawałki potrafi na moment wezwać, by stanęły i uderzyły obok niego.</p>
+          <button type="button" class="przycisk" id="echo">Wezwij echo</button>
+        </div>
+        <div class="moc">
+          <h3>Szarość</h3>
+          <p>Widzi w szarości. Złoto płatkowe, lazur i cynober — dla niego tylko odcienie kamienia.</p>
+          <button type="button" class="przycisk" id="szarosc" aria-pressed="false">Spójrz jego oczami</button>
+        </div>
+        <div class="moc">
+          <h3>Imię</h3>
+          <p>Jedyne, czego się nie wyrzekł, gdy inne wspomnienia odpłynęły.</p>
+          <button type="button" class="przycisk" id="imie">Rozsyp i zbierz</button>
+        </div>
+      </div>
+      <p class="cytat">Welian — rozpuszczenie i poddanie. Dûrgan — odmowa rozpadu, upór woli. Opi — analiza.<small>Odrębność w obsadzie · z teczki projektu Opusa</small></p>
+    </section>
+
+    <section class="sekcja">
+      <div class="rule"><span aria-hidden="true">&#9874;</span></div>
+      <h2><span class="cz">A</span>rchiwum</h2>
+      <ul class="arch">
+        <li><span><b>Karta postaci — stan obecny</b><span class="d">Oryginalna iluminowana karta.</span></span><span class="formaty"><a class="fmt" href="Durgan_Vundrakkun_karta.html">Strona<small>957 KB</small></a><a class="fmt" href="D%C3%BBrgan%20Vundrakk%C3%BBn%20%E2%80%94%20karta.pdf">PDF<small>1,7 MB</small></a></span></li>
+        <li><span><b>Iluminacja</b><span class="d">welin, złoto płatkowe</span></span><span class="formaty"><a class="fmt" href="D%C3%BBrgan%20Vundrakk%C3%BBn.png">PNG<small>3,8 MB</small></a></span></li>
+      </ul>
+      <p class="kolofon">Dûrgan · z klanu Vundrakkûn · Krąg Cieni</p>
+    </section>
+  </main>
+
+  <script src="../../assets/postac.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var K = window.Krag;
+    var codex = document.querySelector('.codex');
+    var obraz = '../../assets/portrety/durgan-vundrakkun-1.webp';
+
+    /* echa na iluminacji */
+    document.querySelectorAll('.echo').forEach(function (e) { e.style.backgroundImage = 'url(' + obraz + ')'; });
+    if (K.reduce) document.querySelectorAll('.echo.dryf').forEach(function (e) { e.classList.remove('dryf'); });
+    document.getElementById('echo').addEventListener('click', function () {
+      var ramka = document.querySelector('.plate-ramka');
+      var e = document.createElement('span');
+      e.className = 'echo cios';
+      e.setAttribute('aria-hidden', 'true');
+      e.style.backgroundImage = 'url(' + obraz + ')';
+      if (K.reduce) { e.style.opacity = .4; setTimeout(function () { e.remove(); }, 900); }
+      ramka.appendChild(e);
+      e.addEventListener('animationend', function () { e.remove(); });
+      ramka.scrollIntoView({ block: 'nearest', behavior: K.reduce ? 'auto' : 'smooth' });
+    });
+
+    /* szarość */
+    var szar = document.getElementById('szarosc');
+    szar.addEventListener('click', function () {
+      var on = !document.body.classList.contains('szarosc');
+      document.body.classList.toggle('szarosc', on);
+      szar.setAttribute('aria-pressed', on ? 'true' : 'false');
+      szar.textContent = on ? 'Wróć do barw' : 'Spójrz jego oczami';
+    });
+
+    /* łacina — dotyk pokazuje słowo po polsku */
+    document.querySelectorAll('.epithet .w').forEach(function (w) {
+      w.addEventListener('click', function () {
+        document.querySelectorAll('.epithet .w.pokaz').forEach(function (x) { if (x !== w) x.classList.remove('pokaz'); });
+        w.classList.toggle('pokaz');
+      });
+    });
+
+    /* imię składa się z rozsypanych liter */
+    var name = document.querySelector('.name');
+    var litery = Array.from(name.textContent);
+    name.textContent = '';
+    litery.forEach(function (ch) {
+      var s = document.createElement('span');
+      s.className = 'l';
+      s.setAttribute('aria-hidden', 'true');
+      s.textContent = ch;
+      name.appendChild(s);
+    });
+    function rozsyp() {
+      name.querySelectorAll('.l').forEach(function (s, i) {
+        s.style.setProperty('--dx', (Math.random() * 240 - 120) + 'px');
+        s.style.setProperty('--dy', (Math.random() * 160 - 80) + 'px');
+        s.style.setProperty('--r', (Math.random() * 90 - 45) + 'deg');
+        s.style.transitionDelay = (i * 0.12 + Math.random() * 0.3).toFixed(2) + 's';
+      });
+      name.classList.add('rozsypane');
+    }
+    function zbierz() { name.classList.remove('rozsypane'); }
+    if (!K.reduce) {
+      rozsyp();
+      requestAnimationFrame(function () { requestAnimationFrame(zbierz); });
+    }
+    document.getElementById('imie').addEventListener('click', function () {
+      if (K.reduce) return;
+      name.querySelectorAll('.l').forEach(function (s) { s.style.transitionDelay = '0s'; });
+      rozsyp();
+      setTimeout(function () {
+        name.querySelectorAll('.l').forEach(function (s, i) { s.style.transitionDelay = (i * 0.15).toFixed(2) + 's'; });
+        zbierz();
+      }, 1400);
+      name.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+
+    /* okruchy: kawałek po kawałku — ale reszta nie wraca */
+    var ILE = 7, zebrane = 0;
+    var seal = document.querySelector('.seal'), ileEl = seal.querySelector('.ile');
+    var MIEJSCA = [[2.6, 18], [97.4, 26], [2.6, 52], [97.4, 61], [50, 1.2], [2.6, 80], [97.4, 93]];
+    var odlamek = '<svg viewBox="0 0 30 30" aria-hidden="true"><path d="M15 2 L22 9 L19 17 L26 24 L14 28 L8 20 L3 14 L10 8 Z" fill="currentColor" stroke="#7a5512" stroke-width="1"/><path d="M15 2 L14 28 M8 20 L19 17" stroke="#fff2c4" stroke-width=".7" opacity=".6"/></svg>';
+    var okruchy = MIEJSCA.map(function (m, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'okruch';
+      b.style.left = m[0] + '%';
+      b.style.top = m[1] + '%';
+      b.style.marginLeft = '-15px';
+      b.setAttribute('aria-label', 'Złoty okruch ' + (i + 1));
+      b.innerHTML = odlamek;
+      b.querySelector('svg').style.animationDelay = (-Math.random() * 5).toFixed(2) + 's';
+      codex.appendChild(b);
+      b.addEventListener('click', function () { zbierzOkruch(b); });
+      return b;
+    });
+    function napis() { ileEl.textContent = zebrane ? zebrane + ' / ' + ILE : ''; }
+    function zbierzOkruch(b) {
+      var r = b.getBoundingClientRect(), s = seal.getBoundingClientRect();
+      b.classList.add('leci');
+      b.style.transform = 'translate(' + (s.left + s.width / 2 - r.left - r.width / 2) + 'px,' + (s.top + s.height / 2 - r.top - r.height / 2) + 'px) scale(.4)';
+      b.style.opacity = '0';
+      setTimeout(function () { b.remove(); }, 950);
+      zebrane++;
+      napis();
+      if (zebrane === ILE - 1) {
+        var ostatni = okruchy.filter(function (o) { return o.isConnected && !o.classList.contains('leci'); })[0];
+        if (ostatni) {
+          ostatni.classList.add('gasnie');
+          setTimeout(function () { ostatni.remove(); }, 3600);
+        }
+        seal.classList.add('pelna');
+        ileEl.textContent = 'Większość zrosła się w jedno. Reszta nie wróciła.';
+      }
+    }
+    napis();
+  })();
+  </script>
+</body>
+</html>

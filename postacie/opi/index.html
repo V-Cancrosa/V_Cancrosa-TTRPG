@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opi · Krąg Cieni</title>
+  <meta name="description" content="Opus „Opi” — Autognom, Mag. Konstrukt z mechanizmu zegarowego w skórze gnomiego chłopca. Czwarta postać zapasowa kampanii Krąg Cieni.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/postac.css">
+  <link rel="stylesheet" href="strona.css">
+</head>
+<body>
+  <nav class="pasek" aria-label="Nawigacja">
+    <a href="../../">← Krąg Cieni</a>
+    <span class="obok"><a href="../durgan-vundrakkun/" rel="prev">‹ Dûrgan</a><a href="../fusk-yaki/" rel="next">Fusk ›</a></span>
+  </nav>
+
+  <div class="arkusz">
+    <div class="zebatka" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="currentColor" fill-rule="evenodd" d="M50.0 12.0 L56.0 4.4 L61.9 5.6 L64.5 14.9 L69.0 17.1 L78.0 13.5 L82.5 17.5 L80.1 26.9 L82.9 31.0 L92.5 32.4 L94.4 38.1 L87.7 45.0 L88.0 50.0 L95.6 56.0 L94.4 61.9 L85.1 64.5 L82.9 69.0 L86.5 78.0 L82.5 82.5 L73.1 80.1 L69.0 82.9 L67.6 92.5 L61.9 94.4 L55.0 87.7 L50.0 88.0 L44.0 95.6 L38.1 94.4 L35.5 85.1 L31.0 82.9 L22.0 86.5 L17.5 82.5 L19.9 73.1 L17.1 69.0 L7.5 67.6 L5.6 61.9 L12.3 55.0 L12.0 50.0 L4.4 44.0 L5.6 38.1 L14.9 35.5 L17.1 31.0 L13.5 22.0 L17.5 17.5 L26.9 19.9 L31.0 17.1 L32.4 7.5 L38.1 5.6 L45.0 12.3 Z M64 50 A14 14 0 1 0 36 50 A14 14 0 1 0 64 50 Z"/></svg></div>
+
+    <header class="teczka-gora">
+      <div class="rozstrzel">Teczka projektu · Dossier postaci</div>
+      <h1 class="opus">OPUS</h1>
+      <p class="dla-ojca">dla ojca — po prostu „Opi”</p>
+      <p class="statline">Autognom · Mag · Krąg Cieni · Postać zapasowa IV</p>
+      <p class="motto">„Broń, która nie wiedziała, że jest bronią.<br><span class="r">Syn, który nie wiedział, że został zbudowany.”</span></p>
+      <div class="metryczka">
+        <div>Wersja<b>1.0</b></div>
+        <div>Data<b>04 · 07 · 2026</b></div>
+        <div>Podklasa<b>W zawieszeniu</b>zapytanie u DM</div>
+        <div>Wejście do gry<b>Odległe</b></div>
+      </div>
+    </header>
+    <div class="ciecie" aria-hidden="true"><i></i>×<i></i>×<i></i>×<i></i></div>
+
+    <section class="wjazd">
+      <div class="rozdzial"><span class="nr">I</span><h2>Rdzeń konceptu</h2></div>
+      <p class="just"><b>Opus</b> to konstrukt z mechanizmu zegarowego, noszący preparowaną skórę gnomiego chłopca. Przez całe swoje życie wierzył, że jest żywy — trochę dziwny (mało jadł, spał inaczej, „chorował” dokładnie wtedy, gdy ojciec go leczył), ale żywy, z krwi i kości. Prawdę poznał nagle, na kilka dni przed ucieczką: za dużo, za szybko, bez czasu na zrozumienie. Dlatego Mag: <b>wiedza jest jego raną, więc zrobił z niej rzemiosło.</b></p>
+      <p class="just">Jego pytanie nie brzmi „jak pozostać sobą?”, lecz: <em>„czy przeżyte ja było prawdziwe, skoro podłoże jest wytworzone — i czy to w ogóle ma znaczenie, jeśli działało?”</em></p>
+    </section>
+
+    <section class="wjazd" id="powloka">
+      <div class="rozdzial"><span class="nr">II</span><h2>Pod powłoką</h2></div>
+      <p>Przesuń szew. Po lewej to, co widać — po prawej to, co pod spodem. Oczy jasnoturkusowe — <span class="teal">o ułamek za jaskrawe</span>; jedyny zewnętrzny ślad, że coś pod spodem nie jest żywe.</p>
+      <div class="przyciski" role="group" aria-label="Co jest pod spodem">
+        <button type="button" class="btn" data-spod="1" aria-pressed="true">Pod spodem: Cognito</button>
+        <button type="button" class="btn" data-spod="3" aria-pressed="false">Pod spodem: Post-Cognito</button>
+      </div>
+      <div class="odslona" style="--cut: 50%">
+        <img class="spod" src="../../assets/portrety/opi-1.webp" alt="Opi Cognito — sam mechanizm zegarowy w kształcie gnomiego chłopca" draggable="false">
+        <img class="wierzch" src="../../assets/portrety/opi-2.webp" alt="Opi Incognito — rudy gnomi chłopiec w łatanym ubraniu" draggable="false">
+        <span class="szew" aria-hidden="true"></span>
+        <span class="uchwyt" aria-hidden="true">⇆</span>
+        <span class="lbl l">werk</span><span class="lbl p">powłoka</span>
+      </div>
+      <input class="suwak" type="range" min="0" max="100" value="50" aria-label="Szew między mechanizmem a powłoką">
+      <div class="galeria" aria-label="Grafiki">
+        <a href="Opi%20Incognito.webp" data-galeria="opi" data-duzy="../../assets/portrety/opi-2.webp" data-podpis="Opi Incognito"><img src="../../assets/miniatury/opi-2.webp" alt="Opi Incognito" loading="lazy"></a>
+        <a href="Opi%20Post-Cognito.png" data-galeria="opi" data-duzy="../../assets/portrety/opi-3.webp" data-podpis="Opi Post-Cognito"><img src="../../assets/miniatury/opi-3.webp" alt="Opi Post-Cognito" loading="lazy"></a>
+        <a href="Opi%20Cognito.png" data-galeria="opi" data-duzy="../../assets/portrety/opi-1.webp" data-podpis="Opi Cognito"><img src="../../assets/miniatury/opi-1.webp" alt="Opi Cognito" loading="lazy"></a>
+      </div>
+    </section>
+
+    <section class="wjazd" id="moduly">
+      <div class="rozdzial"><span class="nr">III</span><h2>Dwa moduły</h2></div>
+      <div class="moduly">
+        <div class="modul">
+          <div class="tryb tyka" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="currentColor" fill-rule="evenodd" d="M50.0 14.0 L57.2 4.6 L64.2 6.3 L66.3 17.9 L71.2 20.9 L82.5 17.5 L87.2 23.0 L82.1 33.7 L84.2 38.9 L95.4 42.8 L96.0 50.0 L85.6 55.6 L84.2 61.1 L91.0 70.9 L87.2 77.0 L75.5 75.5 L71.2 79.1 L70.9 91.0 L64.2 93.7 L55.6 85.6 L50.0 86.0 L42.8 95.4 L35.8 93.7 L33.7 82.1 L28.8 79.1 L17.5 82.5 L12.8 77.0 L17.9 66.3 L15.8 61.1 L4.6 57.2 L4.0 50.0 L14.4 44.4 L15.8 38.9 L9.0 29.1 L12.8 23.0 L24.5 24.5 L28.8 20.9 L29.1 9.0 L35.8 6.3 L44.4 14.4 Z M60 50 A10 10 0 1 0 40 50 A10 10 0 1 0 60 50 Z"/></svg></div>
+          <div><h3>SERCE · lewa pierś</h3><p>Zasilanie i podświadomość; trybikowy „BIOS”. <em>Tyka zawsze.</em></p></div>
+        </div>
+        <div class="modul" id="umysl">
+          <div class="tryb tyka" aria-hidden="true"><svg viewBox="0 0 100 100"><path fill="currentColor" fill-rule="evenodd" d="M50.0 12.0 L56.0 4.4 L61.9 5.6 L64.5 14.9 L69.0 17.1 L78.0 13.5 L82.5 17.5 L80.1 26.9 L82.9 31.0 L92.5 32.4 L94.4 38.1 L87.7 45.0 L88.0 50.0 L95.6 56.0 L94.4 61.9 L85.1 64.5 L82.9 69.0 L86.5 78.0 L82.5 82.5 L73.1 80.1 L69.0 82.9 L67.6 92.5 L61.9 94.4 L55.0 87.7 L50.0 88.0 L44.0 95.6 L38.1 94.4 L35.5 85.1 L31.0 82.9 L22.0 86.5 L17.5 82.5 L19.9 73.1 L17.1 69.0 L7.5 67.6 L5.6 61.9 L12.3 55.0 L12.0 50.0 L4.4 44.0 L5.6 38.1 L14.9 35.5 L17.1 31.0 L13.5 22.0 L17.5 17.5 L26.9 19.9 L31.0 17.1 L32.4 7.5 L38.1 5.6 L45.0 12.3 Z M64 50 A14 14 0 1 0 36 50 A14 14 0 1 0 64 50 Z"/></svg></div>
+          <div><h3>UMYSŁ · czaszka, „godzina 9:00”</h3><p class="stan">Świadome myślenie; to, co tworzy jego „ja”.</p></div>
+        </div>
+      </div>
+      <div class="przyciski"><button type="button" class="btn teal" id="sen" aria-pressed="false">Uśpij umysł</button></div>
+      <p class="cicho">Flavor Sentry’s Rest: świadomy werk zwalnia, serce tyka dalej — stąd jego „sen”.</p>
+    </section>
+
+    <section class="wjazd" id="bilans">
+      <div class="rozdzial"><span class="nr">IV</span><h2>Bilans wiedzy na start gry</h2></div>
+      <p class="cicho">Punkt zerowy: noc ucieczki. To, czego Opi nie wie, jest zaczernione — odsłaniaj po jednym, jeśli grasz w otwarte karty.</p>
+      <div class="bilans">
+        <div class="kol">
+          <h3>WIE — twarde, potwierdzone</h3>
+          <ul>
+            <li><b>Jest maszyną.</b> Potwierdzone trzykrotnie.</li>
+            <li><b>Ma dwa moduły:</b> serce tyka zawsze, umysł „zasypia”.</li>
+            <li><b>Biografia przeliczyła mu się wstecz w jedną noc.</b></li>
+            <li><b>To ciało ma termin, którego nie zna.</b></li>
+            <li><b>Ojciec go zbudował i ojciec nazwał go synem.</b></li>
+          </ul>
+        </div>
+        <div class="kol pol">
+          <h3>PODEJRZEWA — koła w połowie obrotu</h3>
+          <ul>
+            <li>Że skóra, którą nosi, pochodzi z tamtych ciał.</li>
+            <li>Że drzwi nie powinny były ustąpić.</li>
+            <li>Że edukacja miała cel, którego nikt mu nie podał.</li>
+            <li>Że „Opus” nie brzmi jak imię.</li>
+            <li>Że źródłem jego magii jest serce. <span class="hak">HAK DLA DM</span></li>
+          </ul>
+        </div>
+        <div class="kol nie">
+          <h3>NIE WIE</h3>
+          <ul>
+            <li tabindex="0" role="button" aria-pressed="false"><span class="t">Że był budowany jako broń: infiltracja, a na miejscu piekło.</span></li>
+            <li tabindex="0" role="button" aria-pressed="false"><span class="t">Czyja to skóra — a wśród dawców wędrowny Vulpin, którego futro nosi jako włosy.</span></li>
+            <li tabindex="0" role="button" aria-pressed="false"><span class="t">Że istniała trzecia ręka.</span></li>
+            <li tabindex="0" role="button" aria-pressed="false"><span class="t">Kim jest organizacja.</span></li>
+            <li tabindex="0" role="button" aria-pressed="false"><span class="t">Losu ojca.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="wjazd" id="imiona">
+      <div class="rozdzial"><span class="nr">V</span><h2>Trzy imiona, trzy losy</h2></div>
+      <p>Nowa postać nosi futro ludu pierwszej postaci. U Vulpinów imię prawdziwe wypowiada się tylko wśród swoich — dawca najpewniej zginął z imieniem, którego nikt już nie wypowie.</p>
+      <div class="imiona">
+        <div><b><a href="../jack-leothern/">Jack</a></b><span>swojego strzeże</span></div>
+        <div><b>dawca</b><span>swoje stracił niewypowiedziane</span></div>
+        <div><b>„Opus”</b><span>etykieta, której wagi nosiciel nie zna</span></div>
+      </div>
+    </section>
+
+    <section class="wjazd" id="ojciec">
+      <div class="rozdzial"><span class="nr">VI</span><h2>Ojciec</h2></div>
+      <div class="dwa">
+        <div><div class="nagl">OJCIEC ZDĄŻYŁ POWIEDZIEĆ</div><p>jesteś maszyną · ja cię zbudowałem · oni cię rozbiorą · uciekaj · jesteś moim synem</p></div>
+        <div class="kres"><div class="nagl">NIE ZDĄŻYŁ / NIE UMIAŁ</div><p>po co zostałeś zbudowany (broń) · skąd skóra (wyparcie + brak czasu) · kim są „oni” · że „Opus” to etykieta projektu</p></div>
+      </div>
+      <p><b>Melchior Patek</b>, gnom, mistrz drobnych werków. Wychowując broń tak, by zachowywała się naturalnie, <b>został ojcem</b>. Gdy padł wyrok, wybrał syna ponad projekt. <b>Los: nieznany.</b> <a href="teczka.html#ojciec">Cała sekcja w teczce →</a></p>
+    </section>
+
+    <section class="wjazd" id="archiwum">
+      <div class="rozdzial"><span class="nr">VII</span><h2>Archiwum</h2></div>
+      <ul class="arch">
+        <li><span class="t"><b>Opus — teczka projektu</b><span>Rozdziały I–XI: powłoka, specyfikacja, geneza, noc odkrycia, bilans wiedzy, ojciec, haki dla DM.</span></span><span class="formaty"><a class="fmt nowa" href="teczka.html">Strona</a><a class="fmt" href="Opus%20%E2%80%94%20Teczka%20projektu-1.pdf">PDF<small>677 KB</small></a></span></li>
+        <li><span class="t"><b>Magnum Opus</b><span>Wersja pierwotna z kampanii Bariosa: Dymitr, Magni Dymitrenko Emiurg, Pulverka.</span></span><span class="formaty"><a class="fmt nowa" href="magnum-opus.html">Strona</a><a class="fmt" href="Magnum%20Opus.pdf">PDF<small>3,4 MB</small></a><a class="fmt" href="Magnum%20Opus.docx">DOCX<small>2,3 MB</small></a></span></li>
+        <li><span class="t"><b>Grafiki</b><span>Cognito · Incognito · Post-Cognito</span></span><span class="formaty"><a class="fmt" href="Opi%20Cognito.png">PNG<small>2,4 MB</small></a><a class="fmt" href="Opi%20Incognito.webp">WEBP<small>440 KB</small></a><a class="fmt" href="Opi%20Post-Cognito.png">PNG<small>2,3 MB</small></a></span></li>
+      </ul>
+    </section>
+
+    <div class="stopka"><span>OPUS · „Opi” · Krąg Cieni</span><span>czwarta postać zapasowa · wejście daleko w przyszłości</span></div>
+  </div>
+
+  <script src="../../assets/postac.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var K = window.Krag;
+
+    /* szew: powłoka ↔ werk */
+    var od = document.querySelector('.odslona'), suwak = document.querySelector('.suwak');
+    var spod = od.querySelector('.spod');
+    function tnij(v) { od.style.setProperty('--cut', v + '%'); suwak.value = v; }
+    suwak.addEventListener('input', function () { tnij(+suwak.value); });
+    var ciagnie = false;
+    function zPointera(e) {
+      var r = od.getBoundingClientRect();
+      tnij(Math.max(0, Math.min(100, Math.round((e.clientX - r.left) / r.width * 100))));
+    }
+    od.addEventListener('pointerdown', function (e) { ciagnie = true; od.setPointerCapture(e.pointerId); zPointera(e); });
+    od.addEventListener('pointermove', function (e) { if (ciagnie) zPointera(e); });
+    od.addEventListener('pointerup', function () { ciagnie = false; });
+    od.addEventListener('pointercancel', function () { ciagnie = false; });
+    document.querySelectorAll('[data-spod]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var n = b.getAttribute('data-spod');
+        spod.src = '../../assets/portrety/opi-' + n + '.webp';
+        spod.alt = n === '1' ? 'Opi Cognito — sam mechanizm zegarowy w kształcie gnomiego chłopca' : 'Opi Post-Cognito — mechaniczny chłopiec w łatanym ubraniu';
+        document.querySelectorAll('[data-spod]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      });
+    });
+    if (!K.reduce) {
+      var t0 = null;
+      var pokaz = function (t) {
+        if (!t0) t0 = t;
+        var p = Math.min(1, (t - t0) / 1800);
+        tnij(Math.round(50 + Math.sin(p * Math.PI * 2) * 22 * (1 - p)));
+        if (p < 1 && !ciagnie) requestAnimationFrame(pokaz);
+      };
+      var io = new IntersectionObserver(function (w) {
+        if (w[0].isIntersecting) { requestAnimationFrame(pokaz); io.disconnect(); }
+      }, { threshold: 0.5 });
+      io.observe(od);
+    }
+
+    /* sen umysłu — serce tyka dalej */
+    var sen = document.getElementById('sen'), umysl = document.getElementById('umysl');
+    var tryb = umysl.querySelector('.tryb'), stan = umysl.querySelector('.stan');
+    sen.addEventListener('click', function () {
+      var spi = sen.getAttribute('aria-pressed') !== 'true';
+      sen.setAttribute('aria-pressed', spi ? 'true' : 'false');
+      sen.textContent = spi ? 'Obudź umysł' : 'Uśpij umysł';
+      tryb.classList.toggle('tyka', !spi);
+      tryb.classList.toggle('wolno', spi);
+      stan.textContent = spi ? 'Zasypia — świadomy werk zwalnia. Serce tyka dalej.' : 'Świadome myślenie; to, co tworzy jego „ja”.';
+    });
+
+    /* NIE WIE — odsłanianie */
+    document.querySelectorAll('.kol.nie li').forEach(function (li) {
+      var przelacz = function () {
+        var on = !li.classList.contains('jawne');
+        li.classList.toggle('jawne', on);
+        li.setAttribute('aria-pressed', on ? 'true' : 'false');
+      };
+      li.addEventListener('click', przelacz);
+      li.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); przelacz(); } });
+    });
+  })();
+  </script>
+</body>
+</html>

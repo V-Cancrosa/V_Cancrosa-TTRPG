@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fretka · Krąg Cieni</title>
+  <meta name="description" content="Fretka [Auri] — Ragborn (Knick-Knack), Sorcerer Wild Magic. Postać zapasowa kampanii Krąg Cieni.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/postac.css">
+  <style>
+    :root {
+      --parch: #F4EDDC; --parch-d: #EAE0C8; --parch-dd: #e1d4b6;
+      --green: #4A5B33; --green-d: #37452a; --green-l: #6a7d4a;
+      --ink: #2E2417; --brown: #5A4632; --brown-l: #8a7458;
+      --red: #9e3b2c; --red-d: #7d3b2d;
+      --disp: 'Cormorant', Georgia, 'Times New Roman', serif;
+      --body: 'EB Garamond', Georgia, 'Times New Roman', serif;
+      --hand: 'Caveat', 'Segoe Script', cursive;
+      --pasek-font: 600 .8rem/1.3 'Cormorant', Georgia, serif;
+      --pasek-ink: #5A4632;
+      --pasek-akcent: #7d3b2d;
+      --pasek-szer: 860px;
+      color-scheme: light;
+    }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body { margin: 0; background: var(--parch); color: var(--ink); font: 400 18px/1.5 var(--body); }
+    a { color: var(--red-d); }
+    a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 60px; }
+
+    /* nitka — postęp przewijania */
+    .nitka { position: fixed; top: 0; left: 0; height: 3px; width: 100%; z-index: 30; pointer-events: none;
+      background: repeating-linear-gradient(90deg, var(--red) 0 10px, transparent 10px 16px);
+      transform-origin: left; transform: scaleX(var(--p, 0)); }
+
+    /* banner */
+    .banner { padding: 18px 16px 8px; text-align: center; }
+    .oczy { display: flex; gap: 18px; justify-content: center; align-items: flex-end; margin: 0 auto 8px; cursor: pointer; width: max-content; background: none; border: 0; padding: 4px; }
+    .oczy svg { display: block; transition: transform .35s ease, filter .35s ease; overflow: visible; }
+    .oczy .dziurki { transition: transform .12s ease-out; }
+    .oczy.zastygla svg { transform: scaleY(.72); filter: saturate(.2) brightness(.9); }
+    .oczy.zastygla .dziurki { transform: none !important; transition: transform .2s ease; }
+    h1.title { font-family: var(--disp); font-weight: 700; color: var(--green-d); font-size: clamp(46px, 11vw, 78px); line-height: .95; margin: 2px 0 4px; }
+    .subt { font-family: var(--hand); color: var(--red-d); font-size: clamp(21px, 4.6vw, 28px); margin: 0; }
+    .eyebrow { font-family: var(--disp); letter-spacing: .22em; text-transform: uppercase; color: var(--brown-l); font-size: 12px; margin: 10px 0 0; }
+    .darn { height: 0; border: none; border-top: 2.5px dashed var(--red); opacity: .85; margin: 18px auto; max-width: 520px; }
+
+    /* imię szeptane — w szwie */
+    .szew { display: inline-flex; align-items: center; gap: 10px; margin: 12px auto 0; background: none; border: 0; cursor: pointer; padding: 4px 8px; font: inherit; color: var(--brown); }
+    .szew .sciegi { width: 120px; height: 0; border-top: 2px dashed var(--brown-l); transition: width .6s ease, opacity .6s ease; }
+    .szew .imie { font-family: var(--hand); font-size: 30px; color: var(--red-d); max-width: 0; overflow: hidden; opacity: 0; transition: max-width .8s ease, opacity .8s ease .2s; white-space: nowrap; }
+    .szew .rada { font-style: italic; font-size: 14.5px; color: var(--brown-l); }
+    .szew.rozpruty .sciegi { width: 34px; }
+    .szew.rozpruty .imie { max-width: 120px; opacity: 1; }
+
+    /* portret */
+    figure.portrait { margin: 20px auto 6px; text-align: center; position: relative; width: min(420px, 88%); }
+    figure.portrait a { display: block; position: relative; z-index: 2; }
+    figure.portrait img { width: 100%; height: auto; display: block; border: 6px solid var(--parch-dd); outline: 1px solid var(--brown); border-radius: 3px; box-shadow: 0 3px 10px rgba(46,36,23,.22); }
+    figure.portrait figcaption { font-family: var(--hand); color: var(--red-d); font-size: 20px; margin-top: 6px; }
+    .mysz { position: absolute; z-index: 1; right: 14px; top: 14px; width: 54px; height: 46px; background: none; border: 0; padding: 0; cursor: pointer;
+      animation: wyglad 9s ease-in-out infinite; transform-origin: bottom center; }
+    .mysz svg { width: 100%; height: 100%; display: block; }
+    @keyframes wyglad { 0%, 62%, 100% { transform: translateY(40px); } 70%, 86% { transform: translateY(-30px); } 78% { transform: translateY(-30px) rotate(-8deg); } }
+    .mysz:focus-visible { animation-play-state: paused; transform: translateY(-30px); }
+    .pisk { position: absolute; z-index: 3; right: -6px; top: -34px; font-family: var(--hand); font-size: 24px; color: var(--red-d); opacity: 0; transform: translateY(6px); transition: opacity .2s ease, transform .2s ease; pointer-events: none; }
+    .pisk.widac { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .mysz { animation: none; transform: translateY(-30px); } }
+
+    blockquote.q { font-style: italic; color: var(--brown); text-align: center; font-size: 19px; margin: 14px auto; max-width: 600px; }
+
+    h2.bar { font-family: var(--disp); font-weight: 700; font-size: 23px; color: var(--parch); background: var(--green); padding: 6px 12px; margin: 30px 0 12px; border-radius: 2px; }
+    h3.sub { font-family: var(--disp); font-weight: 700; font-size: 21px; color: var(--green-d); margin: 18px 0 4px; }
+    p { margin: 0 0 11px; }
+    .note { font-style: italic; color: var(--brown); font-size: 15.5px; margin: 6px 0 10px; }
+    .hand-note { font-family: var(--hand); color: var(--red-d); font-size: 21px; line-height: 1.25; margin: 8px 0; }
+
+    .tbl { width: 100%; border-collapse: collapse; margin: 10px 0 14px; border: 1.5px solid var(--brown); font-size: 15.5px; }
+    .tbl td { padding: 6px 9px; border-top: 1px solid var(--brown-l); vertical-align: top; }
+    .tbl tr:nth-child(even) td { background: var(--parch-d); }
+    .tbl td.k { font-weight: 600; color: var(--green-d); white-space: nowrap; }
+    .tag { color: var(--red-d); }
+    .stat { width: 100%; border-collapse: collapse; margin: 8px 0 6px; text-align: center; border: 1.5px solid var(--brown); font-size: 15px; }
+    .stat th, .stat td { padding: 5px 4px; border: 1px solid var(--brown-l); }
+    .stat thead th { background: var(--green); color: var(--parch); font-family: var(--disp); }
+    .stat td.rk { font-weight: 700; color: var(--green-d); background: var(--parch-d); text-align: left; padding-left: 8px; }
+    .stat tr.fin td { background: var(--parch-dd); font-weight: 700; color: var(--green-d); }
+    .tbl-wrap { overflow-x: auto; }
+
+    /* lokatorzy */
+    .lokatorzy { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 245px), 1fr)); gap: 10px; margin: 12px 0; }
+    .lokator { border: 1px solid var(--brown-l); border-radius: 3px; background: var(--parch-d); padding: 11px 13px; position: relative; transition: background .3s ease, border-color .3s ease, box-shadow .3s ease; }
+    .lokator::before { content: ""; position: absolute; inset: 4px; border: 1px dashed var(--brown-l); border-radius: 2px; pointer-events: none; opacity: .55; }
+    .lokator h4 { margin: 0; font: 700 20px/1.1 var(--disp); color: var(--green-d); display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+    .lokator h4 small { font: italic 400 14px/1 var(--body); color: var(--brown-l); }
+    .lokator p { margin: 6px 0 0; font-size: 15px; line-height: 1.4; }
+    .lokator.gra { background: var(--parch); border-color: var(--red); box-shadow: 0 0 0 2px rgb(158 59 44 / .18); }
+    .lokator.gra::before { border-color: var(--red); opacity: .9; }
+
+    /* czarowanie */
+    .stol { border: 1.5px solid var(--brown); border-radius: 3px; background: var(--parch-d); padding: 14px; margin: 12px 0; }
+    .wiersz { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; }
+    .stol label { display: block; font: 600 13px/1.2 var(--disp); letter-spacing: .14em; text-transform: uppercase; color: var(--brown); margin-bottom: 4px; }
+    .stol select { font: 500 17px/1.2 var(--body); color: var(--ink); background: var(--parch); border: 1px solid var(--brown-l); border-radius: 3px; padding: 7px 8px; max-width: 100%; }
+    .guzik { appearance: none; cursor: pointer; border: 0; border-radius: 3px; background: var(--green); color: var(--parch); padding: 9px 14px; font: 700 17px/1.1 var(--disp); letter-spacing: .02em; }
+    .guzik:hover { background: var(--green-d); }
+    .guzik.czerw { background: var(--red-d); }
+    .guzik.jasny { background: var(--parch); color: var(--green-d); border: 1px solid var(--brown-l); }
+    .kadr { margin: 14px 0 4px; padding: 12px 14px; background: var(--parch); border-left: 3px dashed var(--red); min-height: 3.2em; }
+    .kadr .kto { font: 600 12px/1 var(--disp); letter-spacing: .16em; text-transform: uppercase; color: var(--brown-l); display: block; margin-bottom: 5px; }
+    .kadr .co { font-family: var(--hand); font-size: 23px; line-height: 1.2; color: var(--ink); }
+    .kadr .test { display: block; margin-top: 8px; font-size: 15px; color: var(--brown); }
+    .kadr.przyplyw { border-left-color: var(--green); background: linear-gradient(90deg, rgb(158 59 44 / .08), transparent); animation: drz .5s ease; }
+    @keyframes drz { 20% { transform: translateX(-3px) rotate(-.3deg); } 40% { transform: translateX(3px) rotate(.3deg); } 60% { transform: translateX(-2px); } }
+    @media (prefers-reduced-motion: reduce) { .kadr.przyplyw { animation: none; } }
+
+    .zasoby { display: grid; gap: 12px; margin-top: 14px; }
+    @media (min-width: 640px) { .zasoby { grid-template-columns: 1fr 1fr; } }
+    .zasob { background: var(--parch); border: 1px solid var(--brown-l); border-radius: 3px; padding: 10px 12px; }
+    .zasob h4 { margin: 0 0 6px; font: 700 17px/1.2 var(--disp); color: var(--green-d); }
+    .rzad { display: flex; align-items: center; gap: 6px; margin: 5px 0; flex-wrap: wrap; }
+    .rzad .lv { font: 600 13px/1 var(--disp); color: var(--brown); width: 2.6em; }
+    .gz { appearance: none; cursor: pointer; width: 26px; height: 26px; padding: 0; border-radius: 50%; border: 1.5px solid var(--green-d); background: var(--green);
+      background-image: radial-gradient(circle at 35% 35%, var(--ink) 0 2px, transparent 2.5px), radial-gradient(circle at 65% 35%, var(--ink) 0 2px, transparent 2.5px), radial-gradient(circle at 35% 65%, var(--ink) 0 2px, transparent 2.5px), radial-gradient(circle at 65% 65%, var(--ink) 0 2px, transparent 2.5px);
+      transition: transform .2s ease, opacity .3s ease; }
+    .gz.sp { background-color: var(--brown); }
+    .gz.zuzyty { opacity: .28; transform: scale(.82) rotate(40deg); }
+    .stol label.przyp { text-transform: none; letter-spacing: 0; font: 400 16px/1.3 var(--body); color: var(--ink); margin: 0; }
+    .przyp { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: 16px; }
+    .przyp input { width: 18px; height: 18px; accent-color: var(--red); }
+    .stol-dol { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+    .stol-dol .wynik { font-size: 15.5px; color: var(--brown); }
+
+    /* archiwum */
+    .arch { list-style: none; margin: 10px 0; padding: 0; border-top: 1px dashed var(--brown-l); }
+    .arch li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 14px; align-items: center; padding: 12px 4px; border-bottom: 1px dashed var(--brown-l); }
+    .arch .t { font: 700 20px/1.2 var(--disp); color: var(--green-d); }
+    .arch .d { display: block; font-size: 15px; color: var(--brown); font-family: var(--body); font-weight: 400; }
+    .formaty { display: flex; gap: 6px; flex-wrap: wrap; }
+    .fmt { display: inline-flex; gap: 6px; align-items: baseline; text-decoration: none; background: var(--parch-d); border: 1px solid var(--brown-l); border-radius: 3px; padding: 5px 10px; font: 700 14px/1.1 var(--disp); letter-spacing: .08em; text-transform: uppercase; color: var(--green-d); white-space: nowrap; }
+    .fmt small { font: 400 12px/1 var(--body); letter-spacing: 0; text-transform: none; color: var(--brown-l); }
+    .fmt:hover { border-color: var(--red); color: var(--red-d); }
+    .fmt.glowny { background: var(--green); color: var(--parch); border-color: var(--green-d); }
+    .fmt.glowny small { color: var(--parch-dd); }
+
+    footer.foot { text-align: center; font-style: italic; color: var(--brown-l); font-size: 14px; margin-top: 30px; padding-top: 14px; border-top: 1px dashed var(--brown-l); }
+  </style>
+</head>
+<body>
+  <div class="nitka" aria-hidden="true"></div>
+  <nav class="pasek" aria-label="Nawigacja">
+    <a href="../../">← Krąg Cieni</a>
+    <span class="obok"><a href="../jack-leothern/" rel="prev">‹ Jack</a><a href="../welian-sink/" rel="next">Welian ›</a></span>
+  </nav>
+
+  <header class="banner">
+    <button type="button" class="oczy" aria-label="Guzikowe oczy — kliknij, a Fretka zastygnie">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="#4A5B33" stroke="#37452a" stroke-width="1.5"/><g class="dziurki"><circle cx="14" cy="14" r="2.4" fill="#2E2417"/><circle cx="26" cy="14" r="2.4" fill="#2E2417"/><circle cx="14" cy="26" r="2.4" fill="#2E2417"/><circle cx="26" cy="26" r="2.4" fill="#2E2417"/></g></svg>
+      <svg width="32" height="32" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="#5A4632" stroke="#2E2417" stroke-width="1.5"/><g class="dziurki"><circle cx="14" cy="14" r="2.4" fill="#1c160d"/><circle cx="26" cy="14" r="2.4" fill="#1c160d"/><circle cx="14" cy="26" r="2.4" fill="#1c160d"/><circle cx="26" cy="26" r="2.4" fill="#1c160d"/></g></svg>
+    </button>
+    <h1 class="title">Fretka</h1>
+    <p class="subt">to, co nasiąkło i nie wyschło</p>
+    <p class="eyebrow">postać zapasowa &nbsp;•&nbsp; Humblewood / Whitewood</p>
+    <button type="button" class="szew" aria-expanded="false" aria-label="Imię szeptane — rozpruj szew">
+      <span class="sciegi" aria-hidden="true"></span><span class="imie">Auri</span><span class="sciegi" aria-hidden="true"></span>
+      <span class="rada">imię szeptane śpi w szwach</span>
+    </button>
+    <hr class="darn">
+  </header>
+
+  <div class="wrap">
+    <main>
+      <figure class="portrait">
+        <button type="button" class="mysz" aria-label="Pisk — mysz spod pelerynki">
+          <svg viewBox="0 0 54 46" aria-hidden="true"><ellipse cx="27" cy="34" rx="17" ry="14" fill="#8d8174"/><circle cx="13" cy="18" r="9" fill="#9b8f82"/><circle cx="41" cy="18" r="9" fill="#9b8f82"/><circle cx="13" cy="18" r="5" fill="#d9a7a0"/><circle cx="41" cy="18" r="5" fill="#d9a7a0"/><circle cx="21" cy="31" r="2.2" fill="#1c160d"/><circle cx="33" cy="31" r="2.2" fill="#1c160d"/><ellipse cx="27" cy="39" rx="3" ry="2.2" fill="#c98b84"/><path d="M14 38 L4 36 M14 41 L5 42 M40 38 L50 36 M40 41 L49 42" stroke="#5A4632" stroke-width=".8"/></svg>
+        </button>
+        <span class="pisk" aria-live="polite"></span>
+        <a href="Fretka%20%5BAuri%5D.png" data-galeria="fretka" data-duzy="../../assets/portrety/fretka-auri-1.webp" data-podpis="Fretka [Auri]">
+          <img src="../../assets/portrety/fretka-auri-1.webp" width="1400" height="1120" alt="Pluszowa fretka w spłowiałej zielonej pelerynce, na stole z mapą, monetą i kośćmi">
+        </a>
+        <figcaption>wizerunek poglądowy</figcaption>
+      </figure>
+      <blockquote class="q">„Dla wszystkich — wcielenie chaosu. Dla siebie — wolna od wszelkich okowów.”</blockquote>
+
+      <h2 class="bar">Postać</h2>
+      <table class="tbl">
+        <tr><td class="k">Rasa</td><td>Ragborn — Knick-Knack (homebrew, MonkeyDM)</td></tr>
+        <tr><td class="k">Klasa</td><td>Sorcerer — Wild Magic</td></tr>
+        <tr><td class="k">Background</td><td>Urchin (pełny reflavor uliczny)</td></tr>
+        <tr><td class="k">Rozmiar</td><td>Small — pluszowa fretka, guziki zamiast oczu, zielona pelerynka</td></tr>
+        <tr><td class="k">Charakter</td><td>Chaotyczny (rasowo i z natury genezy)</td></tr>
+        <tr><td class="k">Szybkość</td><td>25 stóp</td></tr>
+        <tr><td class="k">Status</td><td><b class="tag">postać zapasowa</b> — wchodzi do gry w razie śmierci Jacka Leotherna. Wejście na poziomie 7, bez RP na start.</td></tr>
+      </table>
+
+      <div class="tbl-wrap">
+        <table class="stat">
+          <thead><tr><th></th><th>STR</th><th>DEX</th><th>CON</th><th>INT</th><th>WIS</th><th>CHA</th></tr></thead>
+          <tbody>
+            <tr><td class="rk">Point Buy</td><td>8</td><td>14</td><td>14</td><td>8</td><td>12</td><td>15</td></tr>
+            <tr><td class="rk">Rasa</td><td>—</td><td>—</td><td>+2</td><td>—</td><td>—</td><td>—</td></tr>
+            <tr class="fin"><td class="rk">Finał</td><td>8 (−1)</td><td>14 (+2)</td><td>16 (+3)</td><td>8 (−1)</td><td>12 (+1)</td><td>15 (+2)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">INT 8 to wybór świadomy: Ragborn „rozumieją język, lecz są nie więcej niż dziećmi”. CON 16 = solidne HP na k6 i mocna koncentracja; CHA to urok dziecięcej śmiałości.</p>
+
+      <table class="tbl">
+        <tr><td class="k">HP</td><td>51 (7k6, CON +3)</td></tr>
+        <tr><td class="k">AC</td><td>12 (15 z Mage Armor)</td></tr>
+        <tr><td class="k">DC czarów</td><td>14 (8 + 3 biegłość + 3 CHA)</td></tr>
+        <tr><td class="k">Atak czarem</td><td>+6</td></tr>
+        <tr><td class="k">Sloty</td><td>4 / 3 / 3 / 1</td></tr>
+        <tr><td class="k">Sorcery pointy</td><td>7</td></tr>
+      </table>
+
+      <h2 class="bar">Orkiestra lokatorów</h2>
+      <p>Fretka jest naczyniem dzikiej magii, nie uczennicą zaklęć z ksiąg. W środku, w miejscu, gdzie szyte zwierzęta trzymałyby serce, mieszka nie jedna magia, lecz mała orkiestra: dyrygentka i lokatorzy, z których każdy to jedna szkoła magii.</p>
+      <div class="lokatorzy">
+        <div class="lokator" data-lokator="Iskra"><h4>Iskra <small>Ewokacja</small></h4><p>Dzika magia z płaczu Aureliana na trakcie. Dyrygentka — sięga po resztę, ustawia, improwizuje. Przy Surge’u przejmuje pałeczkę.</p></div>
+        <div class="lokator" data-lokator="Kotwica"><h4>Kotwica <small>Abjuracja</small></h4><p>Błogosławieństwo Świetlistej Pani znad gorączki dziecka. Osłona, trzymanie, „nie odpłyń”. Pole: morskość.</p></div>
+        <div class="lokator" data-lokator="Nitka"><h4>Nitka <small>Conjuracja</small></h4><p>Krzywy znak dziecięcej ręki przy pożegnaniu. Wiązanie, szycie z powietrza, prucie i przerzucanie.</p></div>
+        <div class="lokator" data-lokator="Brzęk"><h4>Brzęk <small>Transmutacja</small></h4><p>Opary alchemika Borowika, wsiąkłe godzina po godzinie. Przemiana materii. Brzęczy, pachnie osą i pracą.</p></div>
+        <div class="lokator" data-lokator="Trociny"><h4>Trociny <small>Nekromancja</small></h4><p>Jej własna natura nie-życia. Cisza, znieruchomienie. Jedyny lokator ku spoczynkowi. Wspiera metamagię Subtle.</p></div>
+        <div class="lokator" data-lokator="Fey"><h4>Fey <small>Iluzja + Dywinacja</small></h4><p>Przyjaciółka złapana po drodze — jest i nie ma. Jedyna, która lubi chaos Iskry zamiast się go bać.</p></div>
+      </div>
+      <p class="hand-note">Chaos siedzi w „jak”, nie w „co”.</p>
+
+      <h2 class="bar">Rzuć czar</h2>
+      <p>Wybierz zaklęcie, a strona wylosuje kadr z Kompendium — obraz rzutu. Czar z kręgu 1+ zużywa slot i wywołuje test dzikiej magii. Stan zapisuje się w tej przeglądarce.</p>
+      <div class="stol">
+        <div class="wiersz">
+          <div><label for="czar">Zaklęcie</label><select id="czar"></select></div>
+          <button type="button" class="guzik" id="rzuc">Rzuć</button>
+          <button type="button" class="guzik jasny" id="bend">Bend Luck · 2 SP</button>
+        </div>
+        <div class="kadr" aria-live="polite"><span class="kto">kadr</span><span class="co">…czeka na zaklęcie</span></div>
+        <div class="zasoby">
+          <div class="zasob"><h4>Sloty czarów</h4><div id="sloty"></div></div>
+          <div class="zasob">
+            <h4>Sorcery pointy</h4><div class="rzad" id="sp"></div>
+            <h4 style="margin-top:10px">Tides of Chaos</h4>
+            <label class="przyp"><input type="checkbox" id="tides"> dostępne (1 / długi odpoczynek)</label>
+          </div>
+        </div>
+        <div class="stol-dol">
+          <button type="button" class="guzik czerw" id="odpocznij">Długi odpoczynek · 4 h bezruchu</button>
+          <span class="wynik" id="info" aria-live="polite"></span>
+        </div>
+      </div>
+      <p class="note">Wild Magic Surge — wariant tabeli i wyzwalania do ustalenia z DM-em. Strona rzuca k20 po czarze z kręgu 1+ (na 1 — przypływ) i podaje k100 do tabeli. Komediowe wersje z Kompendium: teleport-kichnięcie, Fireball-beknięcie, wymuszony Polymorph na owcę z trocin-wełny.</p>
+
+      <h2 class="bar">Archiwum</h2>
+      <ul class="arch">
+        <li><span class="t">Kompendium Fretki<span class="d">Postać, Wygląd, Magia, Ekwipunek, Rozwój, Geneza — oraz obie księgi w zakładkach.</span></span><span class="formaty"><a class="fmt glowny" href="1.%20Kompendium%20Fretki.html">Strona<small>229 KB</small></a></span></li>
+        <li><span class="t">Fretka Dossier v4.1</span><span class="formaty"><a class="fmt" href="1.1%20Fretka%20Dossier%20v4.1.pdf">PDF<small>3,4 MB</small></a></span></li>
+        <li><span class="t">Sic Parvis Magna<span class="d">Historia rodu Carradori vel Corvenna, rozdziały I–IX.</span></span><span class="formaty"><a class="fmt" href="1.2%20Sic%20Parvis%20Magna%20-%20Historia%20Carradorich.pdf">PDF<small>129 KB</small></a></span></li>
+        <li><span class="t">Księga pod podszewką<span class="d">Historia Fretki.</span></span><span class="formaty"><a class="fmt" href="1.3%20Ksiega%20pod%20podszewka%20-%20Historia%20Fretki.pdf">PDF<small>115 KB</small></a></span></li>
+        <li><span class="t">Wizerunek</span><span class="formaty"><a class="fmt" href="Fretka%20%5BAuri%5D.png">PNG<small>2,1 MB</small></a></span></li>
+      </ul>
+    </main>
+    <footer class="foot">Fretka · postać zapasowa · Krąg Cieni — wszystkie teksty z Kompendium Fretki</footer>
+  </div>
+
+  <script src="../../assets/postac.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var K = window.Krag;
+    var CZARY = [{"n":"Fire Bolt","k":0,"l":"Iskra","kadry":["z czubka łapki strzela iskra jak z przepalonego, tlącego się szwu","pyszczek uchyla się i bucha krótkim językiem ognia jak rozprute, zatlone wnętrze","guzik-oko rozżarza się do czerwoności i „pluje” punktem światła","otrząsa się i z futerka sypią iskry jak z krzesiwa — jedna leci w cel"]},{"n":"Ray of Frost","k":0,"l":"Iskra","kadry":["szron kwitnie na futerku, z pyszczka idzie para jak z mokrej maskotki na mrozie","z łapki wysuwa się sopelek i pryska igłami lodu","guziki zachodzą bielą jak okno zimą, a promień idzie spojrzeniem","ziewa, a z otwartego pyszczka wypływa wstęga mroźnej pary prosto w cel"]},{"n":"Chaos Bolt","k":1,"l":"Iskra","kadry":["niezdecydowany pocisk: plątanina nici wszystkich kolorów, która w locie wybiera, czym jest","sześciokolorowa bańka jak z mydlin — pęka na celu w żywioł, który był na wierzchu","zwinięta sprężyna kolorów koziołkuje do celu, a gdy „trafia w swój kolor”, odbija się dalej (kadr skoku)","pelerynka-ruletka: wachluje suknem jak iluzjonista tasujący karty, spod niego wypada pocisk","Fey dmucha w pocisk w locie „dla zabawy”, kolory wirują szybciej","po strzale żywioł, który „wygrał”, zostaje plamą na futerku (osmalona łatka, oszroniony bok)"]},{"n":"Fireball","k":3,"l":"Iskra","kadry":["bucha z rozdziawionego pyszczka jak z lampionu z trocin","cała na mgnienie rozżarza się od środka, a kula wytacza się z niej jak z pieca","tupie łapką i ogień „rozkwita” w punkcie wskazanym, z dala od niej","oba guziki rozbłyskują naraz i strzelają podwójną smugą, zbiegającą się w kulę"]},{"n":"Shield","k":1,"l":"Kotwica","kadry":["kotwica spada z góry przed nią i staje dęba jak żelazna tarcza na łańcuchu","z futerka wyrasta łańcuch zakończony kotwiczką, która zasłania bok","mała kotwica wiruje w powietrzu i odbija cios","łańcuch owija się przed nią ósemką, kotwica dzwoni o cios i ślizga go w bok"]},{"n":"Absorb Elements","k":1,"l":"Kotwica","kadry":["łańcuch owija się wokół niej i „uziemia” żywioł w grunt jak piorunochron","kotwica wbija się w ziemię u jej stóp i ściąga żar lub mróz w dół","żywioł wsiąka w łańcuch i spływa po ogniwach do ziemi, gasnąc","kotwiczka łapie błysk żywiołu na ostrze i „zakopuje” go pod nią"]},{"n":"Counterspell","k":3,"l":"Kotwica","kadry":["kotwica z łańcuchem wpina się w cudze zaklęcie; podłoga faluje, ciche „plum”, czar znika pod ziemią","spod pelerynki wypływa ławica magicznych piranii i rozszarpuje zaklęcie kęs po kęsie — mag zostaje z niczym","z czaru wynurza się uśmiechnięty węgorz i razi rzucającego prądem, aż ten gubi zaklęcie w pół słowa","czar wylatuje, ale zmienia się w rybkę albo kulę wody, która podpływa do celu i daje buziaka","pelerynka przelatuje między zaklęciem a celem jak zasłona iluzjonisty i wygasza je","(gdy czar leci w nią) odgania zaklęcie łapką jak natrętną muchę, rozpraszając je"]},{"n":"Mage Armor","k":1,"l":"Kotwica","kadry":["niewidzialny łańcuch oplata futerko — jest „zakotwiczona”, trudniej ją ruszyć","drobna kotwiczka zwisa u pelerynki jak brelok i „dociąża” do ziemi","wokół niej krąży leniwie łańcuch z kotwicą, gotów stanąć dęba przy ciosie","łapy „przyrastają” do gruntu cieniem łańcucha — stoi jak wbita"]},{"n":"Mage Hand","k":0,"l":"Nitka","kadry":["efemeryczne skrawki zszywają się w powietrzu w pluszową łapkę","zwinięte nici układają się w łapkę, z widocznymi szwami","naparstek na niewidzialnym palcu prowadzi rzecz po powietrzu","węzeł nici zaciska się na przedmiocie i niesie go jak na lassie"]},{"n":"Web","k":2,"l":"Nitka","kadry":["przestrzeń zostaje zacerowana zygzakiem jak wielkie, niechlujne łatanie","z łapek tryskają nici i tkają sieć na drutach, oczko po oczku","powietrze „pruje się” w pasma, które oplatają nogi celów","wielki motek rozwija się sam i okręca obszar jak kokon"]},{"n":"Misty Step","k":2,"l":"Nitka","kadry":["rozpruwa się w jednym miejscu jak pękający szew i zszywa w drugim","nożyczki tną w przestrzeni szparę; przechodzi, a dziura sama się zaszywa","zwija się w kłębek, kurczy do punktu i „przejeżdża” po nici, gdzie znów się rozwija","narzuca pelerynkę na głowę jak iluzjonista — a gdy sukno opada, jest już o kilka kroków dalej","Iskra łaskocze, Fretka kicha, rzeczywistość odbija ją zza rogu świata (często tyłem albo do góry łapkami)","znika z Pisk wczepioną w pelerynkę; obie pojawiają się gdzie indziej, a Pisk piszczy oburzona"]},{"n":"Prestidigitation","k":0,"l":"Brzęk","kadry":["macha łapką i rzecz zmienia kolor lub zapach jak maczana w niewidzialnym słoju","pstryka i pojawia się świecidełko, drobiazg, „chemiczny” błysk","brzęczy jak fiolki na półce, a drobny efekt „destyluje się” w powietrzu","dmucha na rzecz, a ta się czyści, brudzi lub chłodzi, jakby owiana oparem"]},{"n":"Polymorph","k":4,"l":"Brzęk","kadry":["cel zostaje „przekrojony jak materiał” i przefastrygowany w nowy kształt — widać fastrygę","przez cel przebiega szew, który „przeszywa” go w inną formę","forma celu rozpruwa się i zszywa od nowa, z prowizorycznym węzłem na końcu","Brzęk „przelewa” cel z kształtu w kształt jak ciecz między naczyniami, aż zastyga"]},{"n":"Minor Illusion","k":0,"l":"Fey","kadry":["Fey „dmucha” z dłoni kłąb trocin lub pyłu, który układa się w obraz","wersja dźwiękowa: brzuchomówstwo Fretki — cudzy głos nasiąknięty przez lata","mały haft światła w powietrzu, płaski jak wycinanka, jeśli nikt nie patrzy z boku","Fey „rysuje” palcem w powietrzu kontur, który wypełnia się obrazem"]},{"n":"Mirror Image","k":2,"l":"Fey","kadry":["kilka identycznych porzuconych pluszaków, każdy nieruchomy i niepozorny","obrazy „odszywają się” od niej jak odbicia w mętnej szybie i rozchodzą","Fey podaje jej dłoń i „rozmnaża” ją chichotem na trzy fretki","sobowtóry wypełzają z jej cienia, każdy w nieco innej pozie"]},{"n":"Detect Magic","k":1,"l":"Fey","kadry":["Fey unosi się i „węszy” w powietrzu, jak Borowik węszył towar","przed guzikami zawisa świetlny pyłek, który skleja się ku źródłom magii","Fretka widzi magię jako kolorowe nici naciągnięte przez powietrze (szkoła = kolor)","Fey wskazuje paluszkiem i podpowiada na głos, gdzie świeci"]},{"n":"Suggestion","k":2,"l":"Fey","kadry":["słowa „przyszywają się” celowi do myśli jak łatka","Fey szepcze celowi do ucha słodkim głosikiem zabawki","ze szwów pyszczka wysnuwa się nić i „prowadzi” cel jak marionetkę za jedną myśl","Fretka mówi cichutko, a wokół celu owija się delikatna nić podszeptu"]}];
+    var PRZYPLYWY = ['teleport-kichnięcie', 'Fireball-beknięcie', 'wymuszony Polymorph na owcę z trocin-wełny'];
+    var SLOTY = [4, 3, 3, 1], SP = 7;
+
+    /* nitka — postęp przewijania */
+    var nitka = document.querySelector('.nitka');
+    var naScroll = function () {
+      var h = document.documentElement.scrollHeight - innerHeight;
+      nitka.style.setProperty('--p', h > 0 ? Math.min(1, scrollY / h).toFixed(4) : 0);
+    };
+    addEventListener('scroll', naScroll, { passive: true });
+    naScroll();
+
+    /* guzikowe oczy: dziurki patrzą za kursorem; kliknięcie — zastyga */
+    var oczy = document.querySelector('.oczy');
+    var dziurki = oczy.querySelectorAll('.dziurki');
+    var zastygla = false;
+    addEventListener('pointermove', function (e) {
+      if (zastygla || K.reduce) return;
+      dziurki.forEach(function (g) {
+        var r = g.ownerSVGElement.getBoundingClientRect();
+        var dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        var d = Math.hypot(dx, dy) || 1, m = Math.min(4, d / 40);
+        g.style.transform = 'translate(' + (dx / d * m).toFixed(2) + 'px,' + (dy / d * m).toFixed(2) + 'px)';
+      });
+    }, { passive: true });
+    oczy.addEventListener('click', function () {
+      if (zastygla) return;
+      zastygla = true;
+      oczy.classList.add('zastygla');
+      setTimeout(function () { zastygla = false; oczy.classList.remove('zastygla'); }, 2400);
+    });
+
+    /* imię szeptane */
+    var szew = document.querySelector('.szew');
+    szew.addEventListener('click', function () {
+      var on = !szew.classList.contains('rozpruty');
+      szew.classList.toggle('rozpruty', on);
+      szew.setAttribute('aria-expanded', on ? 'true' : 'false');
+      szew.querySelector('.rada').textContent = on ? 'tylko dla zaufanych' : 'imię szeptane śpi w szwach';
+    });
+
+    /* mysz Pisk */
+    var mysz = document.querySelector('.mysz'), pisk = document.querySelector('.pisk');
+    mysz.addEventListener('click', function () {
+      pisk.textContent = K.wybierz(['pisk!', 'piiisk', 'pisk-pisk!']);
+      pisk.classList.add('widac');
+      setTimeout(function () { pisk.classList.remove('widac'); }, 1300);
+    });
+
+    /* stół: czary, sloty, sorcery pointy */
+    var sel = document.getElementById('czar');
+    CZARY.forEach(function (c, i) {
+      var o = document.createElement('option');
+      o.value = i;
+      o.textContent = c.n + ' — ' + (c.k ? c.k + '. krąg' : 'kantrip') + ' · ' + c.l;
+      sel.appendChild(o);
+    });
+
+    var stan = K.store.get('krag.fretka', null);
+    if (!stan || !stan.sloty || stan.sloty.length !== 4) stan = { sloty: [0, 0, 0, 0], sp: 0, tides: true };
+    var zapisz = function () { K.store.set('krag.fretka', stan); };
+    var info = document.getElementById('info');
+    var kadr = document.querySelector('.kadr');
+    var tides = document.getElementById('tides');
+
+    var rysuj = function () {
+      var box = document.getElementById('sloty');
+      box.innerHTML = '';
+      SLOTY.forEach(function (max, lv) {
+        var r = document.createElement('div');
+        r.className = 'rzad';
+        r.innerHTML = '<span class="lv">' + ['I', 'II', 'III', 'IV'][lv] + '</span>';
+        for (var i = 0; i < max; i++) {
+          var b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'gz' + (i >= max - stan.sloty[lv] ? ' zuzyty' : '');
+          b.setAttribute('aria-label', 'Slot ' + (lv + 1) + '. kręgu');
+          (function (lv, i, max) {
+            b.addEventListener('click', function () {
+              var wolne = max - stan.sloty[lv];
+              stan.sloty[lv] = i >= wolne ? max - i - 1 : max - i;
+              zapisz(); rysuj();
+            });
+          })(lv, i, max);
+          r.appendChild(b);
+        }
+        box.appendChild(r);
+      });
+      var sp = document.getElementById('sp');
+      sp.innerHTML = '';
+      for (var i = 0; i < SP; i++) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'gz sp' + (i >= SP - stan.sp ? ' zuzyty' : '');
+        b.setAttribute('aria-label', 'Sorcery point ' + (i + 1));
+        (function (i) {
+          b.addEventListener('click', function () {
+            var wolne = SP - stan.sp;
+            stan.sp = i >= wolne ? SP - i - 1 : SP - i;
+            zapisz(); rysuj();
+          });
+        })(i);
+        sp.appendChild(b);
+      }
+      tides.checked = !!stan.tides;
+      document.querySelectorAll('.lokator').forEach(function (l) {
+        l.classList.toggle('gra', l.getAttribute('data-lokator') === CZARY[+sel.value].l);
+      });
+    };
+
+    sel.addEventListener('change', rysuj);
+    tides.addEventListener('change', function () { stan.tides = tides.checked; zapisz(); });
+
+    document.getElementById('rzuc').addEventListener('click', function () {
+      var c = CZARY[+sel.value];
+      var html = '<span class="kto">' + c.n + ' · ' + c.l + '</span><span class="co">' + K.wybierz(c.kadry) + '</span>';
+      var przyplyw = false;
+      if (c.k > 0) {
+        var lv = -1;
+        for (var l = c.k - 1; l < SLOTY.length; l++) { if (SLOTY[l] - stan.sloty[l] > 0) { lv = l; break; } }
+        if (lv < 0) {
+          kadr.className = 'kadr';
+          kadr.innerHTML = '<span class="kto">' + c.n + '</span><span class="co">Brak wolnych slotów — Iskra rozkłada łapki.</span>';
+          return;
+        }
+        stan.sloty[lv]++;
+        var k20 = K.roll(20);
+        przyplyw = k20 === 1;
+        html += '<span class="test">slot ' + (lv + 1) + '. kręgu · test dzikiej magii: k20 = ' + k20 +
+          (przyplyw ? ' — <b>PRZYPŁYW!</b> k100 = ' + K.roll(100) + ' · Iskra przejmuje pałeczkę: ' + K.wybierz(PRZYPLYWY) : ' — spokojnie') + '</span>';
+      } else {
+        html += '<span class="test">kantrip — bez slotu</span>';
+      }
+      kadr.className = 'kadr' + (przyplyw ? ' przyplyw' : '');
+      kadr.innerHTML = html;
+      zapisz(); rysuj();
+    });
+
+    document.getElementById('bend').addEventListener('click', function () {
+      if (SP - stan.sp < 2) { info.textContent = 'Za mało sorcery pointów.'; return; }
+      stan.sp += 2;
+      var k4 = K.roll(4);
+      info.textContent = 'Bend Luck: ±' + k4 + ' do ataku, testu albo save’a widocznej istoty.';
+      zapisz(); rysuj();
+    });
+
+    document.getElementById('odpocznij').addEventListener('click', function () {
+      stan = { sloty: [0, 0, 0, 0], sp: 0, tides: true };
+      zapisz(); rysuj();
+      info.textContent = 'Odpoczęła — guziki płaskie, mysz w cieple. Wszystko wraca.';
+    });
+
+    rysuj();
+  })();
+  </script>
+</body>
+</html>
